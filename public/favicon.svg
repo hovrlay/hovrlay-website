@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128" role="img" aria-label="Filled silhouette icon">
+  <defs>
+    <!-- mask to punch out the inner shapes -->
+    <mask id="cutout">
+      <!-- mask uses white to keep, black to remove -->
+      <rect x="0" y="0" width="32" height="32" fill="white"/>
+      <!-- inner rounded square (cutout) -->
+      <rect x="10" y="10" width="12" height="12" rx="4" fill="black"/>
+    </mask>
+
+    <!-- gradient definition -->
+    <linearGradient id="grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- solid outer rounded square (silhouette with gradient) -->
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#grad)" mask="url(#cutout)"/>
+</svg>

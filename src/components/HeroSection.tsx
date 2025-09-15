@@ -3,7 +3,7 @@ import { AppleIcon, WindowsIcon, DownloadIcon } from "@/components/ui/icons";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
+    <section className="relative min-h-screen flex flex-col">
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-hero-gradient" />
       
@@ -14,22 +14,25 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl animate-float" />
       </div>
 
-      <div className="container-custom relative z-10">
-        <div className="text-left max-w-5xl">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mt-12 mb-28 animate-fade-in-down">
-            Your <span className="gradient-text">AI wingman</span> for every conversation
-          </h1>
-          
-          <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6 animate-fade-in-down" style={{ animationDelay: "0.2s" }}>
-            Hovrlay is an undetectable desktop app with real-time AI that transforms how you engage in{" "}
-            <span className="text-foreground font-semibold">meetings, calls and interviews.</span>
-          </p>
-            
-          <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-4xl animate-fade-in-down mb-20" style={{ animationDelay: "0.2s" }}>
-            By observing your computer screen, Hovrlay understands the context of the conversation and delivers live insights and suggestions on a sleek, translucent overlay.
-          </p>
+      <div className="container-custom relative z-10 flex-1 flex flex-col mx-4 px-4 md:mx-8 md:px-8 lg:mx-12 lg:px-12">
+        {/* Text content section - takes up 2/3 of available space */}
+        <div className="flex-[2] flex items-center">
+          <div className="text-left max-w-5xl">
+            <div className="animate-fade-in-down">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
+                Your <span className="gradient-text">AI wingman</span> for every conversation
+              </h1>
+              <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6" style={{ animationDelay: "0.2s" }}>
+                Hovrlay is an undetectable desktop app with real-time AI that transforms how you engage in{" "}
+                <span className="text-foreground font-semibold">meetings, calls and interviews.</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-down" style={{ animationDelay: "0.6s" }}>
+        {/* Download buttons section - takes up 1/3 of available space */}
+        <div className="flex-[1] flex justify-center items-start animate-fade-in-down">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Button variant="hero-secondary" size="lg" className="group">
               <AppleIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Download for macOS
