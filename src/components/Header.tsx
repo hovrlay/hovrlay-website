@@ -22,7 +22,7 @@ const Header = () => {
           </button>
 
           {/* Simple nav - minimal as requested */}
-          <nav className="hidden md:flex items-center">
+          <nav className="flex items-center">
             <span className="text-sm text-muted-foreground">Lipi ❤️</span>
           </nav>
         </div>

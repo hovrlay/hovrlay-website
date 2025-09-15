@@ -17,12 +17,12 @@ const HeroSection = () => {
       <div className="container-custom relative z-10 flex-1 flex flex-col mx-4 px-4 md:mx-8 md:px-8 lg:mx-12 lg:px-12">
         {/* Text content section - takes up 2/3 of available space */}
         <div className="flex-[2] flex items-center">
-          <div className="text-left max-w-5xl">
+          <div className="text-center md:text-left max-w-5xl">
             <div className="animate-fade-in-down">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
+              <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
                 Your <span className="gradient-text">AI wingman</span> for every conversation
               </h1>
-              <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6" style={{ animationDelay: "0.2s" }}>
+              <p className="text-sm md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6" style={{ animationDelay: "0.2s" }}>
                 Hovrlay is an undetectable desktop app with real-time AI that transforms how you engage in{" "}
                 <span className="text-foreground font-semibold">meetings, calls and interviews.</span>
               </p>
