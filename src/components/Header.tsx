@@ -4,7 +4,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pl-4 pr-4 glass border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 pl-4 pr-4 glass">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo Button */}
