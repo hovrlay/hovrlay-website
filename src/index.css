@@ -40,6 +40,7 @@ All colors MUST be HSL.
 
     /* Custom Hovrlay Design Tokens */
     --primary-blue: 217 91% 60%;
+    --primary-blue-2: 217 91% 50%;
     --primary-slate: 215 25% 17%;
     --primary-gradient: linear-gradient(135deg, hsl(var(--primary-blue)) 0%, hsl(var(--primary-slate)) 100%);
     --glass-bg: hsla(240, 10%, 8%, 0.4);
@@ -113,6 +114,7 @@ All colors MUST be HSL.
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: hsl(var(--primary-blue-2));
   }
 }
 

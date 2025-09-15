@@ -18,7 +18,7 @@ const Header = () => {
               alt="Hovrlay" 
               className="w-8 h-8"
             />
-            <span className="text-xl font-bold gradient-text">hovrlay</span>
+            <span className="text-xl font-bold text-white">hovrlay</span>
           </button>
 
           {/* Simple nav - minimal as requested */}
