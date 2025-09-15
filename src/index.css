@@ -111,16 +111,6 @@ All colors MUST be HSL.
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans;
-    background: var(--hero-gradient);
-    font-family: var(--font-body);
-  }
-
   html {
     scroll-behavior: smooth;
   }
@@ -136,7 +126,6 @@ All colors MUST be HSL.
   }
 
   .glass-card {
-    @apply glass rounded-[--radius] p-6;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 
@@ -213,8 +202,16 @@ All colors MUST be HSL.
     }
   }
 
-  /* Responsive utilities */
-  .container-custom {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  @keyframes download-bounce {
+    0%, 100% { 
+      transform: translateY(0);
+    }
+    50% { 
+      transform: translateY(-0.25rem);
+    }
+  }
+
+  .animate-download-bounce {
+    animation: download-bounce 1s infinite;
   }
 }
