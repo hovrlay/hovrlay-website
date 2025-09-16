@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { AppleIcon, WindowsIcon, DownloadIcon } from "@/components/ui/icons";
+import { handleDownload } from "@/utils/downloads";
 
 const HeroSection = () => {
   return (
@@ -33,13 +34,13 @@ const HeroSection = () => {
         {/* Download buttons section - takes up 1/3 of available space */}
         <div className="flex-[1] flex justify-center items-start animate-fade-in-down">
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button variant="hero-secondary" size="lg" className="group">
+            <Button variant="hero-secondary" size="lg" className="group" onClick={() => handleDownload('mac')}>
               <AppleIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Download for macOS
               <DownloadIcon className="ml-2 h-4 w-4" />
             </Button>
             
-            <Button variant="hero-secondary" size="lg" className="group">
+            <Button variant="hero-secondary" size="lg" className="group" onClick={() => handleDownload('windows')}>
               <WindowsIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Download for Windows
               <DownloadIcon className="ml-2 h-4 w-4" />
