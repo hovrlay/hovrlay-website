@@ -1,7 +1,7 @@
 // Hardcoded download URLs for Hovrlay releases
 export const DOWNLOAD_URLS = {
-  mac: 'https://github.com/hovrlay/hovrlay-app/releases/download/v0.1.0-beta.1/hovrlay-0.1.0-beta.1.dmg',
-  windows: null, // Add Windows URL when available
+  mac: 'https://github.com/hovrlay/hovrlay-releases/releases/download/v0.1.0-beta.1/hovrlay-0.1.0-beta.1.dmg',
+  windows: 'https://github.com/hovrlay/hovrlay-releases/releases/download/v0.1.0-beta.1/hovrlay-0.1.0-beta.1.exe',
 } as const;
 
 export const handleDownload = (platform: 'mac' | 'windows') => {
