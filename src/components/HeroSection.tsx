@@ -20,10 +20,10 @@ const HeroSection = () => {
           <div className="text-center md:text-left max-w-5xl">
             <div className="animate-fade-in-down">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
-                Your <span className="gradient-text">AI wingman</span> for every conversation
+                <span className="gradient-text">AI wingman</span> for every conversation
               </h1>
-              <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6" style={{ animationDelay: "0.2s" }}>
-                Hovrlay is an undetectable desktop app with real-time AI that transforms how you engage in{" "}
+              <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6 font-light">
+                Hovrlay is an undetectable desktop app with real time AI that transforms how you engage in{" "}
                 <span className="text-foreground font-semibold">meetings, calls and interviews.</span>
               </p>
             </div>
