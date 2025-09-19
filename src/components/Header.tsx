@@ -66,7 +66,7 @@ const Header = () => {
   );
 
   const hamburgerDropdown = (
-    <nav className="md:hidden glass rounded-lg shadow-lg mt-2 mx-4 py-4">
+    <nav className="md:hidden glass rounded-lg shadow-lg mt-2 ml-auto mr-4 py-4 w-48">
       <div className="flex flex-col items-center gap-4">
         <button
           onClick={() => handleScroll("features")}
@@ -94,13 +94,13 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 mt-4 z-50">
       <div className="max-w-4xl mx-auto px-4">
         {/* Desktop Navigation */}
-        <div className="hidden md:flex glass rounded-lg shadow-lg items-center justify-between h-16 px-4">
+        <div className="hidden md:flex glass rounded-lg shadow-lg items-center justify-between h-16 px-6">
           {hovrlayButton}
           {desktopNavigation}
         </div>
 
         {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center justify-between glass rounded-lg shadow-lg h-16 px-4">
+        <div className="flex md:hidden items-center justify-between glass rounded-lg shadow-lg h-16 px-6">
           {hovrlayButton}
           {hamburgerButton}
         </div>
