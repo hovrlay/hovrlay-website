@@ -1,16 +1,16 @@
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+import Home from "@/components/Home";
 import Features from "@/components/Features";
-import Pricing from "@/components/Pricing";
-import Contact from "@/components/Contact";
+import Demo from "@/components/Demo";
+import FAQ from "@/components/Contact";
 
 const App = () => (
   <div className="min-h-screen bg-background">
     <Header />
-    <Hero />
+    <Home />
+    <Demo />
     <Features />
-    <Pricing />
-    <Contact />
+    <FAQ />
   </div>
 );
 

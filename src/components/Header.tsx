@@ -11,7 +11,7 @@ const Header = () => {
 
   const hovrlayButton = (
     <button
-      onClick={() => handleScroll("hero")}
+      onClick={() => handleScroll("home")}
       className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
       aria-label="Go to home"
     >
@@ -29,16 +29,16 @@ const Header = () => {
         Features
       </button>
       <button
-        onClick={() => handleScroll("pricing")}
+        onClick={() => handleScroll("demo")}
         className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
       >
-        Pricing
+        Demo
       </button>
       <button
-        onClick={() => handleScroll("contact")}
+        onClick={() => handleScroll("faq")}
         className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
       >
-        Contact
+        FAQ
       </button>
     </nav>
   );
@@ -75,16 +75,16 @@ const Header = () => {
           Features
         </button>
         <button
-          onClick={() => handleScroll("pricing")}
+          onClick={() => handleScroll("demo")}
           className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
-          Pricing
+          Demo
         </button>
         <button
-          onClick={() => handleScroll("contact")}
+          onClick={() => handleScroll("faq")}
           className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
-          Contact
+          FAQ
         </button>
       </div>
     </nav>
