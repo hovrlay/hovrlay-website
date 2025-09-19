@@ -16,7 +16,7 @@ const Header = () => {
       aria-label="Go to home"
     >
       <img src="/favicon.svg" alt="Hovrlay" className="w-7 h-7" />
-      <span className="text-lg font-bold text-white">hovrlay</span>
+      <span className="text-xl font-bold text-white">hovrlay</span>
     </button>
   );
 
@@ -24,19 +24,19 @@ const Header = () => {
     <nav className="flex items-center gap-6">
       <button
         onClick={() => handleScroll("features")}
-        className="text-sm text-muted-foreground hover:text-white transition-colors duration-200"
+        className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
       >
         Features
       </button>
       <button
         onClick={() => handleScroll("pricing")}
-        className="text-sm text-muted-foreground hover:text-white transition-colors duration-200"
+        className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
       >
         Pricing
       </button>
       <button
         onClick={() => handleScroll("contact")}
-        className="text-sm text-muted-foreground hover:text-white transition-colors duration-200"
+        className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
       >
         Contact
       </button>

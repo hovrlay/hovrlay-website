@@ -11,7 +11,7 @@ const Hero = () => {
           <div className="text-center max-w-5xl">
             <div className="animate-fade-in-down">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
-                <span className="gradient-text">AI wingman</span> for every conversation
+                <span className="text-primary">AI wingman</span> for every conversation
               </h1>
               <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6 font-light mx-auto">
                 Hovrlay is an undetectable desktop app with real time AI that transforms how you engage in{" "}
