@@ -45,8 +45,13 @@ All colors MUST be HSL.
     --radius: 1rem;
 
     /* Custom Hovrlay Design Tokens - Light Mode */
-    --glass-bg: hsla(0, 0%, 100%, 0.8);     /* Semi-transparent white */
+    --glass-bg: hsla(0, 0%, 100%, 0.45);     /* Semi-transparent white */
     --glass-border: hsla(240, 5%, 90%, 0.3); /* Light gray border */
+    
+    /* Section Background Colors - Light Mode */
+    --section-start: white;
+    --section-end: hsl(45, 20%, 90%);
+    --section-shadow: 0 4px 30px rgba(0, 0, 0, 0.0);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -89,8 +94,13 @@ All colors MUST be HSL.
     --ring: 263 70% 50%;               /* Purple focus ring (same) */
 
     /* Custom Hovrlay Design Tokens - Dark Mode */
-    --glass-bg: hsla(240, 10%, 8%, 0.4);    /* Semi-transparent dark */
+    --glass-bg: hsla(240, 10%, 8%, 0.45);    /* Semi-transparent dark */
     --glass-border: hsla(0, 0%, 100%, 0.1); /* Light border */
+    
+    /* Section Background Colors - Dark Mode */
+    --section-start: hsl(240, 10%, 3.9%);
+    --section-end: hsl(45, 15%, 25%);
+    --section-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -111,6 +121,11 @@ All colors MUST be HSL.
 
   .glass-card {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .section-container {
+    background: linear-gradient(to bottom, var(--section-start), var(--section-end));
+    box-shadow: var(--section-shadow);
   }
 
   .animate-fade-in-up {

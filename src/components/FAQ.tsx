@@ -52,14 +52,14 @@ const FAQ = () => {
         <h2 className="text-4xl font-bold text-foreground mb-6 animate-fade-in-down">
           Frequently Asked Questions
         </h2>
-        <p className="text-lg text-muted-foreground max-w-3xl mb-8 animate-fade-in-down mx-auto">
+        <p className="text-lg text-muted-foreground mb-12 animate-fade-in-down mx-auto">
           Find answers to common questions about Hovrlay and how it can enhance your conversations.
         </p>
         
         <div className="max-w-4xl mx-auto">
           {faqs.map((faq, index) => (
             <div key={index} className="mb-4 animate-fade-in-down">
-              <div className="glass glass-card rounded-lg overflow-hidden">
+              <div className="glass rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleItem(index)}
                   className="w-full p-6 text-left flex items-center justify-between hover:bg-foreground/5 transition-colors duration-200"

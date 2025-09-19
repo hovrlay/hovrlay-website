@@ -10,7 +10,7 @@ const Demo = () => (
       
       {/* Video placeholder - ready for your product demo */}
       <div className="animate-fade-in-down">
-        <div className="glass glass-card rounded-lg overflow-hidden max-w-4xl mx-auto">
+        <div className="glass rounded-lg overflow-hidden max-w-4xl mx-auto">
           <div className="aspect-video bg-muted/20 flex items-center justify-center">
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
