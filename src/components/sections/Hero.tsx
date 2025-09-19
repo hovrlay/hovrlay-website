@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { AppleIcon, WindowsIcon, DownloadIcon } from "@/components/ui/icons";
+import AppleIcon from "@/assets/apple.svg?react";
+import WindowsIcon from "@/assets/windows.svg?react";
+import DownloadIcon from "@/assets/download.svg?react";
 import { handleDownload } from "@/utils/downloads";
 
 const Hero = () => {
