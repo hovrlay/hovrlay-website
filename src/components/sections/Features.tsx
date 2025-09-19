@@ -8,11 +8,11 @@ const Features = () => (
         Discover the powerful features of Hovrlay, including real-time AI assistance for meetings, calls, and interviews.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="glass glass-card p-6 rounded-lg animate-fade-in-up text-center">
+        <div className="glass glass-card p-6 rounded-lg animate-fade-in-down text-center">
           <h3 className="text-xl font-semibold text-white mb-2">Real-Time AI</h3>
           <p className="text-muted-foreground">Get instant suggestions during conversations to enhance your communication.</p>
         </div>
-        <div className="glass glass-card p-6 rounded-lg animate-fade-in-up text-center">
+        <div className="glass glass-card p-6 rounded-lg animate-fade-in-down text-center">
           <h3 className="text-xl font-semibold text-white mb-2">Undetectable</h3>
           <p className="text-muted-foreground">Seamlessly integrates into your workflow without detection.</p>
         </div>

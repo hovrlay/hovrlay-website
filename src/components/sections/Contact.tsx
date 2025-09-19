@@ -7,7 +7,7 @@ const Contact = () => (
       <p className="text-lg text-muted-foreground max-w-3xl mb-8 animate-fade-in-down mx-auto">
         Get in touch with our team for support or inquiries.
       </p>
-      <div className="glass glass-card p-6 rounded-lg animate-fade-in-up max-w-xl mx-auto text-center">
+      <div className="glass glass-card p-6 rounded-lg animate-fade-in-down max-w-xl mx-auto text-center">
         <p className="text-muted-foreground mb-4">
           Email us at <a href="mailto:support@hovrlay.com" className="text-primary hover:underline">support@hovrlay.com</a>
         </p>
