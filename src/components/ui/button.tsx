@@ -11,7 +11,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     
     const variantClasses = {
       default: "bg-primary text-primary-foreground hover:bg-primary/90",
-      "hero-secondary": "glass text-white font-semibold hover:bg-white/10 transition-all duration-300 border border-white/20",
+      "hero-secondary": "glass text-foreground font-semibold hover:bg-foreground/10 transition-all duration-300 border border-foreground/20",
     };
     
     const sizeClasses = {

@@ -1,7 +1,7 @@
 const Contact = () => (
   <section id="contact" className="py-12 px-4 md:px-8 lg:px-12">
     <div className="container-custom text-center">
-      <h2 className="text-4xl font-bold text-white mb-6 animate-fade-in-down">
+      <h2 className="text-4xl font-bold text-foreground mb-6 animate-fade-in-down">
         Contact
       </h2>
       <p className="text-lg text-muted-foreground max-w-3xl mb-8 animate-fade-in-down mx-auto">

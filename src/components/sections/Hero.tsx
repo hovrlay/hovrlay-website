@@ -10,7 +10,7 @@ const Hero = () => {
         <div className="flex-[2] flex items-center justify-center">
           <div className="text-center max-w-5xl">
             <div className="animate-fade-in-down">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8">
                 <span className="text-primary">AI wingman</span> for every conversation
               </h1>
               <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-6 font-light mx-auto">

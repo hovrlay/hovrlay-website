@@ -15,8 +15,8 @@ const Header = () => {
       className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
       aria-label="Go to home"
     >
-      <img src="/favicon.svg" alt="Hovrlay" className="w-7 h-7" />
-      <span className="text-xl font-bold text-white">hovrlay</span>
+      <img src="/favicon.svg" alt="Hovrlay" className="w-8 h-8" />
+      <span className="text-xl font-bold text-foreground">hovrlay</span>
     </button>
   );
 
@@ -24,19 +24,19 @@ const Header = () => {
     <nav className="flex items-center gap-6">
       <button
         onClick={() => handleScroll("features")}
-        className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
+        className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
       >
         Features
       </button>
       <button
         onClick={() => handleScroll("pricing")}
-        className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
+        className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
       >
         Pricing
       </button>
       <button
         onClick={() => handleScroll("contact")}
-        className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
+        className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
       >
         Contact
       </button>
@@ -46,7 +46,7 @@ const Header = () => {
   const hamburgerButton = (
     <button
       onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
-      className="text-white hover:text-muted-foreground transition-colors duration-200"
+      className="text-foreground hover:text-muted-foreground transition-colors duration-200"
       aria-label="Toggle menu"
     >
       <svg
@@ -70,19 +70,19 @@ const Header = () => {
       <div className="flex flex-col items-center gap-4">
         <button
           onClick={() => handleScroll("features")}
-          className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
+          className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           Features
         </button>
         <button
           onClick={() => handleScroll("pricing")}
-          className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
+          className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           Pricing
         </button>
         <button
           onClick={() => handleScroll("contact")}
-          className="text-base text-muted-foreground hover:text-white transition-colors duration-200"
+          className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           Contact
         </button>
