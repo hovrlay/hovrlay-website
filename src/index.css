@@ -114,7 +114,7 @@ All colors MUST be HSL.
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: hsl(var(--primary-blue-2));
+    background-color: hsl(var(--primary-slate));
   }
 }
 
