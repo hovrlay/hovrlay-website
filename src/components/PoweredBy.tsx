@@ -45,7 +45,7 @@ const PoweredBy = () => {
   );
 
   return (
-    <section className="mx-2 md:mx-12 lg:mx-16 my-20 py-10">
+    <section className="mx-2 md:mx-12 lg:mx-16 mb-20 pb-10">
       <div className="text-center mb-8">
         <h3 className="text-2xl lg:text-3xl font-medium text-muted-foreground">
           Powered by the best
