@@ -39,11 +39,11 @@ const App = () => {
         <Demo />
       </Section>
 
-      <Section direction="up">
+      <Section>
         <Features />
       </Section>
 
-      <Section>
+      <Section direction="up">
         <FAQ />
       </Section>
 
