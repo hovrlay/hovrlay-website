@@ -15,7 +15,7 @@ const Section = ({ children, direction = 'down' }: SectionProps) => {
 
   return (
     <div 
-      className="relative rounded-3xl shadow-sm overflow-hidden p-8 md:p-16 mb-16 mx-6 md:mx-14 lg:mx-20"
+      className="relative rounded-3xl shadow-sm overflow-hidden p-8 md:p-16 mb-16 mx-6 md:mx-12 lg:mx-16"
       style={backgroundStyle}
     >
       {children}

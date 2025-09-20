@@ -4,6 +4,7 @@ import Features from "@/components/Features";
 import Demo from "@/components/Demo";
 import FAQ from "@/components/FAQ";
 import Section from "@/components/Section";
+import Footer from "@/components/Footer";
 
 const App = () => (
   <div className="min-h-screen bg-background mt-6">
@@ -24,6 +25,8 @@ const App = () => (
     <Section>
       <FAQ />
     </Section>
+
+    <Footer />
   </div>
 );
 
