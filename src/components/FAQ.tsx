@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ChevronDownIcon from "@/assets/chevron-down.svg?react";
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -13,48 +14,42 @@ const FAQ = () => {
 
   const faqs = [
     {
-      question: "What is Hovrlay?",
-      answer: "Hovrlay is an AI-powered desktop application that provides real-time assistance during your conversations, meetings, calls, and interviews. It acts as your intelligent wingman, offering suggestions and responses to enhance your communication."
-    },
-    {
       question: "How does Hovrlay work?",
-      answer: "Hovrlay uses advanced AI technology to listen to your conversations in real-time and provides intelligent suggestions, responses, and assistance. It integrates seamlessly into your workflow without being detected by other participants."
+      answer: "Hovrlay runs in the background and observes your screen while listening to your audio during calls and meetings. It uses AI to understand the conversation context and provides real time suggestions, responses and insights to help you communicate better."
     },
     {
       question: "Is Hovrlay compatible with my operating system?",
-      answer: "Yes! Hovrlay is available for both macOS and Windows. You can download the appropriate version for your system from our download section."
+      answer: "Hovrlay works on both Mac and Windows computers. Download the version that matches your operating system from our download section."
     },
     {
       question: "Is my data secure with Hovrlay?",
-      answer: "Absolutely. Hovrlay prioritizes privacy and security. Only embeddings and metadata are stored in the cloud, and we use enterprise-grade encryption to protect your data. Your conversations remain private and secure."
+      answer: "Yes. We use enterprise grade encryption to protect your data. We only store conversation summaries, not your actual audio recordings. Your conversations are processed in real-time and then deleted."
     },
     {
       question: "Can I use Hovrlay during video calls?",
-      answer: "Yes, Hovrlay works with most video calling platforms including Zoom, Microsoft Teams, Google Meet, and others. It provides real-time assistance during your video calls and meetings."
+      answer: "Yes. Hovrlay works with any application on your screen, including all video calling platforms like Zoom, Microsoft Teams, Google Meet, Discord, and others."
     },
     {
       question: "How much does Hovrlay cost?",
-      answer: "We offer flexible pricing plans to suit different needs. Please check our pricing section for detailed information about our current plans and features."
+      answer: "We offer different pricing plans to fit various needs. Contact our sales team for current pricing and feature details."
     },
     {
-      question: "Do I need an internet connection to use Hovrlay?",
-      answer: "Hovrlay requires an internet connection for real-time AI processing and to provide the most accurate and up-to-date assistance. However, some basic features may work offline."
-    },
-    {
-      question: "How do I get support if I have issues?",
-      answer: "You can reach our support team at support@hovrlay.com. We're here to help you get the most out of Hovrlay and resolve any technical issues you may encounter."
+      question: "How do I get support?",
+      answer: "Contact us at support@hovrlay.com for technical issues or questions."
     }
   ];
 
   return (
     <section id="faq" className="py-12 px-4 md:px-8 lg:px-12">
-      <div className="container-custom text-center">
-        <h2 className="text-4xl font-bold text-foreground mb-6 animate-fade-in-down">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-lg text-muted-foreground mb-12 animate-fade-in-down mx-auto">
-          Find answers to common questions about Hovrlay and how it can enhance your conversations.
-        </p>
+      <div className="container-custom">
+        <div className="text-center">
+          <h2 className="text-4xl font-bold text-foreground mb-6 animate-fade-in-down">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-lg text-muted-foreground mb-16 animate-fade-in-down mx-auto">
+            Find answers to common questions about Hovrlay and how it can enhance your conversations.
+          </p>
+        </div>
         
         <div className="max-w-4xl mx-auto">
           {faqs.map((faq, index) => (
@@ -62,39 +57,37 @@ const FAQ = () => {
               <div className="glass rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleItem(index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-foreground/5 transition-colors duration-200"
+                  className="w-full p-6 text-left flex items-center justify-between transition-colors duration-200"
                 >
                   <h3 className="text-lg font-semibold text-foreground pr-4">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0">
-                    <svg
+                    <ChevronDownIcon
                       className={`w-5 h-5 text-foreground transition-transform duration-200 ${
                         openItems.includes(index) ? 'rotate-180' : ''
                       }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    />
                   </div>
                 </button>
                 
-                {openItems.includes(index) && (
+                <div 
+                  className={`overflow-hidden transition-all duration-200 linear ${
+                    openItems.includes(index) ? 'max-h-96' : 'max-h-0'
+                  }`}
+                >
                   <div className="px-6 pb-6">
                     <div className="border-t border-foreground/10 pt-4">
-                      <p className="text-muted-foreground leading-relaxed">
+                      <p 
+                        className={`text-muted-foreground leading-relaxed transition-all duration-200 linear ${
+                          openItems.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+                        }`}
+                      >
                         {faq.answer}
                       </p>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           ))}
