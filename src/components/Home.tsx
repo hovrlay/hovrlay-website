@@ -13,7 +13,7 @@ const Home = () => {
           {/* Text content section */}
           <div className="animate-fade-in-down mb-12">
             <h1 className="text-7xl font-semibold text-foreground mb-8">
-              <span className="text-primary">AI wingman</span> for every conversation
+              <span className="hero-gradient">AI wingman</span> for every conversation
             </h1>
             <p className="text-md md:text-l lg:text-xl text-muted-foreground max-w-3xl mb-8 font-light mx-auto">
               Hovrlay is an undetectable desktop app with real time AI that transforms how you engage in{" "}

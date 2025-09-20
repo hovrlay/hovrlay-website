@@ -57,7 +57,7 @@ const FAQ = () => {
               <div className="glass rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleItem(index)}
-                  className="w-full p-6 text-left flex items-center justify-between transition-colors duration-200"
+                  className="w-full p-4 text-left flex items-center justify-between transition-colors duration-200"
                 >
                   <h3 className="text-lg font-semibold text-foreground pr-4">
                     {faq.question}
@@ -76,7 +76,7 @@ const FAQ = () => {
                     openItems.includes(index) ? 'max-h-96' : 'max-h-0'
                   }`}
                 >
-                  <div className="px-6 pb-6">
+                  <div className="px-4 pb-4">
                     <div className="border-t border-foreground/10 pt-4">
                       <p 
                         className={`text-muted-foreground leading-relaxed transition-all duration-200 linear ${
