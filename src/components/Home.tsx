@@ -6,8 +6,8 @@ import { handleDownload } from "@/utils/downloads";
 
 const Home = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center">
-      <div className="container-custom relative z-10 mx-4 px-4 md:mx-8 md:px-8 lg:mx-12 lg:px-12">
+    <section id="home" className="min-h-screen flex items-center justify-center">
+      <div className="container-custom z-10 mx-4 px-4 md:mx-8 md:px-8 lg:mx-12 lg:px-12">
         {/* Main content container - centered both horizontally and vertically */}
         <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto">
           {/* Text content section */}

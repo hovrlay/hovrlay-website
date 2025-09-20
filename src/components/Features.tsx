@@ -6,7 +6,7 @@ import PrivacyIcon from "@/assets/privacy.svg?react";
 import AnalyticsIcon from "@/assets/analytics.svg?react";
 
 const Features = () => (
-  <section id="features" className="py-12 px-4 md:px-8 lg:px-12">
+  <section id="features" className="py-2 px-4 md:px-8 lg:px-12">
     <div className="container-custom">
       <div className="text-center mb-10">
         <h2 className="text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">

@@ -1,10 +1,10 @@
 const Demo = () => (
-  <section id="demo" className="py-12 px-4 md:px-8 lg:px-12">
+  <section id="demo" className="py-2 px-4 md:px-8 lg:px-12">
     <div className="container-custom text-center">
       <h2 className="text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">
         See Hovrlay in Action
       </h2>
-      <p className="text-lg text-muted-foreground max-w-3xl mb-16 animate-fade-in-down mx-auto">
+      <p className="text-lg text-muted-foreground max-w-3xl mb-10 animate-fade-in-down mx-auto">
         Watch how Hovrlay transforms your conversations with real time AI.
       </p>
       
