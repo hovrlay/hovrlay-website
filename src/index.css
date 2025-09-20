@@ -114,6 +114,11 @@ All colors MUST be HSL.
   html {
     scroll-behavior: smooth;
     background-color: hsl(var(--background));
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  * {
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 }
 
@@ -186,8 +191,37 @@ All colors MUST be HSL.
     }
   }
 
+  @keyframes toggleSlide {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(2px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes iconRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   .animate-marquee {
     animation: marquee 30s linear infinite;
+  }
+
+  .animate-toggle-slide {
+    animation: toggleSlide 0.3s ease-in-out;
+  }
+
+  .animate-icon-rotate {
+    animation: iconRotate 0.5s ease-in-out;
   }
 
   /* Responsive marquee speeds */

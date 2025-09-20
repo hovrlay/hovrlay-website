@@ -1,6 +1,12 @@
 import { useState } from "react";
+import DarkModeToggle from "./DarkModeToggle";
 
-const Header = () => {
+interface HeaderProps {
+  isDarkMode: boolean;
+  onToggleDarkMode: () => void;
+}
+
+const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const handleScroll = (sectionId: string) => {
@@ -40,6 +46,7 @@ const Header = () => {
       >
         FAQ
       </button>
+      <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
     </nav>
   );
 
@@ -86,6 +93,10 @@ const Header = () => {
         >
           FAQ
         </button>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Theme:</span>
+          <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
+        </div>
       </div>
     </nav>
   );
