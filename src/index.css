@@ -176,4 +176,30 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Responsive marquee speeds */
+  @media (max-width: 640px) {
+    .animate-marquee {
+      animation-duration: 20s; /* Faster on mobile */
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .animate-marquee {
+      animation-duration: 25s; /* Medium on tablet */
+    }
+  }
 }
