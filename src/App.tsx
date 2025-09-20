@@ -6,7 +6,7 @@ import FAQ from "@/components/FAQ";
 import Section from "@/components/Section";
 
 const App = () => (
-  <div className="min-h-screen bg-background">
+  <div className="min-h-screen bg-background mt-6">
     <Header />
     
     <Section direction="up">

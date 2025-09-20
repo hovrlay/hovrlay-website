@@ -46,7 +46,7 @@ All colors MUST be HSL.
 
     /* Custom Hovrlay Design Tokens - Light Mode */
     --glass-bg: hsla(0, 0%, 100%, 0.45);     /* Semi-transparent white */
-    --glass-border: hsla(240, 5%, 90%, 0.3); /* Light gray border */
+    --glass-border: hsla(240, 5%, 80%, 0.6); /* More prominent gray border */
     
     /* Section Background Colors - Light Mode */
     --section-start: white;

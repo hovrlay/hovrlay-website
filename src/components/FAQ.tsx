@@ -43,7 +43,7 @@ const FAQ = () => {
     <section id="faq" className="py-12 px-4 md:px-8 lg:px-12">
       <div className="container-custom">
         <div className="text-center">
-          <h2 className="text-4xl font-bold text-foreground mb-6 animate-fade-in-down">
+          <h2 className="text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-muted-foreground mb-16 animate-fade-in-down mx-auto">
