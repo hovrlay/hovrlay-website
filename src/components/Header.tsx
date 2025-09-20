@@ -93,10 +93,6 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
         >
           FAQ
         </button>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">Theme:</span>
-          <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
-        </div>
       </div>
     </nav>
   );
@@ -113,7 +109,10 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
         {/* Mobile Navigation */}
         <div className="flex md:hidden items-center justify-between glass rounded-lg shadow-lg h-16 px-6">
           {hovrlayButton}
-          {hamburgerButton}
+          <div className="flex items-center gap-4">
+            <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
+            {hamburgerButton}
+          </div>
         </div>
 
         {/* Mobile Menu Dropdown */}

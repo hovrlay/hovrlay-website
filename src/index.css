@@ -187,7 +187,7 @@ All colors MUST be HSL.
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-50%);
     }
   }
 
@@ -213,20 +213,7 @@ All colors MUST be HSL.
   }
 
   .animate-marquee {
-    animation: marquee var(--marquee-duration, 20s) linear infinite;
-  }
-
-  /* Responsive marquee speeds using Tailwind breakpoints */
-  @media (min-width: 768px) {
-    .animate-marquee {
-      animation: marquee var(--marquee-duration-md, 18s) linear infinite;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .animate-marquee {
-      animation: marquee var(--marquee-duration-lg, 20s) linear infinite;
-    }
+    animation: marquee 20s linear infinite;
   }
 
   .animate-toggle-slide {
