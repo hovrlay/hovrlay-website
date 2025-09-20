@@ -14,14 +14,14 @@ const Demo = () => (
       
       {/* Video placeholder - ready for your product demo */}
       <div className="animate-fade-in-down">
-        <div className="glass rounded-lg overflow-hidden max-w-4xl mx-auto">
+        <div className="glass rounded-lg overflow-hidden max-w-4xl mx-auto mb-10">
           <div className="aspect-video bg-muted/20 flex items-center justify-center">
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-                <PlayIcon />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                <PlayIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
               </div>
               <p className="text-muted-foreground text-sm sm:text-base md:text-lg">Product Demo Video</p>
-              <p className="text-xs sm:text-sm text-muted-foreground/70 mt-2">Coming Soon</p>
+              <p className="text-xs sm:text-sm text-muted-foreground/70 mt-2">Coming Soon...</p>
             </div>
           </div>
         </div>
