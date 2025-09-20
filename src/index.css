@@ -102,7 +102,7 @@ All colors MUST be HSL.
     
     /* Section Background Colors - Dark Mode */
     --section-start: hsl(240, 10%, 3.9%);
-    --section-end: hsl(45, 15%, 25%);
+    --section-end: hsl(240, 5%, 12%);
     --section-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     
     /* Hero Gradient - matching favicon */
