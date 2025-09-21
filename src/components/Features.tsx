@@ -18,8 +18,8 @@ const FeatureBox = ({ icon: Icon, title, description }: FeatureBoxProps) => (
         <Icon className="w-7 h-7" />
       </div>
       <div className="flex-1">
-        <h3 className="text-lg sm:text-xl font-medium text-foreground mb-4">{title}</h3>
-        <p className="text-sm sm:text-base font-light text-muted-foreground leading-relaxed">
+        <h3 className="text-lg sm:text-xl md:text-xl lg:text-xl font-medium text-foreground mb-4">{title}</h3>
+        <p className="text-sm sm:text-sm md:text-sm lg:text-base font-light text-muted-foreground leading-relaxed">
           {description}
         </p>
       </div>
@@ -30,16 +30,16 @@ const FeatureBox = ({ icon: Icon, title, description }: FeatureBoxProps) => (
 const Features = () => (
   <section id="features" className="py-2 px-4 md:px-8 lg:px-12">
     <div className="container-custom">
-      <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground my-6 animate-fade-in-down">
+      <div className="text-center mb-14">
+        <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground my-6 animate-fade-in-down">
           Why Choose Hovrlay?
         </h2>
-        <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in-down">
+        <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in-down">
           Discover the powerful features that make Hovrlay your intelligent conversation partner for meetings, calls, and interviews.
         </p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
         <FeatureBox
           icon={AiIcon}
           title="Real time AI"

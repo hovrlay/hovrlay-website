@@ -9,9 +9,9 @@ const Home = () => {
     <section id="home" className="py-20 mt-24">
       <div className="container-custom z-10 mx-4 md:mx-8 lg:mx-12">
         {/* Main content container - centered horizontally */}
-        <div className="flex flex-col items-center text-center lg:max-w-2xl lg:mx-auto px-2 sm:px-4">
+        <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
-          <div className="animate-fade-in-down mb-32">
+          <div className="animate-fade-in-down mb-12">
             <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-semibold text-foreground mb-10 leading-tight">
               <span className="hero-gradient">AI wingman</span> for every conversation
             </h1>
@@ -22,7 +22,7 @@ const Home = () => {
           </div>
 
           {/* Download buttons section */}
-          <div className="animate-fade-in-down mb">
+          <div className="animate-fade-in-down mb-16">
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="hero-secondary" size="lg" className="group" onClick={() => handleDownload('mac')}>
                 <AppleIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />

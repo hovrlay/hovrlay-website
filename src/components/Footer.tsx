@@ -9,12 +9,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="md:col-span-3">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-2">
               <img src="/favicon.svg" alt="Hovrlay" className="w-8 h-8" />
               <span className="text-xl font-bold text-foreground">hovrlay</span>
             </div>
-            <p className="text-muted-foreground mb-4 max-w-md">
-              AI wingman for every conversation. Transform how you engage in meetings, calls and interviews with real-time AI assistance.
+            <p className="font-light text-muted-foreground mb-8 max-w-md">
+            AI meeting assistant that provides live meeting notes, instant answers, and real-time insights during calls and interviews
             </p>
             <div className="flex gap-4">
               <a 
@@ -110,13 +110,8 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-border mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-muted-foreground">
-              <span>&copy; 2025 Hovrlay. All rights reserved.</span>
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Made with ❤️ for better conversations
-            </div>
+          <div className="text-sm text-muted-foreground text-left">
+            <span>&copy; 2025 Hovrlay. All rights reserved.</span>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ const Section = ({ children, direction = 'down' }: SectionProps) => {
 
   return (
     <div 
-      className="relative rounded-3xl overflow-hidden p-8 md:p-16 mb-16 mx-2 md:mx-12 lg:mx-16"
+      className="relative rounded-3xl overflow-hidden p-8 md:p-16 mb-16 mx-4 md:mx-12 lg:mx-16"
       style={{
         background: `linear-gradient(${gradientDirection}, var(--section-start), var(--section-end))`
       }}

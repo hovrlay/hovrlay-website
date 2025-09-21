@@ -43,10 +43,10 @@ const FAQ = () => {
     <section id="faq" className="pt-4 pb-12 px-4 md:px-8 lg:px-12">
       <div className="container-custom">
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">
             Frequently Asked Questions
           </h2>
-          <p className="text-base sm:text-base md:text-lg text-muted-foreground mb-16 animate-fade-in-down mx-auto">
+          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16 animate-fade-in-down mx-auto">
             Find answers to common questions about Hovrlay and how it can enhance your conversations.
           </p>
         </div>
@@ -59,7 +59,7 @@ const FAQ = () => {
                   onClick={() => toggleItem(index)}
                   className="w-full p-4 text-left flex items-center justify-between transition-colors duration-200"
                 >
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground pr-4">
+                  <h3 className="text-base sm:text-lg md:text-lg lg:text-lg font-semibold text-foreground pr-4">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0">
@@ -79,7 +79,7 @@ const FAQ = () => {
                   <div className="px-4 pb-4">
                     <div className="border-t border-foreground/10 pt-4">
                       <p 
-                        className={`text-sm sm:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
+                        className={`text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
                           openItems.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
                         }`}
                       >
