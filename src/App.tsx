@@ -26,7 +26,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background mt-6 transition-colors duration-300">
+    <div className="min-h-screen bg-background mt-12 transition-colors duration-300">
       <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
       
       <Section direction="up">

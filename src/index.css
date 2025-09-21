@@ -130,11 +130,6 @@ All colors MUST be HSL.
     -webkit-backdrop-filter: blur(10px);
   }
 
-  .section-container {
-    background: linear-gradient(to bottom, var(--section-start), var(--section-end));
-    box-shadow: var(--section-shadow);
-  }
-
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
   }

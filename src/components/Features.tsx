@@ -31,7 +31,7 @@ const Features = () => (
   <section id="features" className="py-2 px-4 md:px-8 lg:px-12">
     <div className="container-custom">
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground my-6 animate-fade-in-down">
           Why Choose Hovrlay?
         </h2>
         <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in-down">
