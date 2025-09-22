@@ -45,10 +45,10 @@ const Features = () => (
   <section id="features" className="py-2 px-4 md:px-8 lg:px-12">
     <div className="container-custom">
       <div className="text-center mb-14">
-        <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground my-6 animate-fade-in-down">
+        <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground my-6">
           Why Choose Hovrlay?
         </h2>
-        <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in-down">
+        <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto">
           Discover the powerful features that make Hovrlay your intelligent conversation partner for meetings, calls, and interviews.
         </p>
       </div>
@@ -65,35 +65,35 @@ const Features = () => (
           icon={LightningIcon}
           title="Lightning Fast Performance"
           description="Experience near instant response times with our optimized infrastructure. Hovrlay integrates seamlessly into your workflow without any noticeable delay or interruption to your conversations."
-          delay={100}
+          delay={0}
         />
         
         <FeatureBox
           icon={MemoryIcon}
           title="Conversation Memory"
           description="Hovrlay remembers your past conversations and interactions, providing richer context and more personalized assistance in future meetings. Build stronger relationships through consistent, informed communication."
-          delay={200}
+          delay={100}
         />
         
         <FeatureBox
           icon={PlatformIcon}
           title="Universal Compatibility"
           description="Works seamlessly across Mac and Windows platforms with any application on your screen. Whether you're using Zoom, Teams, Discord, or any other platform, Hovrlay adapts to your preferred tools."
-          delay={300}
+          delay={100}
         />
         
         <FeatureBox
           icon={PrivacyIcon}
           title="Privacy & Security First"
           description="Your conversations are protected with enterprise-grade encryption. We only store conversation summaries, not raw audio, and process everything in real-time before securely deleting the data."
-          delay={400}
+          delay={200}
         />
         
         <FeatureBox
           icon={AnalyticsIcon}
           title="Performance Analytics"
           description="Get detailed insights and feedback after each conversation. Track your communication patterns, identify areas for improvement, and see how Hovrlay helps enhance your professional interactions."
-          delay={500}
+          delay={200}
         />
       </div>
     </div>

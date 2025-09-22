@@ -21,7 +21,7 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
       className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
       aria-label="Go to home"
     >
-      <img src="/favicon.svg" alt="Hovrlay" className="w-8 h-8" />
+      <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
       <span className="text-xl font-bold text-foreground">hovrlay</span>
     </button>
   );

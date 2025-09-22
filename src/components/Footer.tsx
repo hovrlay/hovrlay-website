@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="md:col-span-3">
             <div className="flex items-center gap-2 mb-2">
-              <img src="/favicon.svg" alt="Hovrlay" className="w-8 h-8" />
+              <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
               <span className="text-xl font-bold text-foreground">hovrlay</span>
             </div>
             <p className="font-light text-muted-foreground mb-8 max-w-md">

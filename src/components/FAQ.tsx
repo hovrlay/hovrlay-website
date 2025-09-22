@@ -105,10 +105,10 @@ const FAQ = () => {
     <section id="faq" className="pt-4 pb-12 px-4 md:px-8 lg:px-12">
       <div className="container-custom">
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6 animate-fade-in-down">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16 animate-fade-in-down mx-auto">
+          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16 mx-auto">
             Find answers to common questions about Hovrlay and how it can enhance your conversations.
           </p>
         </div>
@@ -122,7 +122,7 @@ const FAQ = () => {
               index={index}
               isOpen={openItems.includes(index)}
               onToggle={toggleItem}
-              delay={index * 100}
+              delay={Math.floor(index / 2) * 100}
             />
           ))}
         </div>
