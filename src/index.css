@@ -138,6 +138,28 @@ All colors MUST be HSL.
     animation: fadeInDown 0.6s ease-out forwards;
   }
 
+  .animate-scroll-fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .animate-scroll-fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .animate-scroll-fade-in-up-delayed {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .animate-scroll-fade-in-up-delayed.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .transition-smooth {
     transition: var(--transition-smooth);
   }

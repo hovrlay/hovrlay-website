@@ -1,5 +1,67 @@
 import { useState } from "react";
 import ChevronDownIcon from "@/assets/chevron-down.svg?react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
+interface FAQItemProps {
+  question: string;
+  answer: string;
+  index: number;
+  isOpen: boolean;
+  onToggle: (index: number) => void;
+  delay: number;
+}
+
+const FAQItem = ({ question, answer, index, isOpen, onToggle, delay }: FAQItemProps) => {
+  const { ref, isVisible } = useScrollAnimation({
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px',
+    triggerOnce: true
+  });
+
+  return (
+    <div 
+      ref={ref}
+      className={`mb-4 animate-scroll-fade-in-up ${isVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <div className="glass rounded-lg overflow-hidden">
+        <button
+          onClick={() => onToggle(index)}
+          className="w-full p-4 text-left flex items-center justify-between transition-colors duration-200"
+        >
+          <h3 className="text-base sm:text-lg md:text-lg lg:text-lg font-semibold text-foreground pr-4">
+            {question}
+          </h3>
+          <div className="flex-shrink-0">
+            <ChevronDownIcon
+              className={`w-5 h-5 text-foreground transition-transform duration-200 ${
+                isOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
+        </button>
+        
+        <div 
+          className={`overflow-hidden transition-all duration-200 linear ${
+            isOpen ? 'max-h-96' : 'max-h-0'
+          }`}
+        >
+          <div className="px-4 pb-4">
+            <div className="border-t border-foreground/10 pt-4">
+              <p 
+                className={`text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
+                  isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+                }`}
+              >
+                {answer}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -53,43 +115,15 @@ const FAQ = () => {
         
         <div className="max-w-4xl mx-auto">
           {faqs.map((faq, index) => (
-            <div key={index} className="mb-4 animate-fade-in-down">
-              <div className="glass rounded-lg overflow-hidden">
-                <button
-                  onClick={() => toggleItem(index)}
-                  className="w-full p-4 text-left flex items-center justify-between transition-colors duration-200"
-                >
-                  <h3 className="text-base sm:text-lg md:text-lg lg:text-lg font-semibold text-foreground pr-4">
-                    {faq.question}
-                  </h3>
-                  <div className="flex-shrink-0">
-                    <ChevronDownIcon
-                      className={`w-5 h-5 text-foreground transition-transform duration-200 ${
-                        openItems.includes(index) ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </div>
-                </button>
-                
-                <div 
-                  className={`overflow-hidden transition-all duration-200 linear ${
-                    openItems.includes(index) ? 'max-h-96' : 'max-h-0'
-                  }`}
-                >
-                  <div className="px-4 pb-4">
-                    <div className="border-t border-foreground/10 pt-4">
-                      <p 
-                        className={`text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
-                          openItems.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-                        }`}
-                      >
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <FAQItem
+              key={index}
+              question={faq.question}
+              answer={faq.answer}
+              index={index}
+              isOpen={openItems.includes(index)}
+              onToggle={toggleItem}
+              delay={index * 100}
+            />
           ))}
         </div>
       </div>
