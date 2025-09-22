@@ -7,7 +7,7 @@ import { handleDownload } from "@/utils/downloads";
 const Home = () => {
   return (
     <section id="home" className="py-10 mt-20">
-      <div className="container-custom z-10 mx-4 md:mx-8 lg:mx-12">
+      <div className="container-custom animate-fade-in-down z-10 mx-4 md:mx-8 lg:mx-12">
         {/* Main content container - centered horizontally */}
         <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
