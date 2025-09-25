@@ -1,6 +1,7 @@
 import EmailIcon from "@/assets/email.svg?react";
-import TwitterIcon from "@/assets/twitter.svg?react";
+import XIcon from "@/assets/x.svg?react";
 import LinkedInIcon from "@/assets/linkedin.svg?react";
+import GitHubIcon from "@/assets/github.svg?react";
 
 const Footer = () => {
   return (
@@ -25,13 +26,13 @@ const Footer = () => {
                 <EmailIcon className="w-5 h-5" />
               </a>
               <a 
-                href="https://twitter.com/hovrlay" 
+                href="https://x.com/hovrlay" 
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Follow us on Twitter"
+                aria-label="Follow us on X"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <TwitterIcon className="w-5 h-5" />
+                <XIcon className="w-5 h-5" />
               </a>
               <a 
                 href="https://linkedin.com/company/hovrlay" 
@@ -41,6 +42,15 @@ const Footer = () => {
                 rel="noopener noreferrer"
               >
                 <LinkedInIcon className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://github.com/hovrlay/hovrlay-releases" 
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="View our GitHub repository"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GitHubIcon className="w-5 h-5" />
               </a>
             </div>
           </div>
