@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 
 interface HeaderProps {
@@ -10,10 +10,15 @@ interface HeaderProps {
 const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleScroll = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) { element.scrollIntoView({ behavior: "smooth" })}
+    if (location.pathname !== "/") {
+      navigate(`/?section=${sectionId}`);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) { element.scrollIntoView({ behavior: "smooth" }); }
+    }
     setIsHamburgerOpen(false);
   };
 

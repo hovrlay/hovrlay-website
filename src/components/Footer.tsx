@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import EmailIcon from "@/assets/email.svg?react";
 import XIcon from "@/assets/x.svg?react";
 import LinkedInIcon from "@/assets/linkedin.svg?react";
@@ -6,10 +6,20 @@ import GitHubIcon from "@/assets/github.svg?react";
 
 const Footer = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogoClick = () => {
     if (location.pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleSectionClick = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate(`/?section=${sectionId}`);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) { element.scrollIntoView({ behavior: "smooth" }); }
     }
   };
 
@@ -74,24 +84,24 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Product</h3>
             <ul className="space-y-3">
               <li>
-                <a 
-                  href="#features" 
+                <button 
+                  onClick={() => handleSectionClick("features")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Features
-                </a>
+                </button>
               </li>
               <li>
-                <a 
-                  href="#demo" 
+                <button 
+                  onClick={() => handleSectionClick("demo")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Demo
-                </a>
+                </button>
               </li>
               <li>
                 <a 
-                  href="#" 
+                  onClick={() => handleSectionClick("hero")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Pricing
@@ -99,7 +109,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="#" 
+                  onClick={() => handleSectionClick("hero")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Download
@@ -113,12 +123,12 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Support</h3>
             <ul className="space-y-3">
               <li>
-                <a 
-                  href="#faq" 
+                <button 
+                  onClick={() => handleSectionClick("faq")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   FAQ
-                </a>
+                </button>
               </li>
               <li>
                 <a 
