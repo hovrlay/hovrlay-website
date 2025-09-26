@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 
 interface HeaderProps {
@@ -8,6 +9,7 @@ interface HeaderProps {
 
 const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const location = useLocation();
 
   const handleScroll = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -15,15 +17,22 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
     setIsHamburgerOpen(false);
   };
 
+  const handleLogoClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const hovrlayButton = (
-    <button
-      onClick={() => handleScroll("home")}
+    <Link
+      to="/"
+      onClick={handleLogoClick}
       className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
       aria-label="Go to home"
     >
       <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
       <span className="text-xl font-bold text-foreground">hovrlay</span>
-    </button>
+    </Link>
   );
 
   const desktopNavigation = (

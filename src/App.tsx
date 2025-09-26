@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "@/components/Header";
-import Home from "@/components/Home";
-import PoweredBy from "@/components/PoweredBy";
-import Features from "@/components/Features";
-import Demo from "@/components/Demo";
-import FAQ from "@/components/FAQ";
-import Section from "@/components/Section";
 import Footer from "@/components/Footer";
+import HomePage from "@/pages/HomePage";
+import NotFound from "@/pages/NotFound";
 
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(() => 
-    document.documentElement.classList.contains('dark')
-  );
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) { return saved === 'true'; }
+    return document.documentElement.classList.contains('dark');
+  });
 
   useEffect(() => {
     if (isDarkMode) {
@@ -19,6 +18,7 @@ const App = () => {
     } else {
       document.documentElement.classList.remove('dark');
     }
+    localStorage.setItem('darkMode', isDarkMode.toString());
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
@@ -26,29 +26,18 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background mt-12 transition-colors duration-300">
-      <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
-      
-      <Section direction="up">
-        <Home />
-      </Section>
+    <Router>
+      <div className="min-h-screen bg-background mt-12 transition-colors duration-300">
+        <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
 
-      <PoweredBy />
-
-      <Section>
-        <Demo />
-      </Section>
-
-      <Section>
-        <Features />
-      </Section>
-
-      <Section direction="up">
-        <FAQ />
-      </Section>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

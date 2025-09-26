@@ -1,19 +1,33 @@
+import { Link, useLocation } from "react-router-dom";
 import EmailIcon from "@/assets/email.svg?react";
 import XIcon from "@/assets/x.svg?react";
 import LinkedInIcon from "@/assets/linkedin.svg?react";
 import GitHubIcon from "@/assets/github.svg?react";
 
 const Footer = () => {
+  const location = useLocation();
+
+  const handleLogoClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="bg-background border-t border-border pt-12 pb-8 mx-6 md:mx-12 lg:mx-16">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="md:col-span-3">
-            <div className="flex items-center gap-2 mb-2">
+            <Link
+              to="/"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 mb-2 hover:opacity-80 transition-opacity duration-200"
+              aria-label="Go to home"
+            >
               <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
               <span className="text-xl font-bold text-foreground">hovrlay</span>
-            </div>
+            </Link>
             <p className="font-light text-muted-foreground mb-8 max-w-md">
             AI meeting assistant that provides live meeting notes, instant answers, and real-time insights during calls and interviews
             </p>
