@@ -20,7 +20,7 @@ All colors MUST be HSL.
     --popover-foreground: 240 10% 3.9%; /* Dark text on popovers */
 
     /* Brand Colors */
-    --primary: 263 70% 50%;            /* Purple primary color */
+    --primary: 217 91% 60%;           /* Blue primary color (matching logo) */
     --primary-foreground: 0 0% 98%;    /* White text on primary */
 
     /* Secondary Colors */
@@ -40,7 +40,7 @@ All colors MUST be HSL.
     /* Border & Input Colors */
     --border: 240 5.9% 90%;            /* Light gray borders */
     --input: 240 5.9% 90%;             /* Light gray inputs */
-    --ring: 263 70% 50%;               /* Purple focus ring */
+    --ring: 217 91% 60%;               /* Blue focus ring (matching logo) */
 
     --radius: 1rem;
 
@@ -58,7 +58,7 @@ All colors MUST be HSL.
     --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     
     /* Hero Gradient - matching favicon */
-    --hero-gradient: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(215, 25%, 27%) 100%);
+    --hero-gradient: linear-gradient(180deg, hsl(217, 91%, 60%) 0%, hsl(215, 44%, 37%) 100%);
   }
 
   /* DARK MODE COLORS */
@@ -74,7 +74,7 @@ All colors MUST be HSL.
     --popover-foreground: 0 0% 98%;    /* Light text on popovers */
 
     /* Brand Colors */
-    --primary: 263 70% 50%;            /* Purple primary color (same) */
+    --primary: 217 91% 60%;           /* Blue primary color (matching logo) */
     --primary-foreground: 0 0% 98%;    /* White text on primary */
 
     /* Secondary Colors */
@@ -94,7 +94,7 @@ All colors MUST be HSL.
     /* Border & Input Colors */
     --border: 240 3.7% 15.9%;          /* Dark gray borders */
     --input: 240 3.7% 15.9%;           /* Dark gray inputs */
-    --ring: 263 70% 50%;               /* Purple focus ring (same) */
+    --ring: 217 91% 60%;               /* Blue focus ring (matching logo) */
 
     /* Custom Hovrlay Design Tokens - Dark Mode */
     --glass-bg: hsla(240, 10%, 8%, 0.45);    /* Semi-transparent dark */
@@ -106,7 +106,7 @@ All colors MUST be HSL.
     --section-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     
     /* Hero Gradient - matching favicon */
-    --hero-gradient: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(215, 25%, 27%) 100%);
+    --hero-gradient: linear-gradient(180deg, hsl(217, 91%, 60%) 0%, hsl(215, 25%, 27%) 100%);
   }
 }
 

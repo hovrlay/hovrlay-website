@@ -10,7 +10,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseClasses = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
     
     const variantClasses = {
-      default: "bg-primary text-primary-foreground hover:bg-primary/90",
+      "default": "bg-hero-gradient text-primary-foreground hover:bg-primary/90",
       "hero-secondary": "glass text-foreground font-semibold hover:bg-foreground/10 transition-all duration-300 border border-foreground/20",
     };
     
