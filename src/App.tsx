@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HomePage from "@/pages/HomePage";
 import NotFound from "@/pages/NotFound";
+import AuthCallback from "@/components/AuthCallback";
 
 const AppContent = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const AppContent = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
