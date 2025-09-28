@@ -6,6 +6,7 @@ import HomePage from "@/pages/HomePage";
 import NotFound from "@/pages/NotFound";
 import AuthCallback from "@/components/AuthCallback";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
 
 const AppContent = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const AppContent = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsOfService />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
