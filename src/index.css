@@ -113,6 +113,7 @@ All colors MUST be HSL.
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 88px; /* Account for fixed header height */
     background-color: hsl(var(--background));
     transition: background-color 0.3s ease-in-out;
   }
@@ -239,5 +240,18 @@ All colors MUST be HSL.
 
   .animate-icon-rotate {
     animation: iconRotate 0.5s ease-in-out;
+  }
+
+  /* Custom list styling for privacy policy */
+  .privacy-list li {
+    list-style: none;
+    position: relative;
+  }
+
+  .privacy-list li::before {
+    content: "-";
+    position: absolute;
+    left: -1rem;
+    color: inherit;
   }
 }

@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import EmailIcon from "@/assets/email.svg?react";
 import XIcon from "@/assets/x.svg?react";
 import LinkedInIcon from "@/assets/linkedin.svg?react";
@@ -26,18 +26,18 @@ const Footer = () => {
   return (
     <footer className="bg-background border-t border-border pt-12 pb-8 mx-6 md:mx-12 lg:mx-16">
       <div className="container-custom">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="md:col-span-3">
-            <Link
-              to="/"
+            <a
+              href="/"
               onClick={handleLogoClick}
               className="flex items-center gap-2 mb-2 hover:opacity-80 transition-opacity duration-200"
               aria-label="Go to home"
             >
               <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
               <span className="text-xl font-bold text-foreground">hovrlay</span>
-            </Link>
+            </a>
             <p className="font-light text-muted-foreground mb-8 max-w-md">
             AI meeting assistant that provides live meeting notes, instant answers, and real-time insights during calls and interviews
             </p>
@@ -136,6 +136,21 @@ const Footer = () => {
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Contact Support
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Legal</h3>
+            <ul className="space-y-3">
+              <li>
+                <a 
+                  href="/privacy-policy"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                >
+                  Privacy Policy
                 </a>
               </li>
             </ul>
