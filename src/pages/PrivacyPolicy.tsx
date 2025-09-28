@@ -31,12 +31,10 @@ const PrivacyPolicy = () => {
             prev.intersectionRatio > current.intersectionRatio ? prev : current
           );
           setActiveSection(mostVisible.target.id);
-        } else {
-          setActiveSection("");
         }
       },
       {
-        rootMargin: "-88px 0px -50% 0px",
+        rootMargin: "-88px 0px -35% 0px",
         threshold: 0.1
       }
     );
