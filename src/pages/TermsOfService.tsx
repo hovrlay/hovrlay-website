@@ -10,17 +10,18 @@ const TermsOfService = () => {
 
   useEffect(() => {
     const sections = [
-      "acceptance-of-terms",
-      "description-of-service",
-      "user-accounts",
-      "acceptable-use",
-      "intellectual-property",
-      "privacy-and-data-protection",
-      "disclaimers",
+      "definitions",
+      "the-services",
+      "customer-data",
+      "restrictions-responsibilities-and-rights",
+      "fees-payment-terms",
+      "warranties",
+      "confidential-information",
+      "term-and-termination",
+      "indemnity",
       "limitation-of-liability",
-      "termination",
-      "governing-law",
-      "contact-information"
+      "general-provisions",
+      "contact-us"
     ];
 
     const observer = new IntersectionObserver(
@@ -73,86 +74,105 @@ const TermsOfService = () => {
         <div className="lg:col-span-3">
           <div className="mb-8 sm:mb-10 md:mb-12">
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
-              Welcome to Hovrlay! These Terms of Service ("Terms") govern your use of our AI meeting assistant service and website. By accessing or using our services, you agree to be bound by these Terms.
+              This Customer Terms of Service is entered into by and between Hovrlay ("Hovrlay") and the entity or person placing an order for or accessing any Services ("Customer" or "you"). If you are accessing or using the Services on behalf of your company, you represent that you are authorized to accept this Agreement on behalf of your company, and all references to "you" or "Customer" reference your company. Please note that if you sign up for the Services using an email address from your employer or another entity, then (1) you will be deemed to represent such party, (2) your acceptance will bind your employer or that entity to these terms, and (3) the words "Customer", "you" or "your" in this Agreement will refer to your employer or that entity.
             </p>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
-              We reserve the right to modify these Terms at any time. We will notify you of any material changes by posting the updated Terms on our website. Your continued use of our services after such changes constitutes acceptance of the new Terms.
+              This Agreement permits Customer to purchase subscriptions to online software-as-a-service products and other services from Hovrlay pursuant to any Hovrlay ordering documents, online registration, order descriptions or order confirmations referencing this Agreement ("Order Form(s)") and sets forth the basic terms and conditions under which those products and services will be delivered.
+            </p>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              The "Effective Date" of this Agreement is the earlier of (a) Customer's initial access to the Services (as defined below) through any online provisioning, registration or order process or (b) the effective date of the first Order Form referencing this Agreement.
+            </p>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              <strong>PLEASE NOTE: IF YOU SUBSCRIBE TO THE SERVICES FOR A SUBSCRIPTION TERM, THEN YOUR SUBSCRIPTION AND THIS AGREEMENT WILL BE AUTOMATICALLY RENEWED FOR SUCCESSIVE BILLING PERIODS AT OUR THEN-CURRENT PRICING FOR SUCH SERVICES UNLESS YOU OPT OUT OF THE AUTO-RENEWAL IN ACCORDANCE WITH SECTION 8 BELOW.</strong>
+            </p>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              <strong>PLEASE NOTE: THAT SECTION 11.9 OF THIS AGREEMENT CONTAINS AN ARBITRATION AGREEMENT THAT REQUIRES MOST DISPUTES BETWEEN US TO BE RESOLVED ON AN INDIVIDUAL, NON-CLASS ACTION BASIS THROUGH BINDING AND FINAL ARBITRATION INSTEAD OF IN COURT. SEE SECTION 11.9 FOR MORE INFORMATION REGARDING THIS ARBITRATION CLAUSE AND HOW TO OPT OUT.</strong>
+            </p>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              <strong>BY INDICATING YOUR ACCEPTANCE OF THIS AGREEMENT OR ACCESSING OR USING ANY SERVICES, YOU ARE AGREEING TO BE BOUND BY ALL TERMS, CONDITIONS, AND NOTICES CONTAINED OR REFERENCED IN THIS AGREEMENT. IF YOU DO NOT AGREE TO THIS AGREEMENT, PLEASE DO NOT USE ANY SERVICES. FOR CLARITY, EACH PARTY EXPRESSLY AGREES THAT THIS AGREEMENT IS LEGALLY BINDING UPON IT.</strong>
             </p>
           </div>
 
-          {/* Placeholder sections - content to be added later */}
-          <div id="acceptance-of-terms" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Acceptance of Terms</h2>
-            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
-              Content to be added...
-            </p>
-          </div>
-
-          <div id="description-of-service" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Description of Service</h2>
-            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
-              Content to be added...
-            </p>
-          </div>
-
-          <div id="user-accounts" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">User Accounts</h2>
+          {/* Terms of Service Sections */}
+          <div id="definitions" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">1. Definitions</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
-          <div id="acceptable-use" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Acceptable Use</h2>
+          <div id="the-services" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">2. The Services</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
-          <div id="intellectual-property" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Intellectual Property</h2>
+          <div id="customer-data" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">3. Customer Data</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
-          <div id="privacy-and-data-protection" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Privacy and Data Protection</h2>
+          <div id="restrictions-responsibilities-and-rights" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">4. Restrictions, Responsibilities and Rights</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
-          <div id="disclaimers" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Disclaimers</h2>
+          <div id="fees-payment-terms" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">5. Fees; Payment Terms</h2>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              Content to be added...
+            </p>
+          </div>
+
+          <div id="warranties" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">6. Warranties</h2>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              Content to be added...
+            </p>
+          </div>
+
+          <div id="confidential-information" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">7. Confidential Information</h2>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              Content to be added...
+            </p>
+          </div>
+
+          <div id="term-and-termination" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">8. Term and Termination</h2>
+            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
+              Content to be added...
+            </p>
+          </div>
+
+          <div id="indemnity" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">9. Indemnity</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
           <div id="limitation-of-liability" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Limitation of Liability</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">10. Limitation of Liability</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
-          <div id="termination" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Termination</h2>
+          <div id="general-provisions" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">11. General Provisions</h2>
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               Content to be added...
             </p>
           </div>
 
-          <div id="governing-law" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Governing Law</h2>
-            <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
-              Content to be added...
-            </p>
-          </div>
-
-          <div id="contact-information" className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Contact Information</h2>
+          <div id="contact-us" className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">Contact Us</h2>
             <p className="text-medium md:text-lg text-foreground mb-3 sm:mb-4 leading-relaxed font-light">
               If you have any questions about these Terms of Service, please contact us at{" "}
               <a 
@@ -172,86 +192,110 @@ const TermsOfService = () => {
             <ol className="flex flex-col gap-y-3">
               <li className="flex">
                 <a 
-                  href="#acceptance-of-terms" 
+                  href="#definitions" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "acceptance-of-terms" 
+                    activeSection === "definitions" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Acceptance of Terms
+                  1. Definitions
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#description-of-service" 
+                  href="#the-services" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "description-of-service" 
+                    activeSection === "the-services" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Description of Service
+                  2. The Services
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#user-accounts" 
+                  href="#customer-data" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "user-accounts" 
+                    activeSection === "customer-data" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  User Accounts
+                  3. Customer Data
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#acceptable-use" 
+                  href="#restrictions-responsibilities-and-rights" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "acceptable-use" 
+                    activeSection === "restrictions-responsibilities-and-rights" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Acceptable Use
+                  4. Restrictions, Responsibilities and Rights
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#intellectual-property" 
+                  href="#fees-payment-terms" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "intellectual-property" 
+                    activeSection === "fees-payment-terms" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Intellectual Property
+                  5. Fees; Payment Terms
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#privacy-and-data-protection" 
+                  href="#warranties" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "privacy-and-data-protection" 
+                    activeSection === "warranties" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Privacy and Data Protection
+                  6. Warranties
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#disclaimers" 
+                  href="#confidential-information" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "disclaimers" 
+                    activeSection === "confidential-information" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Disclaimers
+                  7. Confidential Information
+                </a>
+              </li>
+              <li className="flex">
+                <a 
+                  href="#term-and-termination" 
+                  className={`text-sm leading-snug font-normal transition-colors duration-300 ${
+                    activeSection === "term-and-termination" 
+                      ? "text-primary font-medium" 
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  8. Term and Termination
+                </a>
+              </li>
+              <li className="flex">
+                <a 
+                  href="#indemnity" 
+                  className={`text-sm leading-snug font-normal transition-colors duration-300 ${
+                    activeSection === "indemnity" 
+                      ? "text-primary font-medium" 
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  9. Indemnity
                 </a>
               </li>
               <li className="flex">
@@ -263,43 +307,31 @@ const TermsOfService = () => {
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Limitation of Liability
+                  10. Limitation of Liability
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#termination" 
+                  href="#general-provisions" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "termination" 
+                    activeSection === "general-provisions" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Termination
+                  11. General Provisions
                 </a>
               </li>
               <li className="flex">
                 <a 
-                  href="#governing-law" 
+                  href="#contact-us" 
                   className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "governing-law" 
+                    activeSection === "contact-us" 
                       ? "text-primary font-medium" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  Governing Law
-                </a>
-              </li>
-              <li className="flex">
-                <a 
-                  href="#contact-information" 
-                  className={`text-sm leading-snug font-normal transition-colors duration-300 ${
-                    activeSection === "contact-information" 
-                      ? "text-primary font-medium" 
-                      : "text-muted-foreground hover:text-primary"
-                  }`}
-                >
-                  Contact Information
+                  Contact Us
                 </a>
               </li>
             </ol>
