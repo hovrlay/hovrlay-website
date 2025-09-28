@@ -22,37 +22,38 @@ const PrivacyPolicy = () => {
       "contact-us"
     ];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries.filter(entry => entry.isIntersecting);
-        
-        if (visibleEntries.length > 0) {
-          const mostVisible = visibleEntries.reduce((prev, current) => 
-            prev.intersectionRatio > current.intersectionRatio ? prev : current
-          );
-          setActiveSection(mostVisible.target.id);
+    const updateActiveSection = () => {
+      const scrollTop = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      let activeSectionId = "";
+      
+      // Iterate backwards through sections to find the last one we scrolled past
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i]);
+        if (element) {
+          const elementTop = element.offsetTop;
+          
+          // Check if we've scrolled past 50% of the viewport height for this section
+          if (scrollTop > elementTop - (viewportHeight * 0.5)) {
+            activeSectionId = sections[i];
+            break; // Found the last section we scrolled past
+          }
         }
-      },
-      {
-        rootMargin: "-88px 0px -35% 0px",
-        threshold: 0.1
       }
-    );
+      
+      if (activeSectionId) {
+        setActiveSection(activeSectionId);
+      }
+    };
 
-    sections.forEach((sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        observer.observe(element);
-      }
-    });
+    // Initial check
+    updateActiveSection();
+
+    // Listen to scroll events
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
 
     return () => {
-      sections.forEach((sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          observer.unobserve(element);
-        }
-      });
+      window.removeEventListener('scroll', updateActiveSection);
     };
   }, []);
 
