@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-background mt-12 transition-colors duration-300">
+      <div className="min-h-screen bg-background transition-colors duration-300">
         <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
         
         <AppContent />

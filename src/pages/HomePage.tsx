@@ -23,7 +23,7 @@ const HomePage = () => {
     }
   }, [location.search]);
   return (
-    <>
+    <div className="mt-12">
       <Section direction="up">
         <Hero />
       </Section>
@@ -41,7 +41,7 @@ const HomePage = () => {
       <Section direction="up">
         <FAQ />
       </Section>
-    </>
+    </div>
   );
 };
 
