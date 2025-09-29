@@ -6,8 +6,8 @@
     <title>Page Not Found | Hovrlay</title>
     <script>
         // Store the original path in sessionStorage for React to use
-        // Simple redirect to root - React Router will handle the 404
-        sessionStorage.setItem('redirectPath', window.location.pathname);
+        // Preserve the full URL including query params for all paths
+        sessionStorage.setItem('redirectPath', window.location.pathname + window.location.search);
         window.location.replace('/');
     </script>
 </head>
