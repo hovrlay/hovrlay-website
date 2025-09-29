@@ -58,17 +58,16 @@ const PrivacyPolicy = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-10 md:py-12 mt-16 sm:mt-20 md:mt-24 lg:mt-32 lg:mr-16">
-      <div className="text-left mb-8 sm:mb-10 md:mb-12">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold text-foreground mb-4 sm:mb-6">Privacy Policy</h1>
-        <p className="text-lg md:text-2xl font-light text-muted-foreground">
-          Last updated on 28th of September, 2025
-        </p>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* Main Content */}
-        <div className="lg:col-span-3">
+    <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-16 sm:mt-20 md:mt-24 lg:mt-32">
+      <article className="ml-auto grid max-w-5xl grow grid-cols-1 gap-10 md:gap-16 lg:grid-cols-[auto_12rem] xl:pl-16">
+        <header className="flex flex-col gap-1">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold text-foreground mb-4 sm:mb-6">Privacy Policy</h1>
+          <div className="flex flex-col gap-1 text-lg leading-snug tracking-tight text-muted-foreground lg:text-2xl lg:leading-snug">
+            <p>Last updated on 28th of September, 2025</p>
+          </div>
+        </header>
+        
+        <div className="col-start-1">
 
           <div className="mb-8 sm:mb-10 md:mb-12">
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
@@ -98,7 +97,6 @@ const PrivacyPolicy = () => {
             </p>
           </div>
 
-      <div className="max-w-none">
         <section id="what-information-do-we-collect" className="mb-6 sm:mb-8 md:mb-10">
           <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6">What Information Do We Collect?</h2>
           
@@ -317,11 +315,10 @@ const PrivacyPolicy = () => {
             </a>
           </p>
         </section>
-          </div>
         </div>
 
         {/* Table of Contents - Hidden on mobile, visible on lg+ */}
-        <aside className="lg:col-span-1 hidden lg:block lg:ml-4">
+        <aside className="hidden lg:block">
           <nav className="sticky top-32 space-y-4" aria-label="On this page">
             <h2 className="text-sm font-medium tracking-tight text-foreground">On this page</h2>
             <ol className="flex flex-col gap-y-3">
@@ -456,7 +453,7 @@ const PrivacyPolicy = () => {
             </button>
           </nav>
         </aside>
-      </div>
+      </article>
     </div>
   );
 };

@@ -60,17 +60,16 @@ const TermsOfService = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-10 md:py-12 mt-16 sm:mt-20 md:mt-24 lg:mt-32 lg:mr-16">
-      <div className="text-left mb-8 sm:mb-10 md:mb-12">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold text-foreground mb-4 sm:mb-6">Terms of Service</h1>
-        <p className="text-lg md:text-2xl font-light text-muted-foreground">
-          Last updated on 28th of September, 2025
-        </p>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* Main Content */}
-        <div className="lg:col-span-3">
+    <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-16 sm:mt-20 md:mt-24 lg:mt-32">
+      <article className="ml-auto grid max-w-5xl grow grid-cols-1 gap-10 md:gap-16 lg:grid-cols-[auto_12rem] xl:pl-16">
+        <header className="flex flex-col gap-1">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold text-foreground mb-4 sm:mb-6">Terms of Service</h1>
+          <div className="flex flex-col gap-1 text-lg leading-snug tracking-tight text-muted-foreground lg:text-2xl lg:leading-snug">
+            <p>Last updated on 28th of September, 2025</p>
+          </div>
+        </header>
+        
+        <div className="col-start-1">
           <div className="mb-8 sm:mb-10 md:mb-12">
             <p className="text-medium md:text-lg text-foreground mb-4 sm:mb-6 leading-relaxed font-light">
               This Customer Terms of Service is entered into by and between Hovrlay ("Hovrlay") and the entity or person placing an order for or accessing any Services ("Customer" or "you"). If you are accessing or using the Services on behalf of your company, you represent that you are authorized to accept this Agreement on behalf of your company, and all references to "you" or "Customer" reference your company. <strong>Please note that if you sign up for the Services using an email address from your employer or another entity, then (1) you will be deemed to represent such party, (2) your acceptance will bind your employer or that entity to these terms, and (3) the words "Customer", "you" or "your" in this Agreement will refer to your employer or that entity.</strong>
@@ -331,7 +330,7 @@ const TermsOfService = () => {
         </div>
 
         {/* Table of Contents - Hidden on mobile, visible on lg+ */}
-        <aside className="lg:col-span-1 hidden lg:block lg:ml-4">
+        <aside className="hidden lg:block">
           <nav className="sticky top-32 space-y-4" aria-label="On this page">
             <h2 className="text-sm font-medium tracking-tight text-foreground">On this page</h2>
             <ol className="flex flex-col gap-y-3">
@@ -490,7 +489,7 @@ const TermsOfService = () => {
             </button>
           </nav>
         </aside>
-      </div>
+      </article>
     </div>
   );
 };
