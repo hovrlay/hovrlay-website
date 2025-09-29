@@ -6,7 +6,7 @@ const NotFound = () => {
   }, []);
 
   return (
-    <div className="flex grow items-center justify-center px-5 py-20">
+    <div className="flex grow items-center justify-center px-5 py-20 mt-16">
       <div className="text-center max-w-md md:max-w-lg">
         <h1 className="text-8xl md:text-9xl font-semibold text-foreground mb-4">
           404
