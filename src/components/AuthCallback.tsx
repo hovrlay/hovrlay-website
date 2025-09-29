@@ -3,7 +3,6 @@ import NotFound from '@/pages/NotFound';
 
 const AuthCallback = () => {
   const [shouldShow404, setShouldShow404] = useState(false);
-  const [deeplinkUrl, setDeeplinkUrl] = useState('');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -11,21 +10,16 @@ const AuthCallback = () => {
     const code = searchParams.get('code');
     
     if (error || !code) { setShouldShow404(true); return; }
-    setDeeplinkUrl(`hovrlay://auth/callback?code=${code}`);
+    const deeplinkUrl = `hovrlay://auth/callback?code=${code}`;
+    window.location.href = deeplinkUrl;
   }, []);
 
-  if (shouldShow404) {
-    return <NotFound />;
-  }
-
+  if (shouldShow404) { return <NotFound />; }
   return (
-    <div className="flex items-center justify-center bg-red-50">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6 my-24">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Authentication Callback</h1>
-        <p className="text-gray-600 mb-4">Complete URL:</p>
-        <div className="bg-gray-100 p-3 rounded border">
-          <code className="text-sm break-all">{deeplinkUrl}</code>
-        </div>
+    <div className="flex items-center justify-center my-20 py-20">
+      <div className="text-center my-20 py-20">
+        <h1 className="text-xl font-semibold text-foreground mb-2">Redirecting...</h1>
+        <p className="text-muted-foreground">Opening Hovrlay app...</p>
       </div>
     </div>
   );
