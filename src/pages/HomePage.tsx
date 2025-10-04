@@ -27,18 +27,14 @@ const HomePage = () => {
       <Section direction="up">
         <Hero />
       </Section>
-
       <PoweredBy />
-
       <Section>
         <Demo />
       </Section>
-
-      <Section>
+      <Section direction="up">
         <Features />
       </Section>
-
-      <Section direction="up">
+      <Section>
         <FAQ />
       </Section>
     </div>
