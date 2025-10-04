@@ -5,6 +5,7 @@ import GeminiLogo from "@/assets/logo-gemini.svg?react";
 import ClaudeLogo from "@/assets/logo-claude.svg?react";
 import SupabaseLogo from "@/assets/logo-supabase.svg?react";
 import ElectronLogo from "@/assets/logo-electron.svg?react";
+import DeepgramLogo from "@/assets/logo-deepgram.svg?react";
 
 // Define TypeScript interface for logo objects
 interface Logo {
@@ -16,12 +17,12 @@ interface Logo {
 
 const PoweredBy = () => {
   const logos: Logo[] = [
+    { name: "Supabase", component: SupabaseLogo },
+    { name: "Deepgram", component: DeepgramLogo, offsetDown: true },
     { name: "OpenAI", component: OpenAILogo },
     { name: "Grok", component: GrokLogo },
     { name: "Google Gemini", component: GeminiLogo, offsetUp: true },
-    { name: "Claude", component: ClaudeLogo },
-    { name: "Supabase", component: SupabaseLogo },
-    { name: "Electron", component: ElectronLogo, offsetDown: true },
+    { name: "Claude", component: ClaudeLogo }
   ];
 
   // Duplicate the logos array for the marquee effect
