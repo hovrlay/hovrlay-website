@@ -102,7 +102,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="pt-4 pb-12 px-4 md:px-8 lg:px-12">
+    <section id="faq" className="mt-4 pt-4 pb-12 px-4 md:px-8 lg:px-12">
       <div className="container-custom">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6">

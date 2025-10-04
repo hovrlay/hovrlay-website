@@ -50,7 +50,7 @@ All colors MUST be HSL.
     
     /* Section Background Colors - Light Mode */
     --section-start: white;
-    --section-end: hsl(45, 20%, 90%);
+    --section-end: hsl(220, 13%, 96%);
     --section-shadow: 0 4px 30px rgba(0, 0, 0, 0.0);
     
     /* Animations */
