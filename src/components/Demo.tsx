@@ -33,6 +33,7 @@ const Demo = () => {
               autoPlay
               playsInline
               muted
+              controls
               className="w-full h-full object-cover"
               src="/product-demo.mp4"
             >
