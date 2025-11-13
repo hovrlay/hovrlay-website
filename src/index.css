@@ -115,11 +115,6 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
     scroll-padding-top: 88px; /* Account for fixed header height */
     background-color: hsl(var(--background));
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  * {
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 }
 
