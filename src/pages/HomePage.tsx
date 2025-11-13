@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import PoweredBy from "@/components/PoweredBy";
 import Features from "@/components/Features";
 import Demo from "@/components/Demo";
+import Transcription from "@/components/Transcription";
 import FAQ from "@/components/FAQ";
 import Section from "@/components/Section";
 
@@ -27,14 +28,18 @@ const HomePage = () => {
       <Section direction="up">
         <Hero />
       </Section>
+
       <PoweredBy />
+
+      <Demo />
+
+      <Transcription />
+      
       <Section>
-        <Demo />
-      </Section>
-      <Section direction="up">
         <Features />
       </Section>
-      <Section>
+      
+      <Section direction="up">
         <FAQ />
       </Section>
     </div>

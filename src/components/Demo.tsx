@@ -11,11 +11,8 @@ const Demo = () => {
   <section id="demo" className="py-2 px-4 md:px-8 lg:px-12">
     <div className="container-custom">
       <div className="text-left py-8 mb-6">
-        <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-5">
-          See Hovrlay in Action
-        </h2>
-        <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-5xl">
-          The current development stage of Hovrlay includes a real time transcription, the fastest we have ever seen.<br />These transripts will be fed into our AI models to provide you with the best AI wingman experience.
+        <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-5xl mx-auto">
+        The current build of Hovrlay delivers real-time transcription for both microphone and system audio — faster than anything we have seen. These transcripts will be then processed by advanced AI models to provide powerful, real-time meeting assistance.
         </p>
       </div>
       

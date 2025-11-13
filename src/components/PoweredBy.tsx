@@ -4,7 +4,6 @@ import GrokLogo from "@/assets/logo-grok.svg?react";
 import GeminiLogo from "@/assets/logo-gemini.svg?react";
 import ClaudeLogo from "@/assets/logo-claude.svg?react";
 import SupabaseLogo from "@/assets/logo-supabase.svg?react";
-import ElectronLogo from "@/assets/logo-electron.svg?react";
 import DeepgramLogo from "@/assets/logo-deepgram.svg?react";
 
 // Define TypeScript interface for logo objects
@@ -25,8 +24,8 @@ const PoweredBy = () => {
     { name: "Claude", component: ClaudeLogo }
   ];
 
-  // Duplicate the logos array for the marquee effect
-  const duplicatedLogos: Logo[] = [...logos, ...logos];
+  // Duplicate the logos array for the marquee effect (3 sets for better coverage on bigger screens)
+  const duplicatedLogos: Logo[] = [...logos, ...logos, ...logos];
 
   const renderLogos = () => (
     <div className="flex items-center gap-8 md:gap-12 lg:gap-16 animate-marquee flex-shrink-0">
