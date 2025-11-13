@@ -15,7 +15,7 @@ const Home = () => {
             <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl max-w-3xl font-semibold text-foreground mb-10 leading-tight">
               Your <span className="hero-gradient">AI assistant</span> for meetings
             </h1>
-            <p className="text-base sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-8 font-light mx-auto px-2">
+            <p className="text-sm sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mb-8 font-light mx-auto px-2">
               Takes perfect notes, answers questions in real-time, and makes you the most prepared person on every call.
             </p>
           </div>
