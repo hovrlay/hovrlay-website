@@ -6,7 +6,7 @@
     <script>
       (function() {
         const darkMode = localStorage.getItem('darkMode');
-        if (darkMode === 'true') {
+        if (darkMode !== 'false') {
           document.documentElement.classList.add('dark');
         }
       })();

@@ -133,7 +133,7 @@ const Home = () => {
                 {/* AI Response */}
                 <div className="flex flex-col gap-1">
                   {/* Searched Records Indicator */}
-                  <div className="flex items-center gap-1.5 text-sm font-light lg:text-base text-[#8B939E]">
+                  <div className="flex items-center gap-1.5 text-sm font-light lg:text-base text-white/60">
                     <SearchRecordsIcon className="w-4 h-4 -translate-y-px" />
                     <p>Searched records</p>
                   </div>

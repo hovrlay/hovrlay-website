@@ -44,19 +44,19 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
     <nav className="flex items-center gap-6">
       <button
         onClick={() => handleScroll("features")}
-        className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
+        className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
       >
         Features
       </button>
       <button
         onClick={() => handleScroll("demo")}
-        className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
+        className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
       >
         Demo
       </button>
       <button
         onClick={() => handleScroll("faq")}
-        className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
+        className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
       >
         FAQ
       </button>
@@ -91,19 +91,19 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
       <div className="flex flex-col items-center gap-4">
         <button
           onClick={() => handleScroll("features")}
-          className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
+          className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
         >
           Features
         </button>
         <button
           onClick={() => handleScroll("demo")}
-          className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
+          className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
         >
           Demo
         </button>
         <button
           onClick={() => handleScroll("faq")}
-          className="text-base text-muted-foreground hover:text-foreground transition-colors duration-200"
+          className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
         >
           FAQ
         </button>
