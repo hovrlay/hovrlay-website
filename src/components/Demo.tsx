@@ -21,7 +21,7 @@ const Demo = () => {
         ref={ref}
         className={`animate-scroll-fade-in-up ${isVisible ? 'visible' : ''}`}
       >
-        <div className="glass rounded-lg overflow-hidden mb-12 sm:max-w-5xl md:max-w-6xl lg:max-w-7xl -mx-6 sm:mx-auto md:mx-auto lg:mx-auto">
+        <div className="glass rounded-lg overflow-hidden mb-12 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl -mx-6 sm:mx-auto md:mx-auto lg:mx-auto mb-44">
           <div className="relative aspect-video">
             <video 
               width="1216" 

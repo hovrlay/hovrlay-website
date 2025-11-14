@@ -31,7 +31,9 @@ const HomePage = () => {
 
       <Demo />
 
-      <Transcription />
+      <Section direction="up">
+        <Transcription />
+      </Section>
       
       <Section>
         <Features />

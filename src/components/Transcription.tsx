@@ -49,7 +49,7 @@ const Transcription = () => {
   return (
     <section 
       id="transcription" 
-      className="w-full py-20 bg-gradient-to-b from-transparent via-gray-100/30 to-transparent dark:via-gray-800/20 my-20"
+      className="w-full py-20 my-10"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-x-12 lg:flex-row px-4 md:px-8">
         {/* Image/Visual Element - Hidden on mobile, shown on desktop */}
