@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'true') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <title>Hovrlay - Live AI Meeting Assistant | Real-Time Meeting Notes and AI Insights during Calls and Interviews</title>
     <meta name="description" content="AI meeting assistant that provides live meeting notes, instant answers, and real-time insights during calls and interviews." />
     <meta name="author" content="Anshul Koshyari" />
