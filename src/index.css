@@ -225,6 +225,17 @@ All colors MUST be HSL.
     }
   }
 
+  @keyframes wordFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .animate-marquee {
     animation: marquee 20s linear infinite;
   }
@@ -235,6 +246,12 @@ All colors MUST be HSL.
 
   .animate-icon-rotate {
     animation: iconRotate 0.5s ease-in-out;
+  }
+
+  .animate-word {
+    display: inline-block;
+    opacity: 0;
+    animation: wordFadeIn 0.5s ease-out forwards;
   }
 
   /* Custom list styling for privacy policy */
