@@ -8,20 +8,20 @@ const Demo = () => {
   });
 
   return (
-  <section id="demo" className="py-2 px-4 md:px-8 lg:px-12">
+  <section id="demo" className="py-2 px-4 md:px-8 lg:px-12 mb-44">
     <div className="container-custom">
-      <div className="text-left py-8 mb-6">
-        <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-5xl mx-auto">
-        The current build of Hovrlay delivers real-time transcription for both microphone and system audio — faster than anything we have seen. These transcripts will be then processed by advanced AI models to provide powerful, real-time meeting assistance.
-        </p>
-      </div>
-      
       {/* Product Demo Video */}
       <div 
         ref={ref}
         className={`animate-scroll-fade-in-up ${isVisible ? 'visible' : ''}`}
       >
-        <div className="glass rounded-lg overflow-hidden mb-12 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl -mx-6 sm:mx-auto md:mx-auto lg:mx-auto mb-44">
+        <div
+          className="glass overflow-hidden sm:max-w-3xl md:max-w-4xl lg:max-w-5xl -mx-6 sm:mx-auto md:mx-auto lg:mx-auto"
+          style={{
+            borderRadius: "16px",
+            boxShadow: "0 0 0 1px rgba(255,255,255,0.1), 0 0 40px rgba(79,110,247,0.15)"
+          }}
+        >
           <div className="relative aspect-video">
             <video 
               width="1216" 

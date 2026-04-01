@@ -42,7 +42,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a 
-                href="mailto:hello@hovrlay.com" 
+                href="mailto:support@hovrlay.com" 
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 aria-label="Email us"
               >

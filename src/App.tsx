@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HomePage from "@/pages/HomePage";
@@ -55,15 +55,26 @@ const App = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  return (
-    <Router>
+  const AppLayout = () => {
+    const location = useLocation();
+    const isStandalonePage = location.pathname === "/payment-success";
+
+    return (
       <div className="min-h-screen bg-background">
-        <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
-        
+        {!isStandalonePage ? (
+          <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
+        ) : null}
+
         <AppContent />
 
-        <Footer />
+        {!isStandalonePage ? <Footer /> : null}
       </div>
+    );
+  };
+
+  return (
+    <Router>
+      <AppLayout />
     </Router>
   );
 };

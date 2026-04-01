@@ -33,11 +33,11 @@ const HomePage = () => {
       <Demo />
 
       <Section direction="up">
-        <Transcription />
-      </Section>
-      
-      <Section >
         <Features />
+      </Section>
+
+      <Section>
+        <Transcription />
       </Section>
 
       <Section direction="up">
