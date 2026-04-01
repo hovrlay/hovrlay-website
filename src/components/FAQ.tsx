@@ -92,10 +92,6 @@ const FAQ = () => {
       answer: "Yes. Hovrlay works with any application on your screen, including all video calling platforms like Zoom, Microsoft Teams, Google Meet, Discord, and others."
     },
     {
-      question: "How much does Hovrlay cost?",
-      answer: "We offer different pricing plans to fit various needs. Contact our sales team for current pricing and feature details."
-    },
-    {
       question: "How do I get support?",
       answer: "Contact us at support@hovrlay.com for technical issues or questions."
     }

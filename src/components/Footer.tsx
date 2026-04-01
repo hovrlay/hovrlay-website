@@ -91,7 +91,7 @@ const Footer = () => {
               </li>
               <li>
                 <button 
-                  onClick={() => handleSectionClick("hero")}
+                  onClick={() => handleSectionClick("pricing")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Pricing

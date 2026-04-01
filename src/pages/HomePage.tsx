@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Hero from "@/components/Hero";
 import PoweredBy from "@/components/PoweredBy";
+import Pricing from "@/components/Pricing";
 import Features from "@/components/Features";
 import Demo from "@/components/Demo";
 import Transcription from "@/components/Transcription";
@@ -35,8 +36,12 @@ const HomePage = () => {
         <Transcription />
       </Section>
       
-      <Section>
+      <Section >
         <Features />
+      </Section>
+
+      <Section direction="up">
+        <Pricing />
       </Section>
       
       <Section direction="up">
