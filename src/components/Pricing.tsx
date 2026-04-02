@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import AppleIcon from "@/assets/apple.svg?react";
 import WindowsIcon from "@/assets/windows.svg?react";
+import { handleDownload } from "@/utils/downloads";
 import PricingInfoRefreshIcon from "@/assets/pricing-info-refresh.svg?react";
 import PricingInfoClockIcon from "@/assets/pricing-info-clock.svg?react";
 import PricingInfoPhoneIcon from "@/assets/pricing-info-phone.svg?react";
@@ -85,9 +86,7 @@ const Pricing = () => {
               variant="hero-secondary"
               size="lg"
               className="group"
-              onClick={() => {
-                window.location.href = "#";
-              }}
+              onClick={() => handleDownload("mac")}
             >
               <AppleIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Download for macOS
@@ -96,9 +95,7 @@ const Pricing = () => {
               variant="hero-secondary"
               size="lg"
               className="group"
-              onClick={() => {
-                window.location.href = "#";
-              }}
+              onClick={() => handleDownload("windows")}
             >
               <WindowsIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Download for Windows
