@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import SuccessCheckIcon from "@/assets/success-check.svg?react";
 
 const PaymentSuccess = () => {
   useEffect(() => {
@@ -41,24 +42,7 @@ const PaymentSuccess = () => {
       <div className="mx-auto flex min-h-screen max-w-xl items-center justify-center py-16">
         <div className="w-full text-center">
           <div className="mb-7 flex justify-center">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <circle
-                className="check-circle"
-                cx="24"
-                cy="24"
-                r="20"
-                stroke="#22c55e"
-                strokeWidth="2"
-              />
-              <path
-                className="check-mark"
-                d="M15 24.5L21.5 31L33.5 18.5"
-                stroke="#22c55e"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <SuccessCheckIcon />
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-semibold text-foreground mb-3">

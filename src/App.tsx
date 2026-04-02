@@ -49,7 +49,9 @@ const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
   const location = useLocation();
 
   const isStandalonePage =
-    location.pathname === "/payment-success" || !CHROME_PATHS.has(location.pathname);
+    location.pathname === "/payment-success" ||
+    location.pathname === "/auth/callback" ||
+    !CHROME_PATHS.has(location.pathname);
 
   return (
     <div className="min-h-screen bg-background">
