@@ -30,6 +30,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          VITE_DOWNLOAD_API_BASE: ${{ secrets.VITE_DOWNLOAD_API_BASE }}
         run: npm run predeploy
 
       - name: Setup Pages
