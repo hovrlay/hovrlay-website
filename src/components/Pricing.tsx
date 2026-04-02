@@ -1,6 +1,9 @@
 import { Button } from "@/components/Button";
 import AppleIcon from "@/assets/apple.svg?react";
 import WindowsIcon from "@/assets/windows.svg?react";
+import PricingInfoRefreshIcon from "@/assets/pricing-info-refresh.svg?react";
+import PricingInfoClockIcon from "@/assets/pricing-info-clock.svg?react";
+import PricingInfoPhoneIcon from "@/assets/pricing-info-phone.svg?react";
 
 const plans = [
   { name: "Starter", credits: "3 Call Credits", price: "₹799" },
@@ -12,7 +15,7 @@ const Pricing = () => {
   return (
     <section id="pricing" className="py-14 md:py-20 px-4 md:px-8 lg:px-12">
       <div className="container-custom">
-        <div className="text-center mb-14">
+        <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground my-6">
             Pricing
           </h2>
@@ -21,22 +24,22 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto mb-8">
-          <div className="w-full rounded-full border border-border/70 bg-[#111111] px-4 md:px-6 py-3">
-            <div className="flex items-center justify-center text-xs md:text-sm text-muted-foreground">
-              <div className="flex items-center gap-2 px-2">
-                <span className="text-sm" aria-hidden="true">↺</span>
+        <div className="max-w-3xl mx-auto mb-12">
+          <div className="w-full rounded-full border border-border/70 bg-muted/50 backdrop-blur-sm px-4 md:px-6 py-3">
+            <div className="flex flex-col items-center justify-center gap-3 text-xs md:flex-row md:gap-0 md:text-sm text-muted-foreground">
+              <div className="flex items-center justify-center gap-2 px-2 text-center">
+                <PricingInfoRefreshIcon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
                 <span>30-Day Money Back</span>
               </div>
-              <div className="mx-3 h-4 w-px bg-border/70" />
-              <div className="flex items-center gap-2 px-2">
-                <span className="text-sm" aria-hidden="true">⏱</span>
+              <div className="hidden md:block h-4 w-px shrink-0 bg-border mx-3" aria-hidden />
+              <div className="flex items-center justify-center gap-2 px-2 text-center">
+                <PricingInfoClockIcon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
                 <span>Credits Never Expire</span>
               </div>
-              <div className="mx-3 h-4 w-px bg-border/70" />
-              <div className="flex items-center gap-2 px-2">
-                <span className="text-sm" aria-hidden="true">📞</span>
-                <span>1 Credit = 1 Call</span>
+              <div className="hidden md:block h-4 w-px shrink-0 bg-border mx-3" aria-hidden />
+              <div className="flex items-center justify-center gap-2 px-2 text-center">
+                <PricingInfoPhoneIcon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
+                <span>1 Credit = 1h Call</span>
               </div>
             </div>
           </div>
@@ -46,10 +49,10 @@ const Pricing = () => {
           {plans.map((plan) => (
             <div key={plan.name} className="pt-4">
               <div
-                className={`h-full rounded-lg p-8 border ${
+                className={`glass h-full rounded-lg p-8 ${
                   plan.isPopular
-                    ? "relative overflow-visible bg-[#171717] border-primary/60"
-                    : "bg-[#111111] border-border/70"
+                    ? "relative overflow-visible ring-1 ring-primary/50"
+                    : ""
                 }`}
               >
                 {plan.isPopular ? (

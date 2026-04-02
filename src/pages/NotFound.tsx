@@ -6,21 +6,22 @@ const NotFound = () => {
   }, []);
 
   return (
-    <div className="flex grow items-center justify-center px-5 py-20 mt-16">
-      <div className="text-center max-w-md md:max-w-lg">
-        <h1 className="text-8xl md:text-9xl font-semibold text-foreground mb-4">
-          404
-        </h1>
-        <p className="text-base md:text-lg text-muted-foreground mb-8">
-          We know this isn't where you intended to land, but we hope you have some fun while you're here.
-        </p>
-        <a 
-          href="/"
-          className="inline-flex items-center justify-center rounded-md text-primary-foreground hover:opacity-90 h-10 px-4 py-2 text-sm font-medium transition-all md:h-11 md:px-6 md:text-base"
-          style={{ background: 'var(--hero-gradient)' }}
-        >
-          Go to homepage
-        </a>
+    <div className="min-h-screen bg-background px-5">
+      <div className="mx-auto flex min-h-screen max-w-xl items-center justify-center py-16">
+        <div className="w-full text-center">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-foreground mb-3">
+            Page not found
+          </h1>
+          <p className="text-sm sm:text-base text-muted-foreground mb-8">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-md h-11 px-6 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200"
+          >
+            Go to homepage
+          </a>
+        </div>
       </div>
     </div>
   );

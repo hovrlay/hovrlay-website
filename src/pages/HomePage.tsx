@@ -30,7 +30,9 @@ const HomePage = () => {
 
       <PoweredBy />
 
+      <Section >
       <Demo />
+      </Section>
 
       <Section direction="up">
         <Features />

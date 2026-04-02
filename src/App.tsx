@@ -9,6 +9,13 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 
+const CHROME_PATHS = new Set([
+  "/",
+  "/auth/callback",
+  "/privacy-policy",
+  "/terms"
+]);
+
 const AppContent = () => {
   const navigate = useNavigate();
 
@@ -30,6 +37,30 @@ const AppContent = () => {
       <Route path="/payment-success" element={<PaymentSuccess />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+  );
+};
+
+interface AppLayoutProps {
+  isDarkMode: boolean;
+  onToggleDarkMode: () => void;
+}
+
+const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
+  const location = useLocation();
+
+  const isStandalonePage =
+    location.pathname === "/payment-success" || !CHROME_PATHS.has(location.pathname);
+
+  return (
+    <div className="min-h-screen bg-background">
+      {!isStandalonePage ? (
+        <Header isDarkMode={isDarkMode} onToggleDarkMode={onToggleDarkMode} />
+      ) : null}
+
+      <AppContent />
+
+      {!isStandalonePage ? <Footer /> : null}
+    </div>
   );
 };
 
@@ -55,26 +86,9 @@ const App = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const AppLayout = () => {
-    const location = useLocation();
-    const isStandalonePage = location.pathname === "/payment-success";
-
-    return (
-      <div className="min-h-screen bg-background">
-        {!isStandalonePage ? (
-          <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
-        ) : null}
-
-        <AppContent />
-
-        {!isStandalonePage ? <Footer /> : null}
-      </div>
-    );
-  };
-
   return (
     <Router>
-      <AppLayout />
+      <AppLayout isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
     </Router>
   );
 };

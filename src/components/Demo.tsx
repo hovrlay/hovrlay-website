@@ -8,13 +8,25 @@ const Demo = () => {
   });
 
   return (
-  <section id="demo" className="py-2 px-4 md:px-8 lg:px-12 mb-44">
+  <section id="demo" className="py-2 px-4 md:px-8 lg:px-12 mb-20">
     <div className="container-custom">
       {/* Product Demo Video */}
       <div 
         ref={ref}
         className={`animate-scroll-fade-in-up ${isVisible ? 'visible' : ''}`}
       >
+        <div className="text-center mb-14 flex flex-col items-center gap-6">
+          <span className="inline-flex items-center rounded-full border border-border/70 bg-muted/50 backdrop-blur-sm px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
+            LIVE DEMO
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground">
+            Watch Hovrlay in action
+          </h2>
+          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto">
+            Real-time transcription and AI assistance, invisible to everyone but you.
+          </p>
+        </div>
+
         <div
           className="glass overflow-hidden sm:max-w-3xl md:max-w-4xl lg:max-w-5xl -mx-6 sm:mx-auto md:mx-auto lg:mx-auto"
           style={{
