@@ -5,6 +5,7 @@ import GeminiLogo from "@/assets/logo-gemini.svg?react";
 import ClaudeLogo from "@/assets/logo-claude.svg?react";
 import SupabaseLogo from "@/assets/logo-supabase.svg?react";
 import DeepgramLogo from "@/assets/logo-deepgram.svg?react";
+import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
 
 // Define TypeScript interface for logo objects
 interface Logo {
@@ -16,6 +17,7 @@ interface Logo {
 
 const PoweredBy = () => {
   const logos: Logo[] = [
+    { name: "Razorpay", component: RazorpayLogo },
     { name: "Supabase", component: SupabaseLogo },
     { name: "Deepgram", component: DeepgramLogo, offsetDown: true },
     { name: "OpenAI", component: OpenAILogo },

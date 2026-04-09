@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import ChevronDownIcon from "@/assets/chevron-down.svg?react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface FAQItemProps {
   question: string;
-  answer: string;
+  answer: ReactNode;
   index: number;
   isOpen: boolean;
   onToggle: (index: number) => void;
@@ -80,12 +80,22 @@ const FAQ = () => {
       answer: "Hovrlay runs in the background and observes your screen while listening to your audio during calls and meetings. It uses AI to understand the conversation context and provides real time suggestions, responses and insights to help you communicate better."
     },
     {
+      question: "Is Hovrlay free?",
+      answer:
+        "Yes. Hovrlay is free to try. Download the app and use it in your calls and meetings before you pay anything. No credit card required to get started."
+    },
+    {
+      question: "How do credits work?",
+      answer:
+        "One credit equals one hour of real time AI assistance. Each session uses one credit and ends automatically after an hour. You buy packs only when you need them, and unused credits stay in your account, they never expire."
+    },
+    {
       question: "Is Hovrlay compatible with my operating system?",
-      answer: "Hovrlay works on both Mac and Windows computers. Download the version that matches your operating system from our download section."
+      answer: "Hovrlay works on Mac, Windows and Linux machines. Download the version that matches your operating system from our download section."
     },
     {
       question: "Is my data secure with Hovrlay?",
-      answer: "Yes. We use enterprise grade encryption to protect your data. We only store conversation summaries, not your actual audio recordings. Your conversations are processed in real-time and then deleted."
+      answer: "Yes. We do not store your actual audio recordings. Your conversations are processed in real time and then deleted."
     },
     {
       question: "Can I use Hovrlay during video calls?",
@@ -93,7 +103,18 @@ const FAQ = () => {
     },
     {
       question: "How do I get support?",
-      answer: "Contact us at support@hovrlay.com for technical issues or questions."
+      answer: (
+        <>
+          Contact us at{" "}
+          <a
+            href="mailto:support@hovrlay.com"
+            className="text-primary underline-offset-2 hover:underline font-medium"
+          >
+            support@hovrlay.com
+          </a>{" "}
+          for technical issues or questions.
+        </>
+      )
     }
   ];
 
@@ -105,11 +126,11 @@ const FAQ = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16 mx-auto">
-            Find answers to common questions about Hovrlay and how it can enhance your conversations.
+            Find answers to common questions about Hovrlay and how it can help you in your interviews and meetings.
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto font-light">
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}

@@ -114,7 +114,7 @@ const Transcription = () => {
                 <>
                   Trusted by many teams for reliable transcription.{" "}
                   <br className="hidden lg:block" />
-                  All processed with industry-leading accuracy.
+                  All processed with industry leading accuracy.
                 </>
               }
               delay={300}
