@@ -29,8 +29,6 @@ const AuthCallback = () => {
     return <NotFound />;
   }
 
-  const authDeeplinkHref = `hovrlay://auth/callback${window.location.search}`;
-
   return (
     <div className="min-h-screen bg-background px-5">
       <style>{`
@@ -80,16 +78,6 @@ const AuthCallback = () => {
             />
             <span>Opening Hovrlay...</span>
           </div>
-
-          <p className="text-xs sm:text-sm text-muted-foreground/80">
-            If Hovrlay doesn&apos;t open automatically,{" "}
-            <a
-              href={authDeeplinkHref}
-              className="text-foreground hover:text-primary transition-colors duration-200 underline underline-offset-2"
-            >
-              click here
-            </a>
-          </p>
         </div>
       </div>
     </div>

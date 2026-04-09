@@ -59,16 +59,6 @@ const PaymentSuccess = () => {
             />
             <span>Opening Hovrlay...</span>
           </div>
-
-          <p className="text-xs sm:text-sm text-muted-foreground/80">
-            If Hovrlay doesn't open automatically,{" "}
-            <a
-              href="hovrlay://payment/success"
-              className="text-foreground hover:text-primary transition-colors duration-200 underline underline-offset-2"
-            >
-              click here
-            </a>
-          </p>
         </div>
       </div>
     </div>

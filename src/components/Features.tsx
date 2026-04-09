@@ -1,9 +1,9 @@
 import AiIcon from "@/assets/ai.svg?react";
 import LightningIcon from "@/assets/lightning.svg?react";
-import MemoryIcon from "@/assets/memory.svg?react";
+import EyeOffIcon from "@/assets/eye-off.svg?react";
 import PlatformIcon from "@/assets/platform.svg?react";
 import PrivacyIcon from "@/assets/privacy.svg?react";
-import AnalyticsIcon from "@/assets/analytics.svg?react";
+import GiftIcon from "@/assets/gift.svg?react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface FeatureBoxProps {
@@ -69,30 +69,30 @@ const Features = () => (
         />
         
         <FeatureBox
-          icon={MemoryIcon}
-          title="Conversation Memory"
-          description="Hovrlay remembers your past conversations and interactions, providing richer context and more personalized assistance in future meetings. Build stronger relationships through consistent, informed communication."
+          icon={EyeOffIcon}
+          title="Undetectability"
+          description="Hovrlay does not show up in screen shares or screenshots, so people on your call cannot see it. It stays invisible and undetectable across Zoom, Teams, Meet, Discord, and other meeting platforms."
           delay={100}
         />
         
         <FeatureBox
           icon={PlatformIcon}
           title="Universal Compatibility"
-          description="Works seamlessly across Mac and Windows platforms with any application on your screen. Whether you're using Zoom, Teams, Discord, or any other platform, Hovrlay adapts to your preferred tools."
+          description="Works seamlessly across Mac, Windows and Linux platforms with any application on your screen. Whether you're using Zoom, Teams, Discord, or any other platform, Hovrlay adapts to your preferred tools."
           delay={100}
         />
         
         <FeatureBox
           icon={PrivacyIcon}
           title="Privacy & Security First"
-          description="Your conversations are protected with enterprise-grade encryption. We only store conversation summaries, not raw audio, and process everything in real-time before securely deleting the data."
+          description="Your conversations are transcribed, processed and deleted in real time. We do not store your actual audio recordings."
           delay={200}
         />
         
         <FeatureBox
-          icon={AnalyticsIcon}
-          title="Performance Analytics"
-          description="Get detailed insights and feedback after each conversation. Track your communication patterns, identify areas for improvement, and see how Hovrlay helps enhance your professional interactions."
+          icon={GiftIcon}
+          title="Free to try"
+          description="Download the app and use Hovrlay in your calls and meetings before you pay anything. No credit card required to get started."
           delay={200}
         />
       </div>

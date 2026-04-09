@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import EmailIcon from "@/assets/email.svg?react";
 import XIcon from "@/assets/x.svg?react";
-import LinkedInIcon from "@/assets/linkedin.svg?react";
+import GitHubIcon from "@/assets/github.svg?react";
 
 const Footer = () => {
   const location = useLocation();
@@ -58,13 +58,13 @@ const Footer = () => {
                 <XIcon className="w-5 h-5" />
               </a>
               <a 
-                href="https://linkedin.com/company/hovrlay" 
+                href="https://github.com/hovrlay/hovrlay-releases" 
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Connect with us on LinkedIn"
+                aria-label="Hovrlay releases on GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <LinkedInIcon className="w-5 h-5" />
+                <GitHubIcon className="w-5 h-5" />
               </a>
             </div>
           </div>

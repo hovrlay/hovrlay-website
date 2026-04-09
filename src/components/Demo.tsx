@@ -23,7 +23,7 @@ const Demo = () => {
             Watch Hovrlay in action
           </h2>
           <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Real-time transcription and AI assistance, invisible to everyone but you.
+            Real time AI assistance, invisible to everyone but you.
           </p>
         </div>
 

@@ -158,7 +158,7 @@ const Pricing = () => {
                   <div className="flex flex-col flex-1 p-6 sm:p-7 md:p-8 pt-7">
                     <h4 className="text-xl font-semibold text-foreground tracking-tight">{plan.name}</h4>
 
-                    <p className="mt-6 text-base font-light text-gray-300 leading-snug">
+                    <p className="mt-6 text-base font-normal text-gray-500 leading-snug">
                       {plan.creditCount} credits · {plan.creditCount} hour
                       {plan.creditCount === 1 ? "" : "s"} of live AI help
                     </p>

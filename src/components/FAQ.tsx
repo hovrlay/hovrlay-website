@@ -102,6 +102,11 @@ const FAQ = () => {
       answer: "Yes. Hovrlay works with any application on your screen, including all video calling platforms like Zoom, Microsoft Teams, Google Meet, Discord, and others."
     },
     {
+      question: "Is Hovrlay invisible?",
+      answer:
+        "Yes. Hovrlay does not show up in screen shares or screenshots, so participants on your call cannot see it. It is completely undetectable across all meeting platforms."
+    },
+    {
       question: "How do I get support?",
       answer: (
         <>
