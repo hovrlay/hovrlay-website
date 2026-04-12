@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { OsDownloadButton } from "@/components/OsDownloadButton";
 import Hero from "@/components/Hero";
 import PoweredBy from "@/components/PoweredBy";
 import Pricing from "@/components/Pricing";
@@ -11,6 +12,7 @@ import Section from "@/components/Section";
 
 const HomePage = () => {
   const location = useLocation();
+  const [showStickyDownload, setShowStickyDownload] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -24,8 +26,31 @@ const HomePage = () => {
       }
     }
   }, [location.search]);
+
+  useEffect(() => {
+    const el = document.getElementById("hero-download-cta");
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const scrolledPastHeroCta = entry.boundingClientRect.bottom < 0;
+        setShowStickyDownload(scrolledPastHeroCta);
+      },
+      { threshold: [0, 1] }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div>
+      {showStickyDownload ? (
+        <div className="fixed top-6 right-3 z-[60] md:right-6">
+          <OsDownloadButton />
+        </div>
+      ) : null}
+
       <Hero />
 
       <PoweredBy />

@@ -1,12 +1,8 @@
-import { Button } from "@/components/Button";
-import AppleIcon from "@/assets/apple.svg?react";
-import WindowsIcon from "@/assets/windows.svg?react";
-import DownloadIcon from "@/assets/download.svg?react";
+import { OsDownloadButton } from "@/components/OsDownloadButton";
 import SearchRecordsIcon from "@/assets/search-records.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
 import MessageQuestionIcon from "@/assets/message-question.svg?react";
 import DotIcon from "@/assets/dot.svg?react";
-import { handleDownload } from "@/utils/downloads";
 
 const Home = () => {
   const headingText = "Your AI assistant for meetings";
@@ -82,23 +78,14 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Download buttons section */}
+          {/* Download buttons section — scroll anchor for sticky CTA on HomePage */}
           <div 
+            id="hero-download-cta"
             className="mb-32 opacity-0 animate-fade-in-up"
             style={{ animationDelay: `${buttonsDelay}s` }}
           >
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero-secondary" size="lg" className="group" onClick={() => handleDownload('mac')}>
-                <AppleIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Download for macOS
-                <DownloadIcon className="ml-2 h-4 w-4" />
-              </Button>
-              
-              <Button variant="hero-secondary" size="lg" className="group" onClick={() => handleDownload('windows')}>
-                <WindowsIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Download for Windows
-                <DownloadIcon className="ml-2 h-4 w-4" />
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <OsDownloadButton />
             </div>
           </div>
 
