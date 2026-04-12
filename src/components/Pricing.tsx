@@ -28,6 +28,8 @@ const plans = [
     name: "Plus",
     creditCount: 8,
     priceRupees: 1999,
+    listPriceRupees: 2499,
+    savePercent: 20,
     pricePerCreditRupees: 249,
     tier: "popular" as const,
     description: "Our most popular pack. Ideal for active job seekers."
@@ -36,6 +38,8 @@ const plans = [
     name: "Pro",
     creditCount: 20,
     priceRupees: 3999,
+    listPriceRupees: 5999,
+    savePercent: 33,
     pricePerCreditRupees: 199,
     tier: "bestValue" as const,
     description: "Best for serious job hunters running several interviews per week."
@@ -131,6 +135,10 @@ const Pricing = () => {
           {plans.map((plan) => {
             const isPopular = plan.tier === "popular";
             const isBest = plan.tier === "bestValue";
+            const hasDiscount =
+              "listPriceRupees" in plan &&
+              plan.listPriceRupees != null &&
+              "savePercent" in plan;
 
             const cardRing =
               isPopular
@@ -140,9 +148,9 @@ const Pricing = () => {
                   : "ring-1 ring-border/80 shadow-sm";
 
             return (
-              <div key={plan.name} className="flex flex-col min-h-0 pt-5">
+              <div key={plan.name} className="flex h-full min-h-0 flex-col pt-5">
                 <div
-                  className={`relative flex flex-col h-full overflow-visible rounded-2xl bg-card/40 dark:bg-card/30 backdrop-blur-md ${cardRing}`}
+                  className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 dark:bg-card/30 backdrop-blur-md ${cardRing}`}
                 >
                   {isPopular ? (
                     <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-primary/30 bg-gradient-to-r from-primary to-blue-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-primary/25">
@@ -155,26 +163,59 @@ const Pricing = () => {
                     </span>
                   ) : null}
 
-                  <div className="flex flex-col flex-1 p-6 sm:p-7 md:p-8 pt-7">
-                    <h4 className="text-xl font-semibold text-foreground tracking-tight">{plan.name}</h4>
+                  <div className="flex min-h-0 flex-1 flex-col p-6 sm:p-7 md:p-8 pt-7">
+                    <div>
+                      <h4 className="text-xl font-semibold text-foreground tracking-tight">{plan.name}</h4>
 
-                    <p className="mt-6 text-base font-normal text-gray-500 leading-snug">
-                      {plan.creditCount} credits · {plan.creditCount} hour
-                      {plan.creditCount === 1 ? "" : "s"} of live AI help
-                    </p>
-
-                    <div className="mt-8 pt-8 border-t border-border/60">
-                      <p className="text-4xl sm:text-5xl font-semibold tabular-nums tracking-tight text-foreground">
-                        {formatINR(plan.priceRupees)}
-                      </p>
-                      <p className="mt-2 text-lg font-normal tabular-nums text-muted-foreground">
-                        {formatINR(plan.pricePerCreditRupees)} per credit
-                      </p>
+                      <div className="mt-6">
+                        <p className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+                          <span className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold tabular-nums tracking-tight text-foreground leading-none">
+                            {plan.creditCount}
+                          </span>
+                          <span className="text-lg sm:text-xl font-medium text-foreground">credits</span>
+                        </p>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          {plan.creditCount} hour{plan.creditCount === 1 ? "" : "s"} of live AI help
+                        </p>
+                      </div>
                     </div>
 
-                    <p className="mt-6 text-sm leading-relaxed text-gray-400 flex-1">
-                      {plan.description}
-                    </p>
+                    <div className="mt-16 flex flex-col gap-6">
+                      <div>
+                        {hasDiscount ? (
+                          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                            <span className="text-base sm:text-lg font-medium tabular-nums text-muted-foreground line-through decoration-muted-foreground/70">
+                              {formatINR(plan.listPriceRupees)}
+                            </span>
+                            <span className="text-4xl sm:text-5xl font-semibold tabular-nums tracking-tight text-foreground">
+                              {formatINR(plan.priceRupees)}
+                            </span>
+                          </div>
+                        ) : (
+                          <p className="text-4xl sm:text-5xl font-semibold tabular-nums tracking-tight text-foreground">
+                            {formatINR(plan.priceRupees)}
+                          </p>
+                        )}
+                        <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-2">
+                          <p className="text-xs sm:text-sm font-normal tabular-nums text-muted-foreground">
+                            {formatINR(plan.pricePerCreditRupees)} / credit
+                          </p>
+                          {hasDiscount ? (
+                            <span
+                              className={
+                                isPopular
+                                  ? "inline-flex shrink-0 rounded-full border border-primary/35 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary dark:bg-blue-950/70 dark:text-blue-200"
+                                  : "inline-flex shrink-0 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-200"
+                              }
+                            >
+                              Save {plan.savePercent}%
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      <p className="text-sm leading-relaxed text-gray-400">{plan.description}</p>
+                    </div>
                   </div>
                 </div>
               </div>

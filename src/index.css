@@ -115,11 +115,11 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
     scroll-padding-top: 88px; /* Account for fixed header height */
     background-color: hsl(var(--background));
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
   }
 }
