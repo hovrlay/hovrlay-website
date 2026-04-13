@@ -1,8 +1,155 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import chevronDown from "../assets/chevron-down.svg";
 import invisibleToolSparkle from "../assets/invisible-tool-sparkle.svg";
+import DotIcon from "@/assets/dot.svg?react";
+import MessageQuestionIcon from "@/assets/message-question.svg?react";
+import SearchRecordsIcon from "@/assets/search-records.svg?react";
+import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+
+const WAVEFORM_BAR_COUNT = 48;
+
+const formatMmSs = (totalSeconds: number) => {
+  const safe = Math.max(0, totalSeconds);
+  const mm = Math.floor(safe / 60)
+    .toString()
+    .padStart(2, "0");
+  const ss = (safe % 60).toString().padStart(2, "0");
+  return `${mm}:${ss}`;
+};
+
+const barAlphaForHeightPercent = (heightPercent: number) => {
+  const t = (heightPercent - 5) / (70 - 5);
+  return 0.15 + clamp(t, 0, 1) * (0.5 - 0.15);
+};
+
+const ListeningConversationCard = () => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  const barHeights = useMemo(
+    () =>
+      Array.from({ length: WAVEFORM_BAR_COUNT }, () => 5 + Math.random() * (70 - 5)),
+    [],
+  );
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    setElapsedSeconds(0);
+    const intervalId = window.setInterval(() => {
+      setElapsedSeconds((s) => s + 1);
+    }, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [isVisible]);
+
+  return (
+    <div ref={cardRef} className="relative aspect-[855/855] w-full">
+      <style>
+        {`
+          @keyframes featuresListeningWaveMarquee {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+        `}
+      </style>
+
+      <div className="absolute inset-0 flex flex-col text-muted-foreground p-[14px] md:p-[16px] xl:p-[18px]">
+        <div className="flex min-h-0 flex-1 flex-col justify-center gap-[10px] py-[10px] md:gap-3 md:py-3 xl:gap-[14px] xl:py-4">
+          <div className="text-center">
+            <p className="text-[28px] font-medium tabular-nums tracking-tight md:text-[34px] xl:text-[40px]">
+              {formatMmSs(elapsedSeconds)}
+            </p>
+            <div className="flex items-center justify-center gap-1.5">
+              <span className="size-1.5 shrink-0 rounded-full bg-red-400 animate-pulse" aria-hidden="true" />
+              <span className="text-[10px] font-medium text-[#6B7280] md:text-[12px] xl:text-[14px]">Recording</span>
+            </div>
+          </div>
+
+          <div className="relative h-[28px] w-full overflow-hidden rounded-md md:h-[34px] xl:h-[40px]">
+            <div
+              className="absolute left-0 top-0 flex h-full items-center gap-[3px] md:gap-1 xl:gap-[5px]"
+              style={{
+                width: "200%",
+                animation: "featuresListeningWaveMarquee 5s linear infinite",
+              }}
+            >
+              {[0, 1].flatMap((dup) =>
+                barHeights.map((h, i) => (
+                  <div
+                    key={`${dup}-${i}`}
+                    className="w-1 shrink-0 rounded-full"
+                    style={{
+                      height: `${h}%`,
+                      backgroundColor: `rgba(0,0,0,${barAlphaForHeightPercent(h)})`,
+                    }}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="shrink-0">
+          <div
+            className="flex flex-col justify-between overflow-hidden rounded-[10px] bg-gradient-to-b from-[#21232a]/50 to-[#21232a]/80 p-[8px] backdrop-blur-sm md:rounded-xl md:p-[10px] xl:p-[12px]"
+            style={{
+              boxShadow:
+                "rgba(207, 226, 255, 0.24) 0px 0px 0px 1px, rgba(255, 255, 255, 0.8) 0px -0.5px 0px 0px, rgba(0, 0, 0, 0) 0px 174px 49px 0px, rgba(0, 0, 0, 0.08) 0px 112px 45px 0px, rgba(0, 0, 0, 0.14) 0px 63px 38px 0px, rgba(0, 0, 0, 0.16) 0px 28px 28px 0px, rgba(0, 0, 0, 0.2) 0px 7px 15px 0px",
+            }}
+          >
+            <div className="flex w-full flex-col gap-1.5 md:gap-2">
+              <div className="flex flex-wrap items-center gap-x-1 gap-y-0.5 px-0.5 text-[6px] md:text-[7px] xl:text-[8px]">
+                <div className="flex items-center gap-0.5 text-[#EDEEF2] md:gap-1">
+                  <WandSparklesIcon className="size-[10px] shrink-0 text-white/60 md:size-3 xl:size-[14px]" />
+                  What should I say?
+                </div>
+                <DotIcon className="hidden size-[10px] shrink-0 text-white/60 lg:block xl:size-3" />
+                <div className="hidden items-center gap-0.5 text-[#EDEEF2] lg:flex md:gap-1">
+                  <MessageQuestionIcon className="size-[10px] shrink-0 text-white/60 md:size-3 xl:size-[14px]" />
+                  Follow-up questions
+                </div>
+              </div>
+
+              <div className="flex h-[28px] w-full items-center rounded-[10px] border border-white/20 bg-[#1a1e2d]/50 px-2 py-1 text-[6px] font-medium text-[#7A7A84] md:h-[32px] md:rounded-xl md:px-2.5 md:text-[7px] xl:h-9 xl:px-3 xl:text-[8px]">
+                <span>Ask, </span>
+                <span className="mx-0.5 inline-flex h-fit items-center justify-center rounded border-[0.5px] border-[#80828C] px-0.5 py-px text-[6px] text-[#80828C] md:mx-1 md:text-[7px] xl:text-[8px]">
+                  ⌘
+                </span>
+                <span className="mr-0.5 inline-flex h-fit items-center justify-center rounded border-[0.5px] border-[#80828C] px-0.5 py-px text-[6px] text-[#80828C] md:mx-0 md:text-[7px] xl:text-[8px]">
+                  ⏎
+                </span>
+                <span> to start typing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Features = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -47,7 +194,7 @@ const Features = () => {
     <section id="features" className="px-4 py-2 md:px-8 lg:px-12">
       <div className="container-custom">
         <div className="mb-10 text-center">
-          <h2 className="my-6 text-3xl font-semibold section-title-gradient sm:text-4xl md:text-4xl lg:text-5xl">
+          <h2 className="my-6 text-3xl font-medium section-title-gradient sm:text-4xl md:text-4xl lg:text-5xl">
             Why Choose Hovrlay?
           </h2>
           <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-base md:text-base lg:text-lg">
@@ -69,7 +216,7 @@ const Features = () => {
                         <span className="text-[8px] font-medium tracking-tight text-[#9AA4B2] md:text-[10px] xl:text-[12px]">(4)</span>
                       </div>
 
-                      <div className="flex items-center gap-1 rounded bg-[#EAEDF5] px-2 py-1 text-[8px] font-medium xl:text-[10px] 2xl:text-[11px]">
+                      <div className="flex items-center gap-1 rounded bg-gray-300 px-2 py-1 text-[8px] font-medium xl:text-[10px] 2xl:text-[11px]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="12"
@@ -248,18 +395,21 @@ const Features = () => {
               </p>
             </div>
 
-            {Array.from({ length: 1 }).map((_, idx) => (
-              <div key={`feature-placeholder-${idx}`} className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
-                <div className="aspect-[315/300] rounded-2xl border border-dashed border-[#BBC5DD] bg-[#EEF2FA]/60" />
-                <p className="mt-4 text-[28px] leading-[1.25] tracking-tight text-[#9CA3AF]">
-                  <span className="font-semibold">Feature headline.</span> Description for this card will be added here.
-                </p>
+            <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
+              <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)]">
+                <ListeningConversationCard />
               </div>
-            ))}
+              <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
+                <span className="font-medium">Hovrlay listens to the conversation. </span>
+                <span className="text-muted-foreground font-light">
+                  It picks up the context of your meeting in real time, so it can help when you need it.
+                </span>
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mx-auto mt-10 w-full max-w-5xl px-2 py-3 md:mt-12">
+        <div className="mx-auto mt-16 w-full max-w-5xl px-2 py-3 md:mt-20">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#8C929D]">
             Compatible with every tool
           </p>
@@ -273,7 +423,7 @@ const Features = () => {
               { src: "/meet.footer.png", label: "Google Meet" },
             ].map((tool) => (
               <div key={tool.label} className="flex items-center gap-2.5">
-                <img src={tool.src} alt={tool.label} className="h-6 w-6 object-contain md:h-7 md:w-7" />
+                <img src={tool.src} alt={tool.label} className="h-6 w-6 object-contain md:h-8 md:w-8" />
                 <span className="text-lg font-medium text-[#1F2937] dark:text-[#D1D5DB]">{tool.label}</span>
               </div>
             ))}

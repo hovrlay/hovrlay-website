@@ -21,12 +21,12 @@ const StatItem = ({ value, unit, label, description, delay = 0 }: StatItemProps)
       className={`flex flex-col items-start gap-x-12 lg:flex-row animate-scroll-fade-in-up ${isVisible ? 'visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="mt-2 text-5xl font-medium text-foreground lg:w-40 lg:flex-shrink-0">
+      <div className="mt-2 text-5xl text-foreground lg:w-40 lg:flex-shrink-0">
         {value}
         {unit && <span className="text-3xl">{unit}</span>}
       </div>
       <div className="flex flex-col gap-y-3 flex-1">
-        <span className="text-2xl md:text-3xl font-light text-foreground">{label}</span>
+        <span className="text-2xl md:text-3xl text-foreground">{label}</span>
         <span className="text-base md:text-lg text-muted-foreground leading-relaxed">
           {description}
         </span>
@@ -69,10 +69,10 @@ const Transcription = () => {
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col gap-y-12 lg:gap-y-16 w-full lg:flex-1">
+        <div className="flex flex-col gap-y-12 lg:gap-y-20 w-full lg:flex-1">
           <h2 
             ref={headerRef}
-            className={`text-3xl sm:text-4xl lg:text-5xl font-semibold section-title-gradient leading-tight animate-scroll-fade-in-up ${headerVisible ? 'visible' : ''}`}
+            className={`text-3xl sm:text-4xl lg:text-5xl font-medium section-title-gradient leading-tight animate-scroll-fade-in-up ${headerVisible ? 'visible' : ''}`}
           >
             Real-time transcription
           </h2>
