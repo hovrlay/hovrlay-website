@@ -19,7 +19,7 @@ const Demo = () => {
           <span className="inline-flex items-center rounded-full border border-border/70 bg-muted/50 backdrop-blur-sm px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
             LIVE DEMO
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold section-title-gradient">
             Watch Hovrlay in action
           </h2>
           <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto">

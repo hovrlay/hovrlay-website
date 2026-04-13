@@ -174,7 +174,7 @@ const Pricing = () => {
           className={`mb-14 md:mb-18 lg:mb-20 animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}
         >
           <div className="text-center mb-16 md:mb-18">
-            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground ">
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold section-title-gradient ">
               Pricing
             </h2>
           </div>

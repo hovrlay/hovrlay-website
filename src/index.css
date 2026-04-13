@@ -11,7 +11,7 @@ All colors MUST be HSL.
   :root {
     /* Background & Surface Colors */
     --background: 0 0% 100%;           /* Pure white background */
-    --foreground: 240 10% 3.9%;        /* Dark text on light background */
+    --foreground: 228 10% 20%;         /* Primary text (#2E3038) */
 
     --card: 0 0% 100%;                 /* White cards */
     --card-foreground: 240 10% 3.9%;   /* Dark text on cards */
@@ -28,7 +28,7 @@ All colors MUST be HSL.
     --secondary-foreground: 240 5.9% 10%; /* Dark text on secondary */
 
     --muted: 240 4.8% 95.9%;           /* Light muted background */
-    --muted-foreground: 240 3.8% 46.1%; /* Medium gray text */
+    --muted-foreground: 229 8% 40%;    /* Secondary text (#5E616E) */
 
     --accent: 240 4.8% 95.9%;          /* Light accent background */
     --accent-foreground: 240 5.9% 10%; /* Dark text on accent */
@@ -180,6 +180,20 @@ All colors MUST be HSL.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .section-title-gradient {
+    background-image: linear-gradient(to right, #19191d, #626275);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .dark .section-title-gradient {
+    background-image: none;
+    -webkit-text-fill-color: hsl(var(--foreground));
+    color: hsl(var(--foreground));
   }
 }
 

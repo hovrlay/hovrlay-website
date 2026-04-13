@@ -56,7 +56,7 @@ const Home = () => {
         <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
           <div className="mb-20">
-            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl max-w-xl font-medium text-foreground mb-10 leading-tight">
+            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl max-w-xl font-medium section-title-gradient mb-10 leading-tight">
               {words.map((word, index) => (
                 <span
                   key={index}
