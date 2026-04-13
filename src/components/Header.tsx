@@ -11,6 +11,7 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
 
   const handleScroll = (sectionId: string) => {
     if (location.pathname !== "/") {
@@ -44,19 +45,19 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
     <nav className="flex items-center gap-6">
       <button
         onClick={() => handleScroll("features")}
-        className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
+        className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
       >
         Features
       </button>
       <button
         onClick={() => handleScroll("demo")}
-        className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
+        className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
       >
         Demo
       </button>
       <button
         onClick={() => handleScroll("faq")}
-        className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
+        className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
       >
         FAQ
       </button>
@@ -67,7 +68,7 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   const hamburgerButton = (
     <button
       onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
-      className="text-foreground hover:text-muted-foreground transition-colors duration-200"
+      className="text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
       aria-label="Toggle menu"
     >
       <svg
@@ -87,23 +88,23 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   );
 
   const hamburgerDropdown = (
-    <nav className="md:hidden glass rounded-lg shadow-lg mt-2 ml-auto mr-4 py-4 w-48">
-      <div className="flex flex-col items-center gap-4">
+    <nav className="md:hidden mt-2 ml-4 py-4 w-48 bg-background/95 backdrop-blur-sm rounded-md border border-border/40">
+      <div className="flex flex-col items-start gap-4 px-4">
         <button
           onClick={() => handleScroll("features")}
-          className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
+          className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
         >
           Features
         </button>
         <button
           onClick={() => handleScroll("demo")}
-          className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
+          className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
         >
           Demo
         </button>
         <button
           onClick={() => handleScroll("faq")}
-          className="text-base text-gray-600 dark:text-gray-400 hover:text-foreground transition-colors duration-200"
+          className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
         >
           FAQ
         </button>
@@ -112,16 +113,16 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 mt-4 z-50">
-      <div className="max-w-4xl mx-auto px-4">
+    <header className={`${isLegalPage ? "fixed" : "absolute"} top-0 left-0 right-0 z-50`}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         {/* Desktop Navigation */}
-        <div className="hidden md:flex glass rounded-lg shadow-lg items-center justify-between h-16 px-6">
+        <div className="hidden md:flex items-center justify-between h-16">
           {hovrlayButton}
           {desktopNavigation}
         </div>
 
         {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center justify-between glass rounded-lg shadow-lg h-16 px-6">
+        <div className="flex md:hidden items-center justify-between h-16">
           {hovrlayButton}
           <div className="flex items-center gap-4">
             <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />

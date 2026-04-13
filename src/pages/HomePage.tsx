@@ -45,11 +45,15 @@ const HomePage = () => {
 
   return (
     <div>
-      {showStickyDownload ? (
-        <div className="fixed top-6 right-3 z-[60] md:right-6">
-          <OsDownloadButton />
-        </div>
-      ) : null}
+      <div
+        className={`hidden md:block fixed top-6 right-3 z-[60] md:right-6 transition-all duration-300 ease-out ${
+          showStickyDownload
+            ? "opacity-100 scale-100 pointer-events-auto"
+            : "opacity-0 scale-95 pointer-events-none"
+        }`}
+      >
+        <OsDownloadButton />
+      </div>
 
       <Hero />
 
@@ -71,9 +75,7 @@ const HomePage = () => {
         <Pricing />
       </Section>
       
-      <Section direction="up">
-        <FAQ />
-      </Section>
+      <FAQ />
     </div>
   );
 };

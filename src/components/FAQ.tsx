@@ -47,15 +47,13 @@ const FAQItem = ({ question, answer, index, isOpen, onToggle, delay }: FAQItemPr
           }`}
         >
           <div className="px-4 pb-4">
-            <div className="border-t border-foreground/10 pt-4">
               <p 
-                className={`text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
-                  isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-                }`}
-              >
-                {answer}
-              </p>
-            </div>
+                className={`max-w-2xl text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
+                isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+              }`}
+            >
+              {answer}
+            </p>
           </div>
         </div>
       </div>
@@ -124,18 +122,18 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="mt-4 pt-4 pb-12 px-4 md:px-8 lg:px-12">
+    <section id="faq" className="px-12 md:px-16 lg:px-20 mx-12 md:mx-16 lg:mx-20 mb-16">
       <div className="container-custom">
-        <div className="text-center">
+        <div className="text-left">
           <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16 mx-auto">
+          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16">
             Find answers to common questions about Hovrlay and how it can help you in your interviews and meetings.
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto font-light">
+        <div className="max-w-4xl font-light">
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}

@@ -8,6 +8,7 @@ import AuthCallback from "@/components/AuthCallback";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import PaymentSuccess from "@/pages/PaymentSuccess";
+import { OsDownloadButton } from "@/components/OsDownloadButton";
 
 const CHROME_PATHS = new Set([
   "/",
@@ -47,6 +48,8 @@ interface AppLayoutProps {
 
 const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
   const location = useLocation();
+  const isLegalPage =
+    location.pathname === "/privacy-policy" || location.pathname === "/terms";
 
   const isStandalonePage =
     location.pathname === "/payment-success" ||
@@ -57,6 +60,11 @@ const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
     <div className="min-h-screen bg-background">
       {!isStandalonePage ? (
         <Header isDarkMode={isDarkMode} onToggleDarkMode={onToggleDarkMode} />
+      ) : null}
+      {isLegalPage ? (
+        <div className="fixed top-6 right-3 z-[60] md:right-6">
+          <OsDownloadButton />
+        </div>
       ) : null}
 
       <AppContent />

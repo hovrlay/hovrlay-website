@@ -158,7 +158,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-border mt-12 pt-8">
           <div className="text-sm text-muted-foreground text-left">
-            <span>&copy; 2025 Hovrlay. All rights reserved.</span>
+            <span>&copy; 2026 Hovrlay. All rights reserved.</span>
           </div>
         </div>
       </div>

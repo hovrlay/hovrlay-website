@@ -1,0 +1,17 @@
+<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_invisible_tool)">
+    <path
+      d="M8.43652 5.31348L12.5908 7.00098L8.43652 8.68848L6.74902 12.8428L5.06152 8.68848L0.90625 7.00098L5.06152 5.31348L6.74902 1.1582L8.43652 5.31348ZM3.12207 2.19043L4.5 2.78125L3.12207 3.37207L2.53125 4.75L1.94043 3.37207L0.5625 2.78125L1.94043 2.19043L2.53125 0.8125L3.12207 2.19043Z"
+      fill="url(#paint0_invisible_tool)"
+    />
+  </g>
+  <defs>
+    <linearGradient id="paint0_invisible_tool" x1="2.53097" y1="0.8125" x2="5.62516" y2="8.87483" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#439AF0" />
+      <stop offset="1" stop-color="#4360F0" />
+    </linearGradient>
+    <clipPath id="clip0_invisible_tool">
+      <rect width="13.5" height="13.5" fill="white" transform="translate(0 0.25)" />
+    </clipPath>
+  </defs>
+</svg>

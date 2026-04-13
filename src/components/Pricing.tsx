@@ -1,4 +1,5 @@
 import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -8,7 +9,18 @@ function formatINR(amount: number): string {
   }).format(Math.round(amount));
 }
 
-const plans = [
+type PricingPlan = {
+  name: string;
+  creditCount: number;
+  priceRupees: number;
+  pricePerCreditRupees: number;
+  tier: "default" | "popular" | "bestValue";
+  description: string;
+  listPriceRupees?: number;
+  savePercent?: number;
+};
+
+const plans: PricingPlan[] = [
   {
     name: "Starter",
     creditCount: 3,
@@ -39,12 +51,128 @@ const plans = [
   }
 ];
 
+interface PricingCardProps {
+  plan: PricingPlan;
+  delay?: number;
+}
+
+const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
+  const { ref, isVisible } = useScrollAnimation({
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+    triggerOnce: true
+  });
+
+  const isPopular = plan.tier === "popular";
+  const isBest = plan.tier === "bestValue";
+  const hasDiscount = plan.listPriceRupees != null && plan.savePercent != null;
+
+  const cardRing =
+    isPopular
+      ? "ring-2 ring-primary/50 shadow-xl shadow-primary/10 dark:shadow-primary/20"
+      : isBest
+        ? "ring-2 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 dark:ring-emerald-400/35 dark:shadow-emerald-500/15"
+        : "ring-1 ring-border/80 shadow-sm";
+
+  return (
+    <div
+      ref={ref}
+      className={`flex h-full min-h-0 flex-col pt-5 animate-scroll-fade-in-up ${isVisible ? "visible" : ""}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <div
+        className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 dark:bg-card/30 backdrop-blur-md ${cardRing}`}
+      >
+        {isPopular ? (
+          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-primary/30 bg-gradient-to-r from-primary to-blue-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-primary/25">
+            Most popular
+          </span>
+        ) : null}
+        {isBest ? (
+          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-400/40 bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-600/25 dark:from-emerald-500 dark:to-teal-500">
+            Best value
+          </span>
+        ) : null}
+
+        <div className="flex min-h-0 flex-1 flex-col p-6 sm:p-7 md:p-8 pt-7">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+            <h4 className="text-xl font-semibold text-foreground tracking-tight">{plan.name}</h4>
+            {hasDiscount ? (
+              <span
+                className={
+                  isPopular
+                    ? "inline-flex shrink-0 rounded-full border border-primary/35 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary dark:bg-blue-950/70 dark:text-blue-200"
+                    : "inline-flex shrink-0 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-200"
+                }
+              >
+                Save {plan.savePercent}%
+              </span>
+            ) : null}
+          </div>
+
+          <p className="mt-4 text-sm leading-relaxed text-gray-400">{plan.description}</p>
+
+          <div className="mt-5 space-y-1">
+            <p className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0">
+              <span className="text-2xl sm:text-3xl font-medium tabular-nums tracking-tight text-foreground leading-none">
+                {plan.creditCount}
+              </span>
+              <span className="text-sm font-medium text-foreground">credits</span>
+            </p>
+            <p className="text-xs sm:text-sm text-muted-foreground/90">
+              {plan.creditCount} hour{plan.creditCount === 1 ? "" : "s"} of live AI help
+            </p>
+          </div>
+
+          <div className="mt-8">
+            {hasDiscount ? (
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="text-base sm:text-lg font-medium tabular-nums text-muted-foreground line-through decoration-muted-foreground/70">
+                  {formatINR(plan.listPriceRupees!)}
+                </span>
+                <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-foreground">
+                  {formatINR(plan.priceRupees)}
+                </span>
+              </div>
+            ) : (
+              <p className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-foreground">
+                {formatINR(plan.priceRupees)}
+              </p>
+            )}
+            <p className="mt-1.5 text-xs sm:text-sm font-normal tabular-nums text-muted-foreground">
+              {formatINR(plan.pricePerCreditRupees)} / credit
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Pricing = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
+  const { ref: pillsRef, isVisible: pillsVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
+  const { ref: footerRef, isVisible: footerVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
   return (
     <section id="pricing" className="relative py-16 md:py-24 lg:py-28 px-4 sm:px-6">
       <div className="container-custom relative max-w-6xl mx-auto">
         {/* —— Hero —— */}
-        <header className="mb-14 md:mb-18 lg:mb-20">
+        <header
+          ref={headerRef}
+          className={`mb-14 md:mb-18 lg:mb-20 animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}
+        >
           <div className="text-center mb-16 md:mb-18">
             <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold text-foreground ">
               Pricing
@@ -64,7 +192,11 @@ const Pricing = () => {
           </div>
 
           {/* Emphasis pills */}
-          <div className="mt-10 flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3">
+          <div
+            ref={pillsRef}
+            className={`mt-10 flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 animate-scroll-fade-in-up ${pillsVisible ? "visible" : ""}`}
+            style={{ transitionDelay: "100ms" }}
+          >
             <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-xs sm:text-sm font-medium text-foreground shadow-sm">
               Start for free
             </span>
@@ -79,95 +211,17 @@ const Pricing = () => {
 
         {/* —— Plans —— */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
-          {plans.map((plan) => {
-            const isPopular = plan.tier === "popular";
-            const isBest = plan.tier === "bestValue";
-            const hasDiscount =
-              "listPriceRupees" in plan &&
-              plan.listPriceRupees != null &&
-              "savePercent" in plan;
-
-            const cardRing =
-              isPopular
-                ? "ring-2 ring-primary/50 shadow-xl shadow-primary/10 dark:shadow-primary/20"
-                : isBest
-                  ? "ring-2 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 dark:ring-emerald-400/35 dark:shadow-emerald-500/15"
-                  : "ring-1 ring-border/80 shadow-sm";
-
-            return (
-              <div key={plan.name} className="flex h-full min-h-0 flex-col pt-5">
-                <div
-                  className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 dark:bg-card/30 backdrop-blur-md ${cardRing}`}
-                >
-                  {isPopular ? (
-                    <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-primary/30 bg-gradient-to-r from-primary to-blue-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-primary/25">
-                      Most popular
-                    </span>
-                  ) : null}
-                  {isBest ? (
-                    <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-400/40 bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-600/25 dark:from-emerald-500 dark:to-teal-500">
-                      Best value
-                    </span>
-                  ) : null}
-
-                  <div className="flex min-h-0 flex-1 flex-col p-6 sm:p-7 md:p-8 pt-7">
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-                      <h4 className="text-xl font-semibold text-foreground tracking-tight">{plan.name}</h4>
-                      {hasDiscount ? (
-                        <span
-                          className={
-                            isPopular
-                              ? "inline-flex shrink-0 rounded-full border border-primary/35 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary dark:bg-blue-950/70 dark:text-blue-200"
-                              : "inline-flex shrink-0 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-200"
-                          }
-                        >
-                          Save {plan.savePercent}%
-                        </span>
-                      ) : null}
-                    </div>
-
-                    <p className="mt-4 text-sm leading-relaxed text-gray-400">{plan.description}</p>
-
-                    <div className="mt-5 space-y-1">
-                      <p className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0">
-                        <span className="text-2xl sm:text-3xl font-medium tabular-nums tracking-tight text-foreground leading-none">
-                          {plan.creditCount}
-                        </span>
-                        <span className="text-sm font-medium text-foreground">credits</span>
-                      </p>
-                      <p className="text-xs sm:text-sm text-muted-foreground/90">
-                        {plan.creditCount} hour{plan.creditCount === 1 ? "" : "s"} of live AI help
-                      </p>
-                    </div>
-
-                    <div className="mt-8">
-                      {hasDiscount ? (
-                        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                          <span className="text-base sm:text-lg font-medium tabular-nums text-muted-foreground line-through decoration-muted-foreground/70">
-                            {formatINR(plan.listPriceRupees)}
-                          </span>
-                          <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-foreground">
-                            {formatINR(plan.priceRupees)}
-                          </span>
-                        </div>
-                      ) : (
-                        <p className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-foreground">
-                          {formatINR(plan.priceRupees)}
-                        </p>
-                      )}
-                      <p className="mt-1.5 text-xs sm:text-sm font-normal tabular-nums text-muted-foreground">
-                        {formatINR(plan.pricePerCreditRupees)} / credit
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {plans.map((plan, index) => (
+            <PricingCard key={plan.name} plan={plan} delay={index * 100} />
+          ))}
         </div>
 
         {/* —— Footer: trust + Razorpay —— */}
-        <footer className="mt-10 pt-12 md:pt-16">
+        <footer
+          ref={footerRef}
+          className={`mt-10 pt-12 md:pt-16 animate-scroll-fade-in-up ${footerVisible ? "visible" : ""}`}
+          style={{ transitionDelay: "150ms" }}
+        >
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <p className="text-sm text-muted-foreground leading-relaxed">
               Purchases are completed in the Hovrlay app.
