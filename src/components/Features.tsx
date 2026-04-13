@@ -63,7 +63,7 @@ const Features = () => {
                   <div className="absolute inset-x-[14px] top-[14px] rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] px-[8px] py-[7px] md:inset-x-[16px] md:top-[16px] md:rounded-xl md:px-[10px] md:py-[9px] xl:inset-x-[18px] xl:top-[18px] xl:px-[12px] xl:py-[10px]">
                     <div className="mb-[3px] flex items-center justify-between gap-1.5 md:mb-[5px] xl:mb-[6px]">
                       <div className="flex items-baseline gap-1">
-                        <span className="text-[8px] font-medium tracking-tight text-foreground md:text-[10px] xl:text-[12px]">
+                        <span className="text-[8px] font-medium tracking-tight text-muted-foreground md:text-[10px] xl:text-[12px]">
                           Meeting participants
                         </span>
                         <span className="text-[8px] font-medium tracking-tight text-[#9AA4B2] md:text-[10px] xl:text-[12px]">(4)</span>
