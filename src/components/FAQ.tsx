@@ -122,9 +122,9 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="px-12 md:px-16 lg:px-20 mx-12 md:mx-16 lg:mx-20">
-      <div className="container-custom">
-        <div className="text-left">
+    <section id="faq" className="px-4 md:px-8 lg:px-12">
+      <div className="container-custom mx-auto max-w-6xl">
+        <div className="mx-auto max-w-4xl text-left">
           <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient mb-6">
             Frequently Asked Questions
           </h2>
@@ -133,7 +133,7 @@ const FAQ = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl font-light">
+        <div className="mx-auto max-w-4xl font-light">
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}

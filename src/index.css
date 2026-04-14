@@ -10,7 +10,7 @@ All colors MUST be HSL.
   /* LIGHT MODE COLORS */
   :root {
     /* Background & Surface Colors */
-    --background: 220 30% 98%;         /* Site background uses section darker shade */
+    --background: 220 30% 100%;         /* Site background uses section darker shade */
     --foreground: 228 10% 20%;         /* Primary text (#2E3038) */
 
     --card: 0 0% 100%;                 /* White cards */
