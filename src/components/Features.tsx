@@ -431,7 +431,7 @@ const Features = () => {
           className={`mx-auto mt-16 w-full max-w-5xl px-2 py-3 md:mt-20 animate-scroll-fade-in-up ${toolsVisible ? "visible" : ""}`}
           style={{ transitionDelay: "200ms" }}
         >
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#8C929D]">
+          <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-[#8C929D]">
             Compatible with every tool
           </p>
 
