@@ -114,11 +114,19 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
 
   return (
     <header className={`${isLegalPage ? "fixed" : "absolute"} top-0 left-0 right-0 z-50`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      {isLegalPage && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-32 sm:h-36 bg-gradient-to-b from-background via-background/95 via-background/75 to-transparent"
+        />
+      )}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-between h-16">
-          {hovrlayButton}
-          {desktopNavigation}
+        <div className="hidden md:flex items-center h-16">
+          <div className="flex items-center gap-10">
+            {hovrlayButton}
+            {desktopNavigation}
+          </div>
         </div>
 
         {/* Mobile Navigation */}
