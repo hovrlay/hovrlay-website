@@ -195,6 +195,20 @@ All colors MUST be HSL.
     -webkit-text-fill-color: hsl(var(--foreground));
     color: hsl(var(--foreground));
   }
+
+  .blue-glassy-button {
+    background: linear-gradient(160deg, #5580ff 0%, #385ee9 58%, #1746d4 100%);
+    box-shadow: 0 4px 20px rgba(30, 70, 210, 0.45);
+  }
+
+  .blue-glassy-button:hover {
+    box-shadow: 0 6px 28px rgba(30, 70, 210, 0.6)
+  }
+
+  .blurred-border {
+    border: 1px solid rgba(140, 185, 255, 0.5);
+    border-radius: inherit;
+  }
 }
 
 @layer utilities {
@@ -270,6 +284,28 @@ All colors MUST be HSL.
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes shimmerSweep {
+    0% {
+      transform: translateX(-80px) skewX(-15deg);
+      opacity: 0;
+    }
+    3% { opacity: 1; }
+    18% {
+      transform: translateX(360px) skewX(-15deg);
+      opacity: 0;
+    }
+    /* hold off-screen for the rest of the cycle — this is the pause */
+    18.01%, 100% {
+      transform: translateX(-80px) skewX(-15deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-shimmer-sweep {
+    animation: shimmerSweep 4.5s linear infinite;
+    will-change: transform, opacity;
   }
 
   .animate-marquee {

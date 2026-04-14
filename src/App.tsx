@@ -12,7 +12,6 @@ import { OsDownloadButton } from "@/components/OsDownloadButton";
 
 const CHROME_PATHS = new Set([
   "/",
-  "/auth/callback",
   "/privacy-policy",
   "/terms"
 ]);
@@ -48,13 +47,8 @@ interface AppLayoutProps {
 
 const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
   const location = useLocation();
-  const isLegalPage =
-    location.pathname === "/privacy-policy" || location.pathname === "/terms";
-
-  const isStandalonePage =
-    location.pathname === "/payment-success" ||
-    location.pathname === "/auth/callback" ||
-    !CHROME_PATHS.has(location.pathname);
+  const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
+  const isStandalonePage = !CHROME_PATHS.has(location.pathname);
 
   return (
     <div className="min-h-screen bg-background">
