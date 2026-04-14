@@ -1,12 +1,8 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
   content: ["./src/App.tsx", "./src/components/*.tsx", "./src/**/*.{ts,tsx}"],
   prefix: "",
-  safelist: [
-    'dark',
-  ],
   theme: {
     container: {
       center: true,

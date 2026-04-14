@@ -69,9 +69,9 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
 
   const cardRing =
     isPopular
-      ? "ring-2 ring-primary/50 shadow-xl shadow-primary/10 dark:shadow-primary/20"
+      ? "ring-2 ring-primary/50 shadow-xl shadow-primary/10"
       : isBest
-        ? "ring-2 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 dark:ring-emerald-400/35 dark:shadow-emerald-500/15"
+        ? "ring-2 ring-emerald-500/40 shadow-xl shadow-emerald-500/10"
         : "ring-1 ring-border/80 shadow-sm";
 
   return (
@@ -81,7 +81,7 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div
-        className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 dark:bg-card/30 backdrop-blur-md ${cardRing}`}
+        className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 backdrop-blur-md ${cardRing}`}
       >
         {isPopular ? (
           <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-primary/30 bg-gradient-to-r from-primary to-blue-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-primary/25">
@@ -89,7 +89,7 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
           </span>
         ) : null}
         {isBest ? (
-          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-400/40 bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-600/25 dark:from-emerald-500 dark:to-teal-500">
+          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-400/40 bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-600/25">
             Best value
           </span>
         ) : null}
@@ -101,8 +101,8 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
               <span
                 className={
                   isPopular
-                    ? "inline-flex shrink-0 rounded-full border border-primary/35 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary dark:bg-blue-950/70 dark:text-blue-200"
-                    : "inline-flex shrink-0 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-200"
+                    ? "inline-flex shrink-0 rounded-full border border-primary/35 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary"
+                    : "inline-flex shrink-0 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700"
                 }
               >
                 Save {plan.savePercent}%
@@ -234,7 +234,7 @@ const Pricing = () => {
               >
                 <span className="text-xs uppercase tracking-wider">Powered by</span>
                 <RazorpayLogo
-                  className="h-5 w-auto text-[#3395FF] dark:text-[#5CB3FF]"
+                  className="h-5 w-auto text-[#3395FF]"
                   aria-hidden
                 />
               </span>

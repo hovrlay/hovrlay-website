@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import DarkModeToggle from "./DarkModeToggle";
 
-interface HeaderProps {
-  isDarkMode: boolean;
-  onToggleDarkMode: () => void;
-}
-
-const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
+const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,30 +39,29 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
     <nav className="flex items-center gap-6">
       <button
         onClick={() => handleScroll("features")}
-        className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+        className="text-base text-black hover:opacity-70 transition-opacity duration-200"
       >
         Features
       </button>
       <button
         onClick={() => handleScroll("demo")}
-        className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+        className="text-base text-black hover:opacity-70 transition-opacity duration-200"
       >
         Demo
       </button>
       <button
         onClick={() => handleScroll("faq")}
-        className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+        className="text-base text-black hover:opacity-70 transition-opacity duration-200"
       >
         FAQ
       </button>
-      <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
     </nav>
   );
 
   const hamburgerButton = (
     <button
       onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
-      className="text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+      className="text-black hover:opacity-70 transition-opacity duration-200"
       aria-label="Toggle menu"
     >
       <svg
@@ -92,19 +85,19 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
       <div className="flex flex-col items-start gap-4 px-4">
         <button
           onClick={() => handleScroll("features")}
-          className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+          className="text-base text-black hover:opacity-70 transition-opacity duration-200"
         >
           Features
         </button>
         <button
           onClick={() => handleScroll("demo")}
-          className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+          className="text-base text-black hover:opacity-70 transition-opacity duration-200"
         >
           Demo
         </button>
         <button
           onClick={() => handleScroll("faq")}
-          className="text-base text-black dark:text-white hover:opacity-70 transition-opacity duration-200"
+          className="text-base text-black hover:opacity-70 transition-opacity duration-200"
         >
           FAQ
         </button>
@@ -132,10 +125,7 @@ const Header = ({ isDarkMode, onToggleDarkMode }: HeaderProps) => {
         {/* Mobile Navigation */}
         <div className="flex md:hidden items-center justify-between h-16">
           {hovrlayButton}
-          <div className="flex items-center gap-4">
-            <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
-            {hamburgerButton}
-          </div>
+          <div className="flex items-center gap-4">{hamburgerButton}</div>
         </div>
 
         {/* Mobile Menu Dropdown */}

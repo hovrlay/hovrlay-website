@@ -91,7 +91,7 @@ const Transcription = () => {
               delay={100}
             />
 
-            <div className="h-[1px] w-full bg-gray-300/50 dark:bg-gray-700/50"></div>
+            <div className="h-[1px] w-full bg-gray-300/50"></div>
 
             <StatItem
               value="250"
@@ -105,7 +105,7 @@ const Transcription = () => {
               delay={200}
             />
 
-            <div className="h-[1px] w-full bg-gray-300/50 dark:bg-gray-700/50"></div>
+            <div className="h-[1px] w-full bg-gray-300/50"></div>
 
             <StatItem
               value="95%"
@@ -142,7 +142,7 @@ const Transcription = () => {
               }}
             />
             {/* Fallback placeholder */}
-            <div className="w-full max-w-md mx-auto h-[400px] bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded-2xl flex items-center justify-center" style={{ display: 'none' }}>
+            <div className="w-full max-w-md mx-auto h-[400px] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl flex items-center justify-center" style={{ display: 'none' }}>
               <div className="text-center px-8">
                 <div className="text-6xl mb-4">🎙️</div>
                 <p className="text-lg text-muted-foreground">

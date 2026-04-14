@@ -34,15 +34,6 @@ const Home = () => {
         }}
       />
       
-      {/* Dark mode background overlay - top 75% */}
-      <div 
-        className="absolute top-0 left-0 right-0 bg-cover bg-center bg-no-repeat opacity-0 dark:opacity-100 transition-opacity duration-300"
-        style={{
-          backgroundImage: 'url(/hero/bg-dark.svg)',
-          height: '80%',
-        }}
-      />
-      
       {/* Gradient fade to background color */}
       <div 
         className="absolute inset-0 pointer-events-none"
@@ -56,7 +47,7 @@ const Home = () => {
         <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
           <div className="mb-20">
-            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl max-w-xl font-medium text-secondary-foreground mb-10 leading-tight">
+            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl max-w-xl font-medium text-foreground mb-10 leading-tight">
               {words.map((word, index) => (
                 <span
                   key={index}
@@ -95,7 +86,7 @@ const Home = () => {
             style={{ animationDelay: `${demoCardDelay}s` }}
           >
             <div 
-              className="flex flex-col items-center justify-between overflow-hidden rounded-2xl bg-gradient-to-b from-[#21232a]/50 to-[#21232a]/80 dark:from-[#21232a]/50 dark:to-[#21232a]/80 p-5 backdrop-blur-sm"
+              className="flex flex-col items-center justify-between overflow-hidden rounded-2xl bg-gradient-to-b from-[#21232a]/50 to-[#21232a]/80 p-5 backdrop-blur-sm"
               style={{
                 boxShadow: 'rgba(207, 226, 255, 0.24) 0px 0px 0px 1px, rgba(255, 255, 255, 0.8) 0px -0.5px 0px 0px, rgba(0, 0, 0, 0) 0px 174px 49px 0px, rgba(0, 0, 0, 0.08) 0px 112px 45px 0px, rgba(0, 0, 0, 0.14) 0px 63px 38px 0px, rgba(0, 0, 0, 0.16) 0px 28px 28px 0px, rgba(0, 0, 0, 0.2) 0px 7px 15px 0px'
               }}

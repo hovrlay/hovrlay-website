@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -40,12 +40,7 @@ const AppContent = () => {
   );
 };
 
-interface AppLayoutProps {
-  isDarkMode: boolean;
-  onToggleDarkMode: () => void;
-}
-
-const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
+const AppLayout = () => {
   const location = useLocation();
   const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
   const isStandalonePage = !CHROME_PATHS.has(location.pathname);
@@ -53,7 +48,7 @@ const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
       {!isStandalonePage ? (
-        <Header isDarkMode={isDarkMode} onToggleDarkMode={onToggleDarkMode} />
+        <Header />
       ) : null}
       {isLegalPage ? (
         <div className="fixed top-6 right-3 z-[60] md:right-6">
@@ -69,30 +64,9 @@ const AppLayout = ({ isDarkMode, onToggleDarkMode }: AppLayoutProps) => {
 };
 
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('darkMode');
-    if (saved !== null) { return saved === 'true'; }
-    return document.documentElement.classList.contains('dark');
-  });
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-    }
-    localStorage.setItem('darkMode', isDarkMode.toString());
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
     <Router>
-      <AppLayout isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
+      <AppLayout />
     </Router>
   );
 };

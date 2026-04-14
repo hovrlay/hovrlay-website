@@ -424,7 +424,7 @@ const Features = () => {
             ].map((tool) => (
               <div key={tool.label} className="flex items-center gap-2.5">
                 <img src={tool.src} alt={tool.label} className="h-6 w-6 object-contain md:h-8 md:w-8" />
-                <span className="text-lg font-medium text-[#1F2937] dark:text-[#D1D5DB]">{tool.label}</span>
+                <span className="text-lg font-medium text-[#1F2937]">{tool.label}</span>
               </div>
             ))}
           </div>
