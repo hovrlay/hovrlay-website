@@ -5,6 +5,7 @@ import DotIcon from "@/assets/dot.svg?react";
 import MessageQuestionIcon from "@/assets/message-question.svg?react";
 import SearchRecordsIcon from "@/assets/search-records.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
@@ -155,6 +156,18 @@ const Features = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const { ref: toolsRef, isVisible: toolsVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   const updateSliderFromClientX = (clientX: number) => {
     const sliderEl = sliderRef.current;
@@ -191,9 +204,9 @@ const Features = () => {
   }, [isDragging]);
 
   return (
-    <section id="features" className="px-4 py-2 md:px-8 lg:px-12">
+    <section id="features" className="px-4 md:px-8 lg:px-12">
       <div className="container-custom">
-        <div className="mb-10 text-center">
+        <div ref={headerRef} className={`mb-10 text-center animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}>
           <h2 className="my-6 text-3xl font-medium section-title-gradient sm:text-4xl md:text-4xl lg:text-5xl">
             Why Choose Hovrlay?
           </h2>
@@ -202,7 +215,11 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="mx-auto w-full max-w-7xl overflow-x-auto pb-2 lg:overflow-visible">
+        <div
+          ref={cardsRef}
+          className={`mx-auto w-full max-w-7xl overflow-x-auto pb-2 lg:overflow-visible animate-scroll-fade-in-up ${cardsVisible ? "visible" : ""}`}
+          style={{ transitionDelay: "100ms" }}
+        >
           <div className="flex w-max gap-5 lg:w-full">
             <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
               <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)]">
@@ -409,7 +426,11 @@ const Features = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-16 w-full max-w-5xl px-2 py-3 md:mt-20">
+        <div
+          ref={toolsRef}
+          className={`mx-auto mt-16 w-full max-w-5xl px-2 py-3 md:mt-20 animate-scroll-fade-in-up ${toolsVisible ? "visible" : ""}`}
+          style={{ transitionDelay: "200ms" }}
+        >
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#8C929D]">
             Compatible with every tool
           </p>

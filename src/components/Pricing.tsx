@@ -69,10 +69,10 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
 
   const cardRing =
     isPopular
-      ? "ring-2 ring-primary/50 shadow-xl shadow-primary/10"
+      ? "brand-blue-glassy-ring"
       : isBest
-        ? "ring-2 ring-emerald-500/40 shadow-xl shadow-emerald-500/10"
-        : "ring-1 ring-border/80 shadow-sm";
+        ? "ring-2 ring-emerald-700/65 shadow-xl shadow-emerald-900/25"
+        : "ring-1 ring-border shadow-md shadow-slate-400/15";
 
   return (
     <div
@@ -84,12 +84,12 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
         className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 backdrop-blur-md ${cardRing}`}
       >
         {isPopular ? (
-          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-primary/30 bg-gradient-to-r from-primary to-blue-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-primary/25">
+          <span className="brand-blue-glassy-bg absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-white/20 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-[rgba(30,70,210,0.35)]">
             Most popular
           </span>
         ) : null}
         {isBest ? (
-          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-400/40 bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-600/25">
+          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-900/35 bg-gradient-to-r from-emerald-800 to-teal-700 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-900/30">
             Best value
           </span>
         ) : null}
@@ -110,16 +110,16 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
             ) : null}
           </div>
 
-          <p className="mt-4 text-sm leading-relaxed text-gray-400">{plan.description}</p>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{plan.description}</p>
 
           <div className="mt-5 space-y-1">
             <p className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0">
-              <span className="text-2xl sm:text-3xl font-medium tabular-nums tracking-tight text-foreground leading-none">
+              <span className="text-2xl sm:text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">
                 {plan.creditCount}
               </span>
               <span className="text-sm font-medium text-foreground">credits</span>
             </p>
-            <p className="text-xs sm:text-sm text-muted-foreground/90">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               {plan.creditCount} hour{plan.creditCount === 1 ? "" : "s"} of live AI help
             </p>
           </div>
@@ -166,7 +166,7 @@ const Pricing = () => {
   });
 
   return (
-    <section id="pricing" className="relative py-16 md:py-24 lg:py-28 px-4 sm:px-6">
+    <section id="pricing" className="relative px-4 sm:px-6">
       <div className="container-custom relative max-w-6xl mx-auto">
         {/* —— Hero —— */}
         <header
@@ -179,7 +179,7 @@ const Pricing = () => {
             </h2>
           </div>
           <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left">
-            <span className="block mt-1 text-primary font-medium text-2xl sm:text-3xl md:text-4xl tracking-tight">
+            <span className="text-brand-blue block mt-1 font-medium text-2xl sm:text-3xl md:text-4xl tracking-tight">
               Use it when you need it.
             </span>
             <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl lg:max-w-none mx-auto lg:mx-0">

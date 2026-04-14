@@ -6,6 +6,7 @@ import ClaudeLogo from "@/assets/logo-claude.svg?react";
 import SupabaseLogo from "@/assets/logo-supabase.svg?react";
 import DeepgramLogo from "@/assets/logo-deepgram.svg?react";
 import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 // Define TypeScript interface for logo objects
 interface Logo {
@@ -16,6 +17,10 @@ interface Logo {
 }
 
 const PoweredBy = () => {
+  const { ref, isVisible } = useScrollAnimation({
+    threshold: 0.15,
+    triggerOnce: true,
+  });
   const logos: Logo[] = [
     { name: "Razorpay", component: RazorpayLogo },
     { name: "Supabase", component: SupabaseLogo },
@@ -47,8 +52,11 @@ const PoweredBy = () => {
   );
 
   return (
-    <section className="mx-2 md:mx-12 lg:mx-16 mb-20 pb-10">
-      <div className="text-center mb-8">
+    <section
+      ref={ref}
+      className={`mx-2 md:mx-12 lg:mx-16 animate-scroll-fade-in-up ${isVisible ? "visible" : ""}`}
+    >
+      <div className="text-center">
         <h3 className="text-2xl lg:text-3xl font-medium section-title-gradient">
           Powered by the best
         </h3>

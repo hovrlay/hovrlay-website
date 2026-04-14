@@ -5,7 +5,10 @@ const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
   const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
+  const navTextClass = isHomePage ? "text-white/90" : "text-black";
+  const logoTextClass = isHomePage ? "text-white/90" : "text-foreground";
 
   const handleScroll = (sectionId: string) => {
     if (location.pathname !== "/") {
@@ -31,7 +34,7 @@ const Header = () => {
       aria-label="Go to home"
     >
       <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
-      <span className="text-xl font-bold text-foreground">hovrlay</span>
+      <span className={`text-xl font-bold ${logoTextClass}`}>hovrlay</span>
     </a>
   );
 
@@ -39,19 +42,19 @@ const Header = () => {
     <nav className="flex items-center gap-6">
       <button
         onClick={() => handleScroll("features")}
-        className="text-base text-black hover:opacity-70 transition-opacity duration-200"
+        className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       >
         Features
       </button>
       <button
         onClick={() => handleScroll("demo")}
-        className="text-base text-black hover:opacity-70 transition-opacity duration-200"
+        className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       >
         Demo
       </button>
       <button
         onClick={() => handleScroll("faq")}
-        className="text-base text-black hover:opacity-70 transition-opacity duration-200"
+        className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       >
         FAQ
       </button>
@@ -61,7 +64,7 @@ const Header = () => {
   const hamburgerButton = (
     <button
       onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
-      className="text-black hover:opacity-70 transition-opacity duration-200"
+      className={`${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       aria-label="Toggle menu"
     >
       <svg
@@ -80,30 +83,45 @@ const Header = () => {
     </button>
   );
 
-  const hamburgerDropdown = (
-    <nav className="md:hidden mt-2 ml-4 py-4 w-48 bg-background/95 backdrop-blur-sm rounded-md border border-border/40">
-      <div className="flex flex-col items-start gap-4 px-4">
-        <button
-          onClick={() => handleScroll("features")}
-          className="text-base text-black hover:opacity-70 transition-opacity duration-200"
-        >
-          Features
-        </button>
-        <button
-          onClick={() => handleScroll("demo")}
-          className="text-base text-black hover:opacity-70 transition-opacity duration-200"
-        >
-          Demo
-        </button>
-        <button
-          onClick={() => handleScroll("faq")}
-          className="text-base text-black hover:opacity-70 transition-opacity duration-200"
-        >
-          FAQ
-        </button>
-      </div>
-    </nav>
-  );
+  const mobileSheetPanelClass = isHomePage
+    ? "bg-black/85 border-white/15"
+    : "bg-background/95 border-border/40";
+
+  const mobileMenuSheet = isHamburgerOpen ? (
+    <div className="fixed inset-0 z-[60] md:hidden">
+      <button
+        type="button"
+        aria-label="Close menu"
+        onClick={() => setIsHamburgerOpen(false)}
+        className="absolute inset-0 bg-black/40"
+      />
+      <nav
+        className={`absolute inset-x-0 bottom-0 rounded-t-2xl border-t px-6 pb-8 pt-6 backdrop-blur-md ${mobileSheetPanelClass}`}
+        aria-label="Mobile menu"
+      >
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-5">
+          <button
+            onClick={() => handleScroll("features")}
+            className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+          >
+            Features
+          </button>
+          <button
+            onClick={() => handleScroll("demo")}
+            className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+          >
+            Demo
+          </button>
+          <button
+            onClick={() => handleScroll("faq")}
+            className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+          >
+            FAQ
+          </button>
+        </div>
+      </nav>
+    </div>
+  ) : null;
 
   return (
     <header className={`${isLegalPage ? "fixed" : "absolute"} top-0 left-0 right-0 z-50`}>
@@ -116,7 +134,7 @@ const Header = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center h-16">
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-20">
             {hovrlayButton}
             {desktopNavigation}
           </div>
@@ -128,8 +146,8 @@ const Header = () => {
           <div className="flex items-center gap-4">{hamburgerButton}</div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
-        {isHamburgerOpen && hamburgerDropdown}
+        {/* Mobile Menu Sheet */}
+        {mobileMenuSheet}
       </div>
     </header>
   );

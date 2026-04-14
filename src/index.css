@@ -10,7 +10,7 @@ All colors MUST be HSL.
   /* LIGHT MODE COLORS */
   :root {
     /* Background & Surface Colors */
-    --background: 0 0% 100%;           /* Pure white background */
+    --background: 220 13% 96%;         /* Site background uses section darker shade */
     --foreground: 228 10% 20%;         /* Primary text (#2E3038) */
 
     --card: 0 0% 100%;                 /* White cards */
@@ -59,6 +59,8 @@ All colors MUST be HSL.
     
     /* Hero Gradient - matching favicon */
     --hero-gradient: linear-gradient(180deg, hsl(217, 91%, 60%) 0%, hsl(215, 44%, 37%) 100%);
+    --brand-blue: #385ee9;
+    --brand-blue-glassy-gradient: linear-gradient(160deg, #5580ff 0%, var(--brand-blue) 58%, #1746d4 100%);
   }
 
 }
@@ -144,7 +146,7 @@ All colors MUST be HSL.
   }
 
   .blue-glassy-button {
-    background: linear-gradient(160deg, #5580ff 0%, #385ee9 58%, #1746d4 100%);
+    background: var(--brand-blue-glassy-gradient);
     box-shadow: 0 4px 20px rgba(30, 70, 210, 0.45);
   }
 
@@ -156,9 +158,40 @@ All colors MUST be HSL.
     border: 1px solid rgba(140, 185, 255, 0.5);
     border-radius: inherit;
   }
+
+  .brand-blue-glassy-bg {
+    background: var(--brand-blue-glassy-gradient);
+  }
+
+  .brand-blue-glassy-ring {
+    position: relative;
+    box-shadow: 0 8px 30px rgba(30, 70, 210, 0.18);
+  }
+
+  .brand-blue-glassy-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid transparent;
+    background: var(--brand-blue-glassy-gradient) border-box;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
 
 @layer utilities {
+  .text-brand-blue {
+    color: var(--brand-blue);
+  }
+
   @keyframes fadeInUp {
     from {
       opacity: 0;

@@ -122,7 +122,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="px-12 md:px-16 lg:px-20 mx-12 md:mx-16 lg:mx-20 mb-16">
+    <section id="faq" className="px-12 md:px-16 lg:px-20 mx-12 md:mx-16 lg:mx-20">
       <div className="container-custom">
         <div className="text-left">
           <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient mb-6">

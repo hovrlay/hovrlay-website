@@ -8,7 +8,7 @@ const Demo = () => {
   });
 
   return (
-  <section id="demo" className="py-2 px-4 md:px-8 lg:px-12 mb-20">
+  <section id="demo" className="px-4 md:px-8 lg:px-12">
     <div className="container-custom">
       {/* Product Demo Video */}
       <div 

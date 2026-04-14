@@ -8,7 +8,6 @@ import Features from "@/components/Features";
 import Demo from "@/components/Demo";
 import Transcription from "@/components/Transcription";
 import FAQ from "@/components/FAQ";
-import Section from "@/components/Section";
 
 const HomePage = () => {
   const location = useLocation();
@@ -44,7 +43,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <main>
       <div
         className={`hidden md:block fixed top-6 right-3 z-[60] md:right-6 transition-all duration-300 ease-out ${
           showStickyDownload
@@ -57,26 +56,15 @@ const HomePage = () => {
 
       <Hero />
 
-      <PoweredBy />
-
-      <Section >
-      <Demo />
-      </Section>
-
-      <Section direction="up">
+      <div className="space-y-56 pb-24 md:space-y-60 lg:space-y-64">
+        <PoweredBy />
+        <Demo />
         <Features />
-      </Section>
-
-      <Section>
         <Transcription />
-      </Section>
-
-      <Section direction="up">
         <Pricing />
-      </Section>
-      
-      <FAQ />
-    </div>
+        <FAQ />
+      </div>
+    </main>
   );
 };
 
