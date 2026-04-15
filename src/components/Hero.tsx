@@ -23,23 +23,18 @@ const Home = () => {
   return (
     <section 
       id="hero" 
-      className="flex items-center justify-center relative pt-36 mb-44"
+      className="flex items-center justify-center relative pt-36 mb-44 bg-[hsl(var(--background))]"
     >
       {/* Light mode background - top 75% */}
       <div 
-        className="hero-bg-light absolute top-0 left-0 right-0 bg-cover bg-top bg-no-repeat"
+        className="hero-bg-light absolute top-0 left-0 right-0 bg-no-repeat"
         style={{
-          backgroundImage: 'url(/hero/bg-light.svg)',
-          backgroundSize: '100% auto',
-          height: '100%',
-        }}
-      />
-      
-      {/* Gradient fade to background color */}
-      <div 
-        className="hero-bg-fade absolute inset-0 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, transparent 0%, transparent 30%, hsl(var(--background)) 100%)',
+          backgroundImage: 'url(/hero/bg.svg)',
+          height: '130%',
+          backgroundPosition: 'center top',
+          backgroundSize: 'max(1700px, 100vw) auto',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)'
         }}
       />
       
@@ -63,10 +58,10 @@ const Home = () => {
               ))}
             </h1>
             <p 
-              className="text-sm sm:text-sm md:text-base lg:text-lg text-primary-foreground max-w-lg font-light mx-auto px-2 opacity-0 animate-fade-in-up"
+              className="text-sm sm:text-base md:text-lg lg:text-lg text-primary-foreground max-w-lg font-light mx-auto px-2 opacity-0 animate-fade-in-up"
               style={{ animationDelay: `${subheadingDelay}s` }}
             >
-              Takes perfect notes, answers questions in real-time, and makes you the most prepared person on every call.
+              Takes perfect notes, answers questions in real time, and makes you the most prepared person on every call.
             </p>
           </div>
 
