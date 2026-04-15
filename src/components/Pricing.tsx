@@ -18,6 +18,7 @@ type PricingPlan = {
   tier: "default" | "bestValue";
   featurePlaceholder: string;
   listPriceRupees?: number;
+  savePercent?: number;
 };
 
 const plans: PricingPlan[] = [
@@ -34,6 +35,7 @@ const plans: PricingPlan[] = [
     creditCount: 8,
     priceRupees: 1999,
     listPriceRupees: 2499,
+    savePercent: 20,
     pricePerCreditRupees: 249,
     tier: "default" as const,
     featurePlaceholder: "For active job seekers who need consistent practice and feedback across multiple interviews."
@@ -43,6 +45,7 @@ const plans: PricingPlan[] = [
     creditCount: 20,
     priceRupees: 3999,
     listPriceRupees: 5999,
+    savePercent: 33,
     pricePerCreditRupees: 199,
     tier: "bestValue" as const,
     featurePlaceholder: "For serious candidates preparing for high stakes interviews (FAANG, startups, or role switches)."
@@ -67,7 +70,7 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
 
   const cardRing = isBest
     ? "brand-blue-glassy-ring shadow-xl shadow-primary/20"
-    : "ring-1 ring-border shadow-sm shadow-slate-300/20";
+    : "ring-1 ring-border shadow-md shadow-slate-300/40";
 
   return (
     <div
@@ -85,9 +88,16 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
         ) : null}
 
         <div className="flex min-h-0 flex-1 flex-col">
-          <p className={`text-2xl sm:text-[28px] font-semibold tracking-tight ${isBest ? "text-brand-blue" : "text-foreground"}`}>
-            {plan.name}
-          </p>
+          <div className="flex items-center justify-between gap-2">
+            <p className={`text-2xl sm:text-[28px] font-semibold tracking-tight ${isBest ? "text-brand-blue" : "text-foreground"}`}>
+              {plan.name}
+            </p>
+            {hasDiscount && plan.savePercent ? (
+              <span className="inline-flex items-center rounded-full border border-[#bfdbfe] bg-[#dbeafe] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[#1d4ed8]">
+                Save {plan.savePercent}%
+              </span>
+            ) : null}
+          </div>
 
           <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <p className="text-4xl sm:text-5xl font-semibold tabular-nums tracking-tight text-foreground leading-none">
@@ -162,7 +172,7 @@ const Pricing = () => {
         >
           <div className="mb-6 text-center">
             <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient">
-              Simple credit-based pricing
+              Simple credit based pricing
             </h2>
           </div>
                     <div className="mt-8 flex items-center justify-center text-sm text-muted-foreground">

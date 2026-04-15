@@ -52,7 +52,7 @@ const PaymentSuccess = () => {
             Your Call Credits have been added to your account.
           </p>
 
-          <div className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-border/70 bg-[#111111] px-4 py-2 text-sm text-muted-foreground">
+          <div className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted px-4 py-2 text-sm text-muted-foreground">
             <span
               className="status-spinner h-3.5 w-3.5 rounded-full border border-muted-foreground/30 border-t-muted-foreground"
               aria-hidden="true"
