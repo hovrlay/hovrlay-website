@@ -74,10 +74,6 @@ const FAQ = () => {
 
   const faqs = [
     {
-      question: "How does Hovrlay work?",
-      answer: "Hovrlay runs in the background and observes your screen while listening to your audio during calls and meetings. It uses AI to understand the conversation context and provides real time suggestions, responses and insights to help you communicate better."
-    },
-    {
       question: "Is Hovrlay free?",
       answer:
         "Yes. Hovrlay is free to try. Download the app and use it in your calls and meetings before you pay anything. No credit card required to get started."

@@ -1,5 +1,6 @@
 import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { detectDownloadPlatform, handleDownload } from "@/utils/downloads";
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -14,10 +15,9 @@ type PricingPlan = {
   creditCount: number;
   priceRupees: number;
   pricePerCreditRupees: number;
-  tier: "default" | "popular" | "bestValue";
-  description: string;
+  tier: "default" | "bestValue";
+  featurePlaceholder: string;
   listPriceRupees?: number;
-  savePercent?: number;
 };
 
 const plans: PricingPlan[] = [
@@ -27,27 +27,25 @@ const plans: PricingPlan[] = [
     priceRupees: 899,
     pricePerCreditRupees: 299,
     tier: "default" as const,
-    description: "Great for your first few interviews or mock rounds."
-  },
-  {
-    name: "Plus",
-    creditCount: 8,
-    priceRupees: 1999,
-    listPriceRupees: 2499,
-    savePercent: 20,
-    pricePerCreditRupees: 249,
-    tier: "popular" as const,
-    description: "Our most popular pack. Ideal for active job seekers."
+    featurePlaceholder: "Perfect if you have a few interviews coming up and want focused AI help without committing too much."
   },
   {
     name: "Pro",
+    creditCount: 8,
+    priceRupees: 1999,
+    listPriceRupees: 2499,
+    pricePerCreditRupees: 249,
+    tier: "default" as const,
+    featurePlaceholder: "For active job seekers who need consistent practice and feedback across multiple interviews."
+  },
+  {
+    name: "Plus",
     creditCount: 20,
     priceRupees: 3999,
     listPriceRupees: 5999,
-    savePercent: 33,
     pricePerCreditRupees: 199,
     tier: "bestValue" as const,
-    description: "Best for serious job hunters running several interviews per week."
+    featurePlaceholder: "For serious candidates preparing for high stakes interviews (FAANG, startups, or role switches)."
   }
 ];
 
@@ -63,16 +61,13 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
     triggerOnce: true
   });
 
-  const isPopular = plan.tier === "popular";
   const isBest = plan.tier === "bestValue";
-  const hasDiscount = plan.listPriceRupees != null && plan.savePercent != null;
+  const hasDiscount = plan.listPriceRupees != null;
+  const platform = detectDownloadPlatform();
 
-  const cardRing =
-    isPopular
-      ? "brand-blue-glassy-ring"
-      : isBest
-        ? "ring-2 ring-emerald-700/65 shadow-xl shadow-emerald-900/25"
-        : "ring-1 ring-border shadow-md shadow-slate-400/15";
+  const cardRing = isBest
+    ? "brand-blue-glassy-ring shadow-xl shadow-primary/20"
+    : "ring-1 ring-border shadow-sm shadow-slate-300/20";
 
   return (
     <div
@@ -81,67 +76,69 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div
-        className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-2xl bg-card/40 backdrop-blur-md ${cardRing}`}
+        className={`relative flex h-full min-h-0 flex-col overflow-visible rounded-3xl bg-card/60 p-7 sm:p-8 ${cardRing}`}
       >
-        {isPopular ? (
-          <span className="brand-blue-glassy-bg absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-white/20 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md shadow-[rgba(30,70,210,0.35)]">
-            Most popular
-          </span>
-        ) : null}
         {isBest ? (
-          <span className="absolute top-0 right-4 z-20 inline-flex -translate-y-1/2 items-center rounded-full border border-emerald-900/35 bg-gradient-to-r from-emerald-800 to-teal-700 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md shadow-emerald-900/30">
+          <span className="brand-blue-glassy-bg absolute top-0 left-1/2 z-20 inline-flex -translate-x-1/2 -translate-y-1/2 items-center rounded-full border border-white/20 px-4 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary-foreground shadow-md shadow-primary/35">
             Best value
           </span>
         ) : null}
 
-        <div className="flex min-h-0 flex-1 flex-col p-6 sm:p-7 md:p-8 pt-7">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-            <h4 className="text-xl font-semibold text-foreground tracking-tight">{plan.name}</h4>
+        <div className="flex min-h-0 flex-1 flex-col">
+          <p className={`text-2xl sm:text-[28px] font-semibold tracking-tight ${isBest ? "text-brand-blue" : "text-foreground"}`}>
+            {plan.name}
+          </p>
+
+          <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <p className="text-4xl sm:text-5xl font-semibold tabular-nums tracking-tight text-foreground leading-none">
+              {formatINR(plan.priceRupees)}
+            </p>
             {hasDiscount ? (
-              <span
-                className={
-                  isPopular
-                    ? "inline-flex shrink-0 rounded-full border border-primary/35 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary"
-                    : "inline-flex shrink-0 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700"
-                }
-              >
-                Save {plan.savePercent}%
+              <span className="text-2xl sm:text-3xl font-light tabular-nums text-muted-foreground line-through decoration-muted-foreground/80">
+                {formatINR(plan.listPriceRupees!)}
               </span>
             ) : null}
           </div>
 
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{plan.description}</p>
+          <p className={`mt-4 text-xl sm:text-2xl font-semibold tabular-nums tracking-tight ${isBest ? "text-brand-blue" : "text-foreground"}`}>
+            {plan.creditCount} credit{plan.creditCount === 1 ? "" : "s"}
+          </p>
 
-          <div className="mt-5 space-y-1">
-            <p className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0">
-              <span className="text-2xl sm:text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">
-                {plan.creditCount}
+          <div className="mt-8 border-t border-border pt-6" />
+
+          <div className="space-y-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
+            <p className="flex items-start gap-2">
+              <span className="text-brand-blue mt-0.5 text-sm font-semibold" aria-hidden>
+                ✓
               </span>
-              <span className="text-sm font-medium text-foreground">credits</span>
+              <span>{plan.creditCount} hours of live AI help</span>
             </p>
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              {plan.creditCount} hour{plan.creditCount === 1 ? "" : "s"} of live AI help
+            <p className="flex items-start gap-2">
+              <span className="text-brand-blue mt-0.5 text-sm font-semibold" aria-hidden>
+                ✓
+              </span>
+              <span>{formatINR(plan.pricePerCreditRupees)} per credit</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <span className="text-brand-blue mt-0.5 text-sm font-semibold" aria-hidden>
+                ✓
+              </span>
+              <span>{plan.featurePlaceholder}</span>
             </p>
           </div>
 
-          <div className="mt-8">
-            {hasDiscount ? (
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="text-base sm:text-lg font-medium tabular-nums text-muted-foreground line-through decoration-muted-foreground/70">
-                  {formatINR(plan.listPriceRupees!)}
-                </span>
-                <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-foreground">
-                  {formatINR(plan.priceRupees)}
-                </span>
-              </div>
-            ) : (
-              <p className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-foreground">
-                {formatINR(plan.priceRupees)}
-              </p>
-            )}
-            <p className="mt-1.5 text-xs sm:text-sm font-normal tabular-nums text-muted-foreground">
-              {formatINR(plan.pricePerCreditRupees)} / credit
-            </p>
+          <div className="mt-auto pt-8">
+            <button
+              type="button"
+              onClick={() => handleDownload(platform)}
+              className={`inline-flex w-full items-center justify-center rounded-sm px-6 py-3 sm:py-4 text-base sm:text-lg font-medium transition-colors ${
+                isBest
+                  ? "blue-glassy-button text-primary-foreground"
+                  : "bg-muted text-foreground hover:bg-muted/80"
+              }`}
+            >
+              Download App to Purchase
+            </button>
           </div>
         </div>
       </div>
@@ -155,49 +152,49 @@ const Pricing = () => {
     triggerOnce: true
   });
 
-  const { ref: pillsRef, isVisible: pillsVisible } = useScrollAnimation({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
-  const { ref: footerRef, isVisible: footerVisible } = useScrollAnimation({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
   return (
-    <section id="pricing" className="relative px-4 sm:px-6">
-      <div className="container-custom relative max-w-6xl mx-auto">
+    <section id="pricing" className=" px-4 md:px-8 lg:px-12">
+      <div className="container-custom mx-auto max-w-6xl">
         {/* —— Hero —— */}
         <header
           ref={headerRef}
-          className={`mb-14 md:mb-18 lg:mb-20 animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}
+          className={`mb-8 animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}
         >
-          <div className="text-center mb-16 md:mb-18">
-            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient ">
-              Pricing
+          <div className="mb-6 text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient">
+              Simple credit-based pricing
             </h2>
           </div>
-          <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left">
-            <span className="text-brand-blue block mt-1 font-medium text-2xl sm:text-3xl md:text-4xl tracking-tight">
-              Use it when you need it.
+                    <div className="mt-8 flex items-center justify-center text-sm text-muted-foreground">
+            <span
+              className="inline-flex items-center gap-2 text-muted-foreground"
+              aria-label="Powered by Razorpay"
+            >
+              <span className="text-xs uppercase tracking-wider">Powered by</span>
+              <RazorpayLogo
+                className="h-5 w-auto text-[#3395FF]"
+                aria-hidden
+              />
             </span>
-            <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl lg:max-w-none mx-auto lg:mx-0">
-              <span className="font-medium text-foreground">
-                Download and try for free. No card needed.
-              </span>{" "}
-              Top up with credits only when your trial ends.{" "}
-              <span className="text-foreground/90">No subscription. Credits never expire.</span>
-            </p>
+          </div>
+          <div className="max-w-2xl mx-auto text-center mb-12">
+          <p className="mt-14 max-w-xl mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <span className="text-lg sm:text-lg font-medium text-foreground">
+              Start for free. Pay when you need more.
+            </span>
+            <br />
+            <span className="text-sm sm:text-base">
+              1 credit = 1 hour of live AI help. Includes free usage.
+            </span>
+          </p>
           </div>
 
+        </header>
+
+        <div className="flex flex-col gap-8">
           {/* Emphasis pills */}
-          <div
-            ref={pillsRef}
-            className={`mt-10 flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 animate-scroll-fade-in-up ${pillsVisible ? "visible" : ""}`}
-            style={{ transitionDelay: "100ms" }}
-          >
-            <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-xs sm:text-sm font-medium text-foreground shadow-sm">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <span className="inline-flex items-center rounded-full border border-border bg-background/60 px-4 py-2 text-xs sm:text-sm font-medium text-muted-foreground">
               Start for free
             </span>
             <span className="inline-flex items-center rounded-full border border-border bg-background/60 px-4 py-2 text-xs sm:text-sm font-medium text-muted-foreground">
@@ -207,40 +204,15 @@ const Pricing = () => {
               Credits never expire
             </span>
           </div>
-        </header>
 
-        {/* —— Plans —— */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
-          {plans.map((plan, index) => (
-            <PricingCard key={plan.name} plan={plan} delay={index * 100} />
-          ))}
+          {/* —— Plans —— */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
+            {plans.map((plan, index) => (
+              <PricingCard key={plan.name} plan={plan} delay={index * 100} />
+            ))}
+          </div>
         </div>
 
-        {/* —— Footer: trust + Razorpay —— */}
-        <footer
-          ref={footerRef}
-          className={`mt-10 pt-12 md:pt-16 animate-scroll-fade-in-up ${footerVisible ? "visible" : ""}`}
-          style={{ transitionDelay: "150ms" }}
-        >
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Purchases are completed in the Hovrlay app.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-sm text-muted-foreground">
-              <span
-                className="inline-flex items-center gap-2 text-muted-foreground"
-                aria-label="Powered by Razorpay"
-              >
-                <span className="text-xs uppercase tracking-wider">Powered by</span>
-                <RazorpayLogo
-                  className="h-5 w-auto text-[#3395FF]"
-                  aria-hidden
-                />
-              </span>
-            </div>
-          </div>
-        </footer>
       </div>
     </section>
   );

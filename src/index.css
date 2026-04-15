@@ -185,6 +185,23 @@ All colors MUST be HSL.
     mask-composite: exclude;
     pointer-events: none;
   }
+
+  /* Keep desktop hero look intact while lowering the light area on smaller screens. */
+  @media (max-width: 767px) {
+    .hero-bg-light {
+      background-position: center 24%;
+      background-size: 145% auto !important;
+    }
+
+    .hero-bg-fade {
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 44%,
+        hsl(var(--background)) 100%
+      ) !important;
+    }
+  }
 }
 
 @layer utilities {

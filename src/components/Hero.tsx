@@ -27,18 +27,19 @@ const Home = () => {
     >
       {/* Light mode background - top 75% */}
       <div 
-        className="absolute top-0 left-0 right-0 bg-cover bg-center bg-no-repeat"
+        className="hero-bg-light absolute top-0 left-0 right-0 bg-cover bg-top bg-no-repeat"
         style={{
           backgroundImage: 'url(/hero/bg-light.svg)',
-          height: '80%',
+          backgroundSize: '100% auto',
+          height: '100%',
         }}
       />
       
       {/* Gradient fade to background color */}
       <div 
-        className="absolute inset-0 pointer-events-none"
+        className="hero-bg-fade absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, transparent 20%, hsl(var(--background)) 80%)',
+          background: 'linear-gradient(to bottom, transparent 0%, transparent 30%, hsl(var(--background)) 100%)',
         }}
       />
       
@@ -47,7 +48,7 @@ const Home = () => {
         <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
           <div className="mb-20">
-            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl max-w-xl font-medium text-foreground mb-10 leading-tight">
+            <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl max-w-xl font-medium text-primary-foreground mb-10 leading-tight">
               {words.map((word, index) => (
                 <span
                   key={index}
@@ -62,7 +63,7 @@ const Home = () => {
               ))}
             </h1>
             <p 
-              className="text-sm sm:text-sm md:text-base lg:text-lg text-foreground max-w-xl font-normal mx-auto px-2 opacity-0 animate-fade-in-up"
+              className="text-sm sm:text-sm md:text-base lg:text-lg text-primary-foreground max-w-lg font-light mx-auto px-2 opacity-0 animate-fade-in-up"
               style={{ animationDelay: `${subheadingDelay}s` }}
             >
               Takes perfect notes, answers questions in real-time, and makes you the most prepared person on every call.

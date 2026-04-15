@@ -7,8 +7,7 @@ const Header = () => {
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
   const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
-  const navTextClass = isHomePage ? "text-white/90" : "text-black";
-  const logoTextClass = isHomePage ? "text-white/90" : "text-foreground";
+  const navTextClass = isHomePage ? "text-primary-foreground" : "text-secondary-foreground";
 
   const handleScroll = (sectionId: string) => {
     if (location.pathname !== "/") {
@@ -34,7 +33,7 @@ const Header = () => {
       aria-label="Go to home"
     >
       <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
-      <span className={`text-xl font-bold ${logoTextClass}`}>hovrlay</span>
+      <span className={`text-xl font-bold ${navTextClass}`}>hovrlay</span>
     </a>
   );
 
@@ -51,6 +50,12 @@ const Header = () => {
         className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       >
         Demo
+      </button>
+      <button
+        onClick={() => handleScroll("pricing")}
+        className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+      >
+        Pricing
       </button>
       <button
         onClick={() => handleScroll("faq")}
@@ -113,6 +118,12 @@ const Header = () => {
             Demo
           </button>
           <button
+            onClick={() => handleScroll("pricing")}
+            className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+          >
+            Pricing
+          </button>
+          <button
             onClick={() => handleScroll("faq")}
             className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
           >
@@ -133,7 +144,7 @@ const Header = () => {
       )}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center h-16">
+        <div className="hidden md:flex items-center h-10">
           <div className="flex items-center gap-20">
             {hovrlayButton}
             {desktopNavigation}
