@@ -31,7 +31,7 @@ const plans: PricingPlan[] = [
     featurePlaceholder: "Perfect if you have a few interviews coming up and want focused AI help without committing too much."
   },
   {
-    name: "Pro",
+    name: "Plus",
     creditCount: 8,
     priceRupees: 1999,
     listPriceRupees: 2499,
@@ -41,7 +41,7 @@ const plans: PricingPlan[] = [
     featurePlaceholder: "For active job seekers who need consistent practice and feedback across multiple interviews."
   },
   {
-    name: "Plus",
+    name: "Pro",
     creditCount: 20,
     priceRupees: 3999,
     listPriceRupees: 5999,
