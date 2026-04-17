@@ -221,6 +221,10 @@ const Pricing = () => {
               <PricingCard key={plan.name} plan={plan} delay={index * 100} />
             ))}
           </div>
+
+          <p className="text-center text-xs sm:text-sm text-muted-foreground/70 mt-2">
+            Purchases are completed securely inside the Hovrlay app
+          </p>
         </div>
 
       </div>
