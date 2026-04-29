@@ -61,7 +61,7 @@ const Home = () => {
     starsRef.current = Array.from({ length: 200 }, () => ({
       x: centerX + (Math.random() - 0.5) * 3000,
       y: centerY + (Math.random() - 0.5) * 3000,
-      radius: 0.1 + Math.random(),
+      radius: Math.random(),
       phase: Math.random() * 2 * Math.PI,
       speed: 2 + Math.random() * 3
     }));
