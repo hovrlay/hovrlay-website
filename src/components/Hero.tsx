@@ -246,7 +246,7 @@ const Home = () => {
         {/* Main content container - centered horizontally */}
         <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
-          <div className="mb-20">
+          <div className="my-8 sm:my-10 md:my-16 lg:my-18">
             <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl max-w-xl font-medium text-primary-foreground mb-10 leading-tight">
               {words.map((word, index) => (
                 <span

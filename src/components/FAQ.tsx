@@ -9,9 +9,18 @@ interface FAQItemProps {
   isOpen: boolean;
   onToggle: (index: number) => void;
   delay: number;
+  isLast: boolean;
 }
 
-const FAQItem = ({ question, answer, index, isOpen, onToggle, delay }: FAQItemProps) => {
+const FAQItem = ({
+  question,
+  answer,
+  index,
+  isOpen,
+  onToggle,
+  delay,
+  isLast,
+}: FAQItemProps) => {
   const { ref, isVisible } = useScrollAnimation({
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px',
@@ -19,41 +28,42 @@ const FAQItem = ({ question, answer, index, isOpen, onToggle, delay }: FAQItemPr
   });
 
   return (
-    <div 
+    <div
       ref={ref}
-      className={`mb-4 animate-scroll-fade-in-up ${isVisible ? 'visible' : ''}`}
+      className={`animate-scroll-fade-in-up ${isVisible ? "visible" : ""}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="glass rounded-lg overflow-hidden">
+      <div
+        className={isLast ? "" : "border-b border-neutral-200"}
+      >
         <button
+          type="button"
           onClick={() => onToggle(index)}
-          className="w-full p-4 text-left flex items-center justify-between transition-colors duration-200"
+          className="w-full py-5 px-0 text-left flex items-center justify-between gap-4 bg-transparent hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <h3 className="text-base sm:text-lg md:text-lg lg:text-lg font-semibold text-foreground pr-4">
+          <h3 className="text-base sm:text-lg md:text-lg lg:text-xl font-medium text-foreground pr-4">
             {question}
           </h3>
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 text-neutral-400">
             <ChevronDownIcon
-              className={`w-5 h-5 text-foreground transition-transform duration-200 ${
-                isOpen ? 'rotate-180' : ''
+              className={`w-5 h-5 transition-transform duration-200 ${
+                isOpen ? "rotate-180" : ""
               }`}
             />
           </div>
         </button>
-        
-        <div 
-          className={`overflow-hidden transition-all duration-200 linear ${
-            isOpen ? 'max-h-96' : 'max-h-0'
+
+        <div
+          className={`grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none ${
+            isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
           }`}
         >
-          <div className="px-4 pb-4">
-              <p 
-                className={`max-w-2xl text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed transition-all duration-200 linear ${
-                isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-              }`}
-            >
-              {answer}
-            </p>
+          <div className="min-h-0 overflow-hidden">
+            <div className="pb-5 ">
+              <p className="max-w-2xl text-sm sm:text-base md:text-base lg:text-base text-muted-foreground leading-relaxed">
+                {answer}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -74,31 +84,32 @@ const FAQ = () => {
 
   const faqs = [
     {
+      question: "Why Hovrlay vs. a regular AI notetaker?",
+      answer:
+        "Unlike regular AI notetakers like Otter or Granola that work after your meeting ends, Hovrlay provides real time meeting intelligence during your calls. While other AI meeting assistants create meeting summaries afterward, Hovrlay helps you answer technical questions, handle objections, and perform better during high stakes conversations."
+    },
+    {
       question: "Is Hovrlay free?",
       answer:
-        "Yes. Hovrlay is free to try. Download the app and use it in your calls and meetings before you pay anything. No credit card required to get started."
+        "Yes, you can use Hovrlay for free. No credit card required to get started. Download the app and use it in your calls and meetings before you pay anything. "
     },
     {
       question: "How do credits work?",
       answer:
-        "One credit equals one hour of real time AI assistance. Each session uses one credit and ends automatically after an hour. You buy packs only when you need them, and unused credits stay in your account, they never expire."
-    },
-    {
-      question: "Is Hovrlay compatible with my operating system?",
-      answer: "Hovrlay works on Mac, Windows and Linux machines. Download the version that matches your operating system from our download section."
+        "One credit equals one hour of real time AI assistance. Each session uses one credit and ends automatically after an hour. You buy credits only when you need them. Credits never expire."
     },
     {
       question: "Is my data secure with Hovrlay?",
       answer: "Yes. We do not store your actual audio recordings. Your conversations are processed in real time and then deleted."
     },
     {
-      question: "Can I use Hovrlay during video calls?",
-      answer: "Yes. Hovrlay works with any application on your screen, including all video calling platforms like Zoom, Microsoft Teams, Google Meet, Discord, and others."
+      question: "How is it undetectable in meetings?",
+      answer:
+        "Unlike other meeting AI tools, it never joins your calls as a participant, doesn't appear in meeting recordings and won't show up in screen shares. It captures meeting audio in the background and provides a discreet, translucent overlay that only you can see, making it completely undetectable to other meeting participants."
     },
     {
-      question: "Is Hovrlay invisible?",
-      answer:
-        "Yes. Hovrlay does not show up in screen shares or screenshots, so participants on your call cannot see it. It is completely undetectable across all meeting platforms."
+      question: "What languages and apps are supported?",
+      answer: "Hovrlay works with all major meeting platforms including Zoom, Microsoft Teams, Webex and Slack calls. It supports English and major international languages for meeting transcription and real time insights."
     },
     {
       question: "How do I get support?",
@@ -121,12 +132,9 @@ const FAQ = () => {
     <section id="faq" className="px-4 md:px-8 lg:px-12">
       <div className="container-custom mx-auto max-w-6xl">
         <div className="mx-auto max-w-4xl text-left">
-          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient mb-16">
             Frequently Asked Questions
           </h2>
-          <p className="text-base sm:text-base md:text-base lg:text-lg text-muted-foreground mb-16">
-            Find answers to common questions about Hovrlay and how it can help you in your interviews and meetings.
-          </p>
         </div>
         
         <div className="mx-auto max-w-4xl font-light">
@@ -139,6 +147,7 @@ const FAQ = () => {
               isOpen={openItems.includes(index)}
               onToggle={toggleItem}
               delay={Math.floor(index / 2) * 100}
+              isLast={index === faqs.length - 1}
             />
           ))}
         </div>
