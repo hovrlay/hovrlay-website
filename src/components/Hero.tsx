@@ -3,8 +3,30 @@ import SearchRecordsIcon from "@/assets/search-records.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
 import MessageQuestionIcon from "@/assets/message-question.svg?react";
 import DotIcon from "@/assets/dot.svg?react";
+import { useEffect, useRef } from "react";
+
+type Star = {
+  x: number;
+  y: number;
+  radius: number;
+  phase: number;
+  speed: number;
+};
+
+type ShootingStar = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+  trailLength: number;
+};
 
 const Home = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const starsRef = useRef<Star[]>([]);
+  const shootingStarsRef = useRef<ShootingStar[]>([]);
   const headingText = "Your AI assistant for meetings";
   const words = headingText.split(" ");
   
@@ -19,6 +41,183 @@ const Home = () => {
   const aiResponseWords = 29;
   const aiResponseDelay = demoCardDelay + 0.5 + (aiResponseWords * 0.05);
   const demoBottomSectionDelay = aiResponseDelay;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      return;
+    }
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    starsRef.current = Array.from({ length: 200 }, () => ({
+      x: centerX + (Math.random() - 0.5) * 3000,
+      y: centerY + (Math.random() - 0.5) * 3000,
+      radius: 0.1 + Math.random(),
+      phase: Math.random() * 2 * Math.PI,
+      speed: 2 + Math.random() * 3
+    }));
+
+    let animationFrameId = 0;
+    let startTime = 0;
+    let lastFrameTimestamp = 0;
+    let lastShootingStarSpawn = 0;
+    const margin = 200;
+    const shootingStarSpawnInterval = 5000;
+    const maxShootingStars = 1;
+
+    const spawnShootingStar = () => {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const topHalfLimit = viewportHeight * 0.5;
+      const startX = viewportWidth * (0.2 + Math.random() * 0.8);
+      const startY = -20 + Math.random() * (topHalfLimit * 0.35);
+      const speed = 780 + Math.random() * 220;
+
+      shootingStarsRef.current.push({
+        x: startX,
+        y: startY,
+        vx: -speed * (0.58 + Math.random() * 0.14),
+        vy: speed * (0.52 + Math.random() * 0.16),
+        life: 0,
+        maxLife: 1.1 + Math.random() * 0.5,
+        trailLength: 70 + Math.random() * 40
+      });
+    };
+
+    const rotatePoint = (
+      x: number,
+      y: number,
+      px: number,
+      py: number,
+      angle: number
+    ) => {
+      const dx = x - px;
+      const dy = y - py;
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+
+      return {
+        x: px + dx * cos - dy * sin,
+        y: py + dx * sin + dy * cos
+      };
+    };
+
+    const render = (timestamp: number) => {
+      if (startTime === 0) {
+        startTime = timestamp;
+      }
+      if (lastFrameTimestamp === 0) {
+        lastFrameTimestamp = timestamp;
+      }
+
+      const elapsed = timestamp - startTime;
+      const deltaSeconds = (timestamp - lastFrameTimestamp) / 1000;
+      lastFrameTimestamp = timestamp;
+      const angle = (elapsed / 360000) * 2 * Math.PI;
+      const px = window.innerWidth * 1.25;
+      const py = window.innerHeight * 1.5;
+      const topHalfLimit = window.innerHeight * 0.5;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.translate(px, py);
+      ctx.rotate(angle);
+      ctx.translate(-px, -py);
+
+      for (const star of starsRef.current) {
+        const rotated = rotatePoint(star.x, star.y, px, py, angle);
+        if (
+          rotated.x < -margin ||
+          rotated.x > window.innerWidth + margin ||
+          rotated.y < -margin ||
+          rotated.y > window.innerHeight + margin
+        ) {
+          const targetX = -margin + Math.random() * (window.innerWidth + margin * 2);
+          const targetY = -margin + Math.random() * (window.innerHeight + margin * 2);
+          const unrotated = rotatePoint(targetX, targetY, px, py, -angle);
+          star.x = unrotated.x;
+          star.y = unrotated.y;
+        }
+
+        const opacity =
+          0.65 +
+          0.35 *
+            Math.sin((elapsed / (star.speed * 1000)) * 2 * Math.PI + star.phase);
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalAlpha = 1;
+
+      if (
+        elapsed - lastShootingStarSpawn >= shootingStarSpawnInterval &&
+        shootingStarsRef.current.length < maxShootingStars
+      ) {
+        spawnShootingStar();
+        lastShootingStarSpawn = elapsed;
+      }
+
+      shootingStarsRef.current = shootingStarsRef.current.filter((shootingStar) => {
+        shootingStar.x += shootingStar.vx * deltaSeconds;
+        shootingStar.y += shootingStar.vy * deltaSeconds;
+        shootingStar.life += deltaSeconds;
+
+        const lifeProgress = shootingStar.life / shootingStar.maxLife;
+        const fadeOut = lifeProgress > 0.65 ? 1 - (lifeProgress - 0.65) / 0.35 : 1;
+        const alpha = Math.max(0, fadeOut);
+
+        const directionLength = Math.hypot(shootingStar.vx, shootingStar.vy) || 1;
+        const dirX = shootingStar.vx / directionLength;
+        const dirY = shootingStar.vy / directionLength;
+        const trailEndX = shootingStar.x - dirX * shootingStar.trailLength;
+        const trailEndY = shootingStar.y - dirY * shootingStar.trailLength;
+        const gradient = ctx.createLinearGradient(
+          shootingStar.x,
+          shootingStar.y,
+          trailEndX,
+          trailEndY
+        );
+
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.72})`);
+        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(shootingStar.x, shootingStar.y);
+        ctx.lineTo(trailEndX, trailEndY);
+        ctx.stroke();
+
+        return (
+          shootingStar.life < shootingStar.maxLife &&
+          shootingStar.y <= topHalfLimit &&
+          shootingStar.x >= -margin
+        );
+      });
+
+      animationFrameId = window.requestAnimationFrame(render);
+    };
+
+    animationFrameId = window.requestAnimationFrame(render);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
     <section 
@@ -36,6 +235,11 @@ const Home = () => {
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)',
           maskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)'
         }}
+      />
+
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute top-0 left-0 z-[1] h-full w-full"
       />
       
       <div className="container-custom z-10 mx-4 md:mx-8 lg:mx-12 relative">
