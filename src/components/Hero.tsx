@@ -58,10 +58,10 @@ const Home = () => {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    starsRef.current = Array.from({ length: 200 }, () => ({
+    starsRef.current = Array.from({ length: 600 }, () => ({
       x: centerX + (Math.random() - 0.5) * 3000,
       y: centerY + (Math.random() - 0.5) * 3000,
-      radius: Math.random(),
+      radius: 0.1 + Math.random(),
       phase: Math.random() * 2 * Math.PI,
       speed: 2 + Math.random() * 3
     }));
@@ -122,7 +122,7 @@ const Home = () => {
       const elapsed = timestamp - startTime;
       const deltaSeconds = (timestamp - lastFrameTimestamp) / 1000;
       lastFrameTimestamp = timestamp;
-      const angle = (elapsed / 360000) * 2 * Math.PI;
+      const angle = (elapsed / 400000) * 2 * Math.PI;
       const px = window.innerWidth * 1.25;
       const py = window.innerHeight * 1.5;
       const topHalfLimit = window.innerHeight * 0.5;
