@@ -489,7 +489,7 @@ const Home = () => {
                       onPointerMove={handleDemoMovePointerMove}
                       onPointerUp={handleDemoMovePointerUp}
                       onPointerCancel={handleDemoMovePointerUp}
-                      className="flex h-8 ml-1 cursor-grab items-center rounded-full text-white/90 transition-colors active:cursor-grabbing"
+                      className="flex h-8 ml-1 cursor-grab items-center rounded-full text-white transition-colors active:cursor-grabbing"
                       aria-label="Move AI assistant demo card"
                     >
                       <MoveGripDotsIcon className="h-5 w-5" aria-hidden />

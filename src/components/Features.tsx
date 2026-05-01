@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import chevronDown from "../assets/chevron-down.svg";
 import invisibleToolSparkle from "../assets/invisible-tool-sparkle.svg";
 import SparklesIcon from "@/assets/sparkles.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
 import MessageSquareIcon from "@/assets/message-square.svg?react";
+import MoveGripDotsIcon from "@/assets/move-grip-dots.svg?react";
 import { detectDownloadPlatform } from "@/utils/downloads";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
-
-const WAVEFORM_BAR_COUNT = 48;
 
 const formatMmSs = (totalSeconds: number) => {
   const safe = Math.max(0, totalSeconds);
@@ -20,42 +19,9 @@ const formatMmSs = (totalSeconds: number) => {
   return `${mm}:${ss}`;
 };
 
-/** Light gray bars; alpha rises with amplitude (readable on the pale feature card). */
-const waveBarColorForHeightPercent = (heightPercent: number): string => {
-  if (heightPercent <= 0) return "transparent";
-  const minH = 5;
-  const maxH = 56;
-  const minO = 0.45;
-  const maxO = 0.82;
-  let opacity: number;
-  if (heightPercent < minH) {
-    opacity = minO * (heightPercent / minH);
-  } else {
-    const t = clamp((heightPercent - minH) / (maxH - minH), 0, 1);
-    opacity = minO + t * (maxO - minO);
-  }
-  // Cool gray (~slate-500), a step darker than the card so the wave stays legible.
-  return `rgba(100, 116, 139, ${opacity})`;
-};
-
-/** Endpoints at 0 so the duplicated marquee strip joins seamlessly at the loop. */
-const buildSeamlessWaveformHeights = (n: number): number[] => {
-  const taper = Math.max(4, Math.floor(n * 0.12));
-  const base = Array.from({ length: n }, () => 5 + Math.random() * (70 - 5));
-  return base.map((h, i) => {
-    let envelope = 1;
-    if (i < taper) {
-      envelope = i / taper;
-    } else if (i > n - 1 - taper) {
-      envelope = (n - 1 - i) / taper;
-    }
-    return h * envelope;
-  });
-};
-
 /** Compact helpers so three actions stay on one row inside the feature card. */
 const listeningDemoHelperButtonClassNameFeatures =
-  "flex shrink-0 cursor-pointer items-center gap-1 rounded-full border-0 bg-transparent py-1.5 pl-1 pr-1.5 text-[10px] leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 sm:gap-1.5 sm:pl-1.5 sm:pr-2";
+  "flex shrink-0 cursor-pointer items-center gap-0.5 rounded-full border-0 bg-transparent py-1.5 pl-0.5 pr-1 text-[10px] leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 sm:gap-1 sm:pl-1 sm:pr-1.5";
 
 const listeningDemoChatKeyPillClassFeatures =
   "inline-flex h-4 shrink-0 items-center justify-center rounded-[4px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[7px] leading-none text-white/50";
@@ -67,8 +33,6 @@ const ListeningConversationCard = () => {
   const [chatInput, setChatInput] = useState("");
   const downloadPlatform = detectDownloadPlatform();
   const modifierKeyLabel = downloadPlatform === "mac" ? "⌘" : "Ctrl";
-
-  const barHeights = useMemo(() => buildSeamlessWaveformHeights(WAVEFORM_BAR_COUNT), []);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -100,70 +64,123 @@ const ListeningConversationCard = () => {
     <div ref={cardRef} className="relative aspect-[855/855] w-full">
       <style>
         {`
-          @keyframes featuresListeningWaveMarquee {
-            from {
-              transform: translateX(0);
-            }
-            to {
-              transform: translateX(-50%);
-            }
+          @keyframes featuresSonarRing {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(3.2); opacity: 0; }
           }
         `}
       </style>
 
-      <div className="absolute inset-0 flex h-full min-h-0 flex-col gap-3 p-[10px] sm:gap-3.5 sm:p-3 md:p-[14px] xl:p-4">
-        <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col items-center justify-center gap-3 text-muted-foreground sm:gap-4">
-          <div className="text-center">
-            <p className="text-3xl font-medium tabular-nums tracking-tight sm:text-3xl md:text-5xl">
-              {formatMmSs(elapsedSeconds)}
-            </p>
-            <div className="mt-2 flex items-center justify-center gap-2">
-              <span className="size-2 shrink-0 rounded-full bg-red-400 animate-pulse" aria-hidden="true" />
-              <span className="text-xs font-medium text-[#6B7280] sm:text-sm">
-                Listening
-              </span>
+      <div className="absolute inset-0 flex h-full min-h-0 flex-col">
+        <div
+          className="flex w-full shrink-0 items-center px-3 py-2.5 md:px-4 md:py-3"
+          style={{ backgroundColor: "rgba(255,255,255,0.6)" }}
+        >
+          <div className="flex items-center gap-1.5">
+            <div className="relative flex h-[18px] w-[18px] shrink-0 items-center justify-center">
+              <div
+                className="absolute h-[7px] w-[7px] rounded-full bg-[#7F77DD]"
+                style={{ animation: "featuresSonarRing 1.8s ease-out infinite" }}
+              />
+              <div
+                className="absolute h-[7px] w-[7px] rounded-full bg-[#7F77DD]"
+                style={{ animation: "featuresSonarRing 1.8s ease-out infinite 0.7s" }}
+              />
+              <div className="relative z-10 h-[7px] w-[7px] rounded-full bg-[#7F77DD]" />
             </div>
+            <span className="text-[11px] font-medium text-[#374151]">Hovrlay</span>
           </div>
-
-          <div className="relative h-20 w-full min-w-0 self-stretch overflow-hidden sm:h-24 lg:h-28">
-            <div
-              className="flex h-full w-[200%] will-change-transform"
-              style={{
-                animation: "featuresListeningWaveMarquee 5s linear infinite",
-              }}
-            >
-              {[0, 1].map((dup) => (
-                <div
-                  key={dup}
-                  className="flex h-full min-w-0 w-1/2 items-center justify-between"
-                >
-                  {barHeights.map((h, i) => (
-                    <div
-                      key={`${dup}-${i}`}
-                      className="w-1.5 shrink-0 rounded-full"
-                      style={{
-                        height: `${h}%`,
-                        backgroundColor: waveBarColorForHeightPercent(h),
-                      }}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+          <span className="ml-auto text-[11px] font-medium tabular-nums text-[#6B7280]">
+            {formatMmSs(elapsedSeconds)}
+          </span>
         </div>
 
-        <div
-          className="flex w-full shrink-0 flex-col overflow-hidden rounded-2xl border border-white/25"
-          style={{
-            background:
-              "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
-            boxShadow:
-              "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
-          }}
-        >
-          <div className="px-2.5 pb-2 pt-2.5 sm:px-3 sm:pb-2 sm:pt-3">
-            <div className="flex flex-nowrap items-center justify-start gap-x-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-x-1.5 md:gap-x-2">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 p-[10px] sm:p-3 md:p-[14px] xl:p-4">
+          <div className="flex min-h-0 min-w-0 w-full flex-1 flex-col justify-center">
+            <div className="flex w-full flex-col gap-2">
+              <div className="rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2.5">
+                <div className="mb-1.5 flex items-center gap-1.5">
+                  <div
+                    className="size-[10px] shrink-0 rounded-full bg-[#C4C9D8]"
+                    aria-hidden
+                  />
+                  <span className="text-[10px] font-medium text-[#6B7280]">Them</span>
+                </div>
+                <p className="text-[10px] leading-relaxed text-[#374151]">
+                  How would you design Twitter's timeline?
+                </p>
+              </div>
+              <div
+                className="rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2.5"
+                aria-label="You, currently typing"
+              >
+                <div className="mb-1.5 flex items-center gap-1.5">
+                  <div
+                    className="size-[10px] shrink-0 rounded-full bg-[#7F77DD]"
+                    aria-hidden
+                  />
+                  <span className="text-[10px] font-medium text-[#6B7280]">You</span>
+                </div>
+                <p className="text-[10px] leading-relaxed text-[#374151]">
+                  I’d use fan-out on write to push tweets to followers’ timelines and store them in Redis for fast loading
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="w-full min-w-0 shrink-0">
+          <div className="mb-2 flex justify-center">
+            <div
+              className="mx-auto flex w-fit items-center gap-1 rounded-full px-2 py-1.5"
+              style={{
+                backgroundColor: "hsla(252, 10%, 10%, 0.8)",
+                boxShadow:
+                  "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
+              }}
+            >
+              <button
+                type="button"
+                className="mr-1 flex h-6 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-2 text-[10px] font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+                aria-label="Hide overlay"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="size-3.5 text-[#b2b3ba]"
+                  aria-hidden
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+                <span>Hide</span>
+              </button>
+              <span className="mx-0.5 h-5 w-px bg-white/70" aria-hidden />
+              <button
+                type="button"
+                className="ml-0.5 flex h-6 items-center rounded-full text-white transition-colors"
+                aria-label="Move AI assistant demo card"
+              >
+                <MoveGripDotsIcon className="h-4 w-4" aria-hidden />
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="flex w-full min-w-0 shrink-0 flex-col overflow-hidden rounded-2xl border border-white/25"
+            style={{
+              background:
+                "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
+              boxShadow:
+                "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
+            }}
+          >
+          <div className="min-w-0 px-2.5 pb-2 pt-2.5 sm:px-3 sm:pb-2 sm:pt-3">
+            <div className="flex min-h-0 min-w-0 w-full flex-nowrap items-center justify-start gap-x-1 overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-x-1.5 md:gap-x-2">
               <span className="group/static-insight flex shrink-0 items-center gap-1.5">
                 <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
                   <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
@@ -181,7 +198,7 @@ const ListeningConversationCard = () => {
                   <span className="whitespace-nowrap text-[#edeef2]">What should I say?</span>
                 </button>
               </span>
-              <span className="group/static-insight flex shrink-0 items-center gap-1.5">
+              <span className="group/static-insight flex shrink-0 items-center gap-1.5 pr-1 sm:pr-0">
                 <div className="size-[3px] shrink-0 rounded-full bg-[#898b91]" aria-hidden />
                 <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
                   <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
@@ -193,9 +210,9 @@ const ListeningConversationCard = () => {
             </div>
           </div>
 
-          <div className="px-2.5 pb-2.5 sm:px-3 sm:pb-3">
+          <div className="min-w-0 px-2.5 pb-2.5 sm:px-3 sm:pb-3">
             <div
-              className="flex flex-col rounded-xl"
+              className="flex min-w-0 flex-col rounded-xl"
               style={{
                 border: "0.5px solid rgba(155, 155, 155, 0.4)",
                 boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)",
@@ -259,6 +276,8 @@ const ListeningConversationCard = () => {
               </div>
             </div>
           </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -532,7 +551,7 @@ const Features = () => {
               <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
                 <span className="font-medium">Hovrlay listens to the conversation. </span>
                 <span className="text-muted-foreground font-light">
-                  It picks up the context of your meeting in real time, so it can help when you need it.
+                  It transcribes your meeting in real time, gaining context, so it can help when you need it.
                 </span>
               </p>
             </div>
