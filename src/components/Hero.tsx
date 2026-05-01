@@ -1,9 +1,10 @@
 import { OsDownloadButton } from "@/components/OsDownloadButton";
-import SearchRecordsIcon from "@/assets/search-records.svg?react";
+import { detectDownloadPlatform } from "@/utils/downloads";
+import SparklesIcon from "@/assets/sparkles.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
-import MessageQuestionIcon from "@/assets/message-question.svg?react";
-import DotIcon from "@/assets/dot.svg?react";
-import { useEffect, useRef } from "react";
+import MessageSquareIcon from "@/assets/message-square.svg?react";
+import RefreshCwIcon from "@/assets/refresh-cw.svg?react";
+import { useEffect, useRef, useState } from "react";
 
 type Star = {
   x: number;
@@ -23,11 +24,20 @@ type ShootingStar = {
   trailLength: number;
 };
 
+const demoHelperButtonClassName =
+  "flex cursor-pointer items-center gap-1.5 rounded-full border-0 bg-transparent py-2 pl-1.5 pr-2 text-xs leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30";
+
+const demoChatKeyPillClass =
+  "inline-flex h-[18px] shrink-0 items-center justify-center rounded-[5px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[8px] leading-none text-white/50 md:h-[22px] md:text-[9px]";
+
 const Home = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const starsRef = useRef<Star[]>([]);
   const shootingStarsRef = useRef<ShootingStar[]>([]);
-  const headingText = "Your AI assistant for meetings";
+  const [demoChatInput, setDemoChatInput] = useState("");
+  const downloadPlatform = detectDownloadPlatform();
+  const modifierKeyLabel = downloadPlatform === "mac" ? "⌘" : "Ctrl";
+  const headingText = "#1 AI Assistant for Interviews";
   const words = headingText.split(" ");
   
   // Calculate delays: 0.1s between words for heading
@@ -36,10 +46,16 @@ const Home = () => {
   const subheadingDelay = totalHeadingDelay + 0.2;
   const buttonsDelay = subheadingDelay + 0.4;
   const demoCardDelay = buttonsDelay + 0.7;
-  
-  // AI demo text animation: 29 words, 0.05s each = 1.45s, plus animation duration (0.5s)
-  const aiResponseWords = 29;
-  const aiResponseDelay = demoCardDelay + 0.5 + (aiResponseWords * 0.05);
+
+  const aiDemoResponseText =
+    "A closure in JavaScript is a function that retains access to its outer scope even after the outer function has returned. For example, a counter function that increments a private variable — the inner function closes over that variable.";
+  const aiDemoResponseWords = [
+    "\u201C",
+    ...aiDemoResponseText.split(/\s+/),
+    "\u201D"
+  ];
+  // Word-by-word animation: 0.05s stagger per word after 0.5s intro
+  const aiResponseDelay = demoCardDelay + 0.5 + aiDemoResponseWords.length * 0.05;
   const demoBottomSectionDelay = aiResponseDelay;
 
   useEffect(() => {
@@ -247,7 +263,7 @@ const Home = () => {
         <div className="flex flex-col items-center text-center lg:max-w-4xl lg:mx-auto px-2 sm:px-4">
           {/* Text content section */}
           <div className="my-8 sm:my-10 md:my-16 lg:my-18">
-            <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl max-w-xl font-medium text-primary-foreground mb-10 leading-tight">
+            <h1 className="font-heading text-5xl sm:text-5xl md:text-6xl lg:text-7xl max-w-xl font-light text-primary-foreground mb-10 leading-tight">
               {words.map((word, index) => (
                 <span
                   key={index}
@@ -265,7 +281,7 @@ const Home = () => {
               className="text-sm sm:text-base md:text-lg lg:text-lg text-primary-foreground max-w-lg font-light mx-auto px-2 opacity-0 animate-fade-in-up"
               style={{ animationDelay: `${subheadingDelay}s` }}
             >
-              Takes perfect notes, answers questions in real time, and makes you the most prepared person on every call.
+              Get answers to every interview question in real time without being detected. Start free, no credit card required.
             </p>
           </div>
 
@@ -280,87 +296,177 @@ const Home = () => {
             </div>
           </div>
 
-          {/* AI Assistant Demo Card */}
-          <div 
+          {/* AI Assistant Demo Card — layout/visuals aligned with product chat card */}
+          <div
             className="w-full max-w-xl opacity-0 animate-expand-down"
             style={{ animationDelay: `${demoCardDelay}s` }}
           >
-            <div 
-              className="flex flex-col items-center justify-between overflow-hidden rounded-2xl bg-gradient-to-b from-[#21232a]/50 to-[#21232a]/80 p-5 backdrop-blur-sm"
+            <div
+              className="flex flex-col overflow-hidden rounded-2xl border border-white/25"
               style={{
-                boxShadow: 'rgba(207, 226, 255, 0.24) 0px 0px 0px 1px, rgba(255, 255, 255, 0.8) 0px -0.5px 0px 0px, rgba(0, 0, 0, 0) 0px 174px 49px 0px, rgba(0, 0, 0, 0.08) 0px 112px 45px 0px, rgba(0, 0, 0, 0.14) 0px 63px 38px 0px, rgba(0, 0, 0, 0.16) 0px 28px 28px 0px, rgba(0, 0, 0, 0.2) 0px 7px 15px 0px'
+                background:
+                  "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
+                boxShadow:
+                  "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
               }}
             >
-              {/* Question and Response */}
-              <div className="flex h-fit w-full flex-col gap-2 mb-20">
-                {/* User Question Bubble */}
-                <div className="flex w-full justify-end">
-                  <div 
-                    className="relative overflow-hidden rounded-2xl px-3 py-1 text-base font-light lg:text-lg text-primary-foreground"
-                    style={{
-                      background: 'linear-gradient(to bottom, #0743a7, #033381)',
-                      borderBottomRightRadius: '4px',
-                      borderTop: '1px solid rgba(255, 255, 255, 0.49)',
-                      borderBottom: '1px solid rgba(30, 5, 5, 0.49)'
-                    }}
-                  >
-                    What should I say?
+              <div className="flex flex-1 flex-col p-4 pb-2">
+                <div className="relative">
+                  <div className="flex max-h-[min(260px,52vh)] flex-col gap-3 overflow-y-auto overflow-x-hidden pb-1.5 pr-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="flex justify-end pt-1.5">
+                      <div
+                        className="w-fit max-w-72 cursor-pointer select-text rounded-xl rounded-br-sm px-2.5 py-1.5 text-sm text-white"
+                        style={{
+                          background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                          boxShadow:
+                            "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset"
+                        }}
+                      >
+                        What should I say?
+                      </div>
+                    </div>
+
+                    <div className="w-full text-sm font-light leading-[1.6] text-[#edeef2]">
+                      <p className="text-left">
+                        {aiDemoResponseWords.map((word, index) => (
+                          <span
+                            key={index}
+                            className="animate-word mr-1"
+                            style={{
+                              animationDelay: `${demoCardDelay + 0.5 + index * 0.05}s`
+                            }}
+                          >
+                            {word}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* AI Response */}
-                <div className="flex flex-col gap-1">
-                  {/* Searched Records Indicator */}
-                  <div className="flex items-center gap-1.5 text-sm font-light lg:text-base text-white/60">
-                    <SearchRecordsIcon className="w-4 h-4 -translate-y-px" />
-                    <p>Searched records</p>
-                  </div>
-
-                  {/* AI Response Text */}
-                  <div className="w-full max-w-[90%] text-base leading-[1.3] font-light tracking-[-0.005em] text-primary-foreground lg:text-lg text-left">
-                    <p className="text-left">
-                      {['"So', 'just', 'to', 'recap—you', 'need', 'new', 'cabinets', 'and', 'lighting.', "I'll", 'send', 'you', 'a', 'quote', 'within', 'the', 'hour.', "Let's", 'do', 'a', 'kickoff', 'call', 'next', 'Wednesday', 'if', 'that', 'works', 'for', 'you?"'].map((word, index) => (
-                        <span 
-                          key={index}
-                          className="animate-word mr-1"
-                          style={{ animationDelay: `${demoCardDelay + 0.5 + (index * 0.05)}s` }}
-                        >
-                          {word}
-                        </span>
-                      ))}
-                    </p>
-                  </div>
+                <div
+                  className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 font-light opacity-0 animate-fade-in-up sm:mt-8 md:mt-12"
+                  style={{ animationDelay: `${demoBottomSectionDelay}s` }}
+                >
+                  <span className="group/static-insight flex items-center gap-2">
+                    <button type="button" className={demoHelperButtonClassName}>
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                        <SparklesIcon className="size-3.5" aria-hidden />
+                      </span>
+                      <span className="truncate text-[#edeef2]">Assist</span>
+                    </button>
+                  </span>
+                  <span className="group/static-insight flex items-center gap-2">
+                    <div
+                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                      aria-hidden
+                    />
+                    <button type="button" className={demoHelperButtonClassName}>
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                        <WandSparklesIcon className="size-3.5" aria-hidden />
+                      </span>
+                      <span className="truncate text-[#edeef2]">What should I say?</span>
+                    </button>
+                  </span>
+                  <span className="group/static-insight hidden items-center gap-2 md:flex">
+                    <div
+                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                      aria-hidden
+                    />
+                    <button type="button" className={demoHelperButtonClassName}>
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                        <MessageSquareIcon className="size-3.5" aria-hidden />
+                      </span>
+                      <span className="truncate text-[#edeef2]">Follow-up questions</span>
+                    </button>
+                  </span>
+                  <span className="group/static-insight hidden items-center gap-2 xl:flex">
+                    <div
+                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                      aria-hidden
+                    />
+                    <button type="button" className={demoHelperButtonClassName}>
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                        <RefreshCwIcon className="size-3.5" aria-hidden />
+                      </span>
+                      <span className="truncate text-[#edeef2]">Recap</span>
+                    </button>
+                  </span>
                 </div>
               </div>
 
-              {/* Bottom Section - Metadata and Input */}
-              <div 
-                className="flex w-full flex-col gap-2 opacity-0 animate-fade-in-up"
+              <div
+                className="px-3 pb-3 opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${demoBottomSectionDelay}s` }}
               >
-                {/* Metadata Row */}
-                <div className="flex items-center gap-1 px-1.5 text-sm">
-                  <div className="flex items-center gap-1 text-[#EDEEF2]">
-                    <WandSparklesIcon className="w-4 h-4 text-white/60" />
-                    What should I say?
+                <div
+                  className="flex flex-col rounded-xl"
+                  style={{
+                    border: "0.5px solid rgba(155, 155, 155, 0.4)",
+                    boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)"
+                  }}
+                >
+                  <div
+                    className="relative flex items-center gap-2 p-2 md:gap-2.5 md:p-2.5"
+                    style={{
+                      boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)"
+                    }}
+                  >
+                    <div className="relative flex min-h-[26px] min-w-0 flex-1 items-center md:min-h-[28px]">
+                      {demoChatInput.length === 0 && (
+                        <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[10px] text-white/60 sm:text-[11px] md:flex-wrap md:gap-y-0.5 md:text-[13px]">
+                          <span className="shrink-0 md:hidden">Ask a question, or </span>
+                          <span className="hidden shrink-0 md:inline">
+                            Ask about your screen or conversation,{" "}
+                          </span>
+                          <span
+                            className={`${demoChatKeyPillClass} ${
+                              downloadPlatform === "mac" ? "min-w-[1.125rem]" : "min-w-[1.75rem] px-1 md:min-w-[2rem]"
+                            }`}
+                          >
+                            {modifierKeyLabel}
+                          </span>
+                          <span className={`${demoChatKeyPillClass} min-w-[1.125rem] md:min-w-[1.25rem]`}>
+                            ⏎
+                          </span>
+                          <span className="hidden shrink-0 md:inline"> to start typing</span>
+                        </div>
+                      )}
+                      <input
+                        type="text"
+                        value={demoChatInput}
+                        onChange={(e) => setDemoChatInput(e.target.value)}
+                        aria-label="Chat"
+                        title={
+                          downloadPlatform === "mac"
+                            ? "Type a message. In the app, use ⌘ and Return to focus this field."
+                            : "Type a message. In the app, use Ctrl and Enter to focus this field."
+                        }
+                        className="relative z-10 min-h-[26px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 md:min-h-[28px] md:py-1 md:text-[13px]"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] md:size-7"
+                      style={{
+                        background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                        boxShadow:
+                          "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset"
+                      }}
+                      aria-label="Send"
+                    >
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="currentColor"
+                        className="ml-0.5 size-3"
+                        aria-hidden
+                      >
+                        <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" />
+                      </svg>
+                    </button>
                   </div>
-                  <DotIcon className="hidden lg:block w-4 h-4 text-white/60" />
-                  <div className="hidden lg:flex items-center gap-1 text-[#EDEEF2]">
-                    <MessageQuestionIcon className="w-4 h-4 text-white/60" />
-                    Follow-up questions
-                  </div>
-                </div>
-
-                {/* Input Field */}
-                <div className="flex h-12 w-full items-center rounded-xl border border-white/20 bg-[#1a1e2d]/50 px-3 py-2 font-medium text-[#7A7A84]">
-                  <span>Ask, </span>
-                  <span className="mx-1 inline-flex h-fit items-center justify-center rounded-md border-[0.5px] border-[#80828C] px-0.5 py-px text-[11px] text-[#80828C]">
-                    ⌘
-                  </span>
-                  <span className="mr-1 inline-flex h-fit items-center justify-center rounded-md border-[0.5px] border-[#80828C] px-0.5 py-px text-[11px] text-[#80828C]">
-                    ⏎
-                  </span>
-                  <span> to start typing</span>
                 </div>
               </div>
             </div>

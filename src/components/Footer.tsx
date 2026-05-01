@@ -38,7 +38,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-foreground">hovrlay</span>
             </a>
             <p className="font-light text-muted-foreground mb-8 max-w-md">
-            AI meeting assistant that provides live meeting notes, instant answers, and real-time insights during calls and interviews
+            AI assistant for Interviews that gives you answers in real time without being detected. Start free, no credit card required.
             </p>
             <div className="flex gap-4">
               <a 

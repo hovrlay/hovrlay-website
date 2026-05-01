@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import chevronDown from "../assets/chevron-down.svg";
 import invisibleToolSparkle from "../assets/invisible-tool-sparkle.svg";
-import DotIcon from "@/assets/dot.svg?react";
-import MessageQuestionIcon from "@/assets/message-question.svg?react";
-import SearchRecordsIcon from "@/assets/search-records.svg?react";
+import SparklesIcon from "@/assets/sparkles.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
+import MessageSquareIcon from "@/assets/message-square.svg?react";
+import { detectDownloadPlatform } from "@/utils/downloads";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
@@ -20,21 +20,55 @@ const formatMmSs = (totalSeconds: number) => {
   return `${mm}:${ss}`;
 };
 
-const barAlphaForHeightPercent = (heightPercent: number) => {
-  const t = (heightPercent - 5) / (70 - 5);
-  return 0.15 + clamp(t, 0, 1) * (0.5 - 0.15);
+/** Light gray bars; alpha rises with amplitude (readable on the pale feature card). */
+const waveBarColorForHeightPercent = (heightPercent: number): string => {
+  if (heightPercent <= 0) return "transparent";
+  const minH = 5;
+  const maxH = 56;
+  const minO = 0.45;
+  const maxO = 0.82;
+  let opacity: number;
+  if (heightPercent < minH) {
+    opacity = minO * (heightPercent / minH);
+  } else {
+    const t = clamp((heightPercent - minH) / (maxH - minH), 0, 1);
+    opacity = minO + t * (maxO - minO);
+  }
+  // Cool gray (~slate-500), a step darker than the card so the wave stays legible.
+  return `rgba(100, 116, 139, ${opacity})`;
 };
+
+/** Endpoints at 0 so the duplicated marquee strip joins seamlessly at the loop. */
+const buildSeamlessWaveformHeights = (n: number): number[] => {
+  const taper = Math.max(4, Math.floor(n * 0.12));
+  const base = Array.from({ length: n }, () => 5 + Math.random() * (70 - 5));
+  return base.map((h, i) => {
+    let envelope = 1;
+    if (i < taper) {
+      envelope = i / taper;
+    } else if (i > n - 1 - taper) {
+      envelope = (n - 1 - i) / taper;
+    }
+    return h * envelope;
+  });
+};
+
+/** Compact helpers so three actions stay on one row inside the feature card. */
+const listeningDemoHelperButtonClassNameFeatures =
+  "flex shrink-0 cursor-pointer items-center gap-1 rounded-full border-0 bg-transparent py-1.5 pl-1 pr-1.5 text-[10px] leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 sm:gap-1.5 sm:pl-1.5 sm:pr-2";
+
+const listeningDemoChatKeyPillClassFeatures =
+  "inline-flex h-4 shrink-0 items-center justify-center rounded-[4px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[7px] leading-none text-white/50";
 
 const ListeningConversationCard = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [chatInput, setChatInput] = useState("");
+  const downloadPlatform = detectDownloadPlatform();
+  const modifierKeyLabel = downloadPlatform === "mac" ? "⌘" : "Ctrl";
 
-  const barHeights = useMemo(
-    () =>
-      Array.from({ length: WAVEFORM_BAR_COUNT }, () => 5 + Math.random() * (70 - 5)),
-    [],
-  );
+  const barHeights = useMemo(() => buildSeamlessWaveformHeights(WAVEFORM_BAR_COUNT), []);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -77,72 +111,151 @@ const ListeningConversationCard = () => {
         `}
       </style>
 
-      <div className="absolute inset-0 flex flex-col text-muted-foreground p-[14px] md:p-[16px] xl:p-[18px]">
-        <div className="flex min-h-0 flex-1 flex-col justify-center gap-[10px] py-[10px] md:gap-3 md:py-3 xl:gap-[14px] xl:py-4">
+      <div className="absolute inset-0 flex h-full min-h-0 flex-col gap-3 p-[10px] sm:gap-3.5 sm:p-3 md:p-[14px] xl:p-4">
+        <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col items-center justify-center gap-3 text-muted-foreground sm:gap-4">
           <div className="text-center">
-            <p className="text-[28px] font-medium tabular-nums tracking-tight md:text-[34px] xl:text-[40px]">
+            <p className="text-3xl font-medium tabular-nums tracking-tight sm:text-3xl md:text-5xl">
               {formatMmSs(elapsedSeconds)}
             </p>
-            <div className="flex items-center justify-center gap-1.5">
-              <span className="size-1.5 shrink-0 rounded-full bg-red-400 animate-pulse" aria-hidden="true" />
-              <span className="text-[10px] font-medium text-[#6B7280] md:text-[12px] xl:text-[14px]">Recording</span>
+            <div className="mt-2 flex items-center justify-center gap-2">
+              <span className="size-2 shrink-0 rounded-full bg-red-400 animate-pulse" aria-hidden="true" />
+              <span className="text-xs font-medium text-[#6B7280] sm:text-sm">
+                Listening
+              </span>
             </div>
           </div>
 
-          <div className="relative h-[28px] w-full overflow-hidden rounded-md md:h-[34px] xl:h-[40px]">
+          <div className="relative h-20 w-full min-w-0 self-stretch overflow-hidden sm:h-24 lg:h-28">
             <div
-              className="absolute left-0 top-0 flex h-full items-center gap-[3px] md:gap-1 xl:gap-[5px]"
+              className="flex h-full w-[200%] will-change-transform"
               style={{
-                width: "200%",
                 animation: "featuresListeningWaveMarquee 5s linear infinite",
               }}
             >
-              {[0, 1].flatMap((dup) =>
-                barHeights.map((h, i) => (
-                  <div
-                    key={`${dup}-${i}`}
-                    className="w-1 shrink-0 rounded-full"
-                    style={{
-                      height: `${h}%`,
-                      backgroundColor: `rgba(0,0,0,${barAlphaForHeightPercent(h)})`,
-                    }}
-                  />
-                ))
-              )}
+              {[0, 1].map((dup) => (
+                <div
+                  key={dup}
+                  className="flex h-full min-w-0 w-1/2 items-center justify-between"
+                >
+                  {barHeights.map((h, i) => (
+                    <div
+                      key={`${dup}-${i}`}
+                      className="w-1.5 shrink-0 rounded-full"
+                      style={{
+                        height: `${h}%`,
+                        backgroundColor: waveBarColorForHeightPercent(h),
+                      }}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="shrink-0">
-          <div
-            className="flex flex-col justify-between overflow-hidden rounded-[10px] bg-gradient-to-b from-[#21232a]/50 to-[#21232a]/80 p-[8px] backdrop-blur-sm md:rounded-xl md:p-[10px] xl:p-[12px]"
-            style={{
-              boxShadow:
-                "rgba(207, 226, 255, 0.24) 0px 0px 0px 1px, rgba(255, 255, 255, 0.8) 0px -0.5px 0px 0px, rgba(0, 0, 0, 0) 0px 174px 49px 0px, rgba(0, 0, 0, 0.08) 0px 112px 45px 0px, rgba(0, 0, 0, 0.14) 0px 63px 38px 0px, rgba(0, 0, 0, 0.16) 0px 28px 28px 0px, rgba(0, 0, 0, 0.2) 0px 7px 15px 0px",
-            }}
-          >
-            <div className="flex w-full flex-col gap-1.5 md:gap-2">
-              <div className="flex flex-wrap items-center gap-x-1 gap-y-0.5 px-0.5 text-[6px] md:text-[7px] xl:text-[8px]">
-                <div className="flex items-center gap-0.5 text-[#EDEEF2] md:gap-1">
-                  <WandSparklesIcon className="size-[10px] shrink-0 text-white/60 md:size-3 xl:size-[14px]" />
-                  What should I say?
-                </div>
-                <DotIcon className="hidden size-[10px] shrink-0 text-white/60 lg:block xl:size-3" />
-                <div className="hidden items-center gap-0.5 text-[#EDEEF2] lg:flex md:gap-1">
-                  <MessageQuestionIcon className="size-[10px] shrink-0 text-white/60 md:size-3 xl:size-[14px]" />
-                  Follow-up questions
-                </div>
-              </div>
+        <div
+          className="flex w-full shrink-0 flex-col overflow-hidden rounded-2xl border border-white/25"
+          style={{
+            background:
+              "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
+            boxShadow:
+              "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
+          }}
+        >
+          <div className="px-2.5 pb-2 pt-2.5 sm:px-3 sm:pb-2 sm:pt-3">
+            <div className="flex flex-nowrap items-center justify-start gap-x-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-x-1.5 md:gap-x-2">
+              <span className="group/static-insight flex shrink-0 items-center gap-1.5">
+                <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
+                  <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                    <SparklesIcon className="size-3" aria-hidden />
+                  </span>
+                  <span className="whitespace-nowrap text-[#edeef2]">Assist</span>
+                </button>
+              </span>
+              <span className="group/static-insight flex shrink-0 items-center gap-1.5">
+                <div className="size-[3px] shrink-0 rounded-full bg-[#898b91]" aria-hidden />
+                <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
+                  <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                    <WandSparklesIcon className="size-3" aria-hidden />
+                  </span>
+                  <span className="whitespace-nowrap text-[#edeef2]">What should I say?</span>
+                </button>
+              </span>
+              <span className="group/static-insight flex shrink-0 items-center gap-1.5">
+                <div className="size-[3px] shrink-0 rounded-full bg-[#898b91]" aria-hidden />
+                <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
+                  <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                    <MessageSquareIcon className="size-3" aria-hidden />
+                  </span>
+                  <span className="whitespace-nowrap text-[#edeef2]">Follow-up questions</span>
+                </button>
+              </span>
+            </div>
+          </div>
 
-              <div className="flex h-[28px] w-full items-center rounded-[10px] border border-white/20 bg-[#1a1e2d]/50 px-2 py-1 text-[6px] font-medium text-[#7A7A84] md:h-[32px] md:rounded-xl md:px-2.5 md:text-[7px] xl:h-9 xl:px-3 xl:text-[8px]">
-                <span>Ask, </span>
-                <span className="mx-0.5 inline-flex h-fit items-center justify-center rounded border-[0.5px] border-[#80828C] px-0.5 py-px text-[6px] text-[#80828C] md:mx-1 md:text-[7px] xl:text-[8px]">
-                  ⌘
-                </span>
-                <span className="mr-0.5 inline-flex h-fit items-center justify-center rounded border-[0.5px] border-[#80828C] px-0.5 py-px text-[6px] text-[#80828C] md:mx-0 md:text-[7px] xl:text-[8px]">
-                  ⏎
-                </span>
-                <span> to start typing</span>
+          <div className="px-2.5 pb-2.5 sm:px-3 sm:pb-3">
+            <div
+              className="flex flex-col rounded-xl"
+              style={{
+                border: "0.5px solid rgba(155, 155, 155, 0.4)",
+                boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)",
+              }}
+            >
+              <div
+                className="relative flex items-center gap-1.5 p-2"
+                style={{
+                  boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <div className="relative flex min-h-[24px] min-w-0 flex-1 items-center">
+                  {chatInput.length === 0 && (
+                    <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-0.5 overflow-hidden font-light text-[10px] leading-tight text-white/60">
+                      <span className="shrink-0">Ask a question, or </span>
+                      <span
+                        className={`${listeningDemoChatKeyPillClassFeatures} ${
+                          downloadPlatform === "mac" ? "min-w-[1rem]" : "min-w-[1.5rem] px-0.5"
+                        }`}
+                      >
+                        {modifierKeyLabel}
+                      </span>
+                      <span className={`${listeningDemoChatKeyPillClassFeatures} min-w-[1rem]`}>⏎</span>
+                      <span className="shrink-0"> to start typing</span>
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    aria-label="Chat"
+                    title={
+                      downloadPlatform === "mac"
+                        ? "Type a message. In the app, use ⌘ and Return to focus this field."
+                        : "Type a message. In the app, use Ctrl and Enter to focus this field."
+                    }
+                    className="relative z-10 min-h-[24px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[10px] text-white outline-none placeholder:text-transparent focus-visible:ring-0"
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="flex size-5 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97]"
+                  style={{
+                    background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                    boxShadow:
+                      "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset",
+                  }}
+                  aria-label="Send"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                    className="ml-0.5 size-2.5"
+                    aria-hidden
+                  >
+                    <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -211,7 +324,7 @@ const Features = () => {
             Why Choose Hovrlay?
           </h2>
           <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-base md:text-base lg:text-lg">
-            Suite of features to use Hovrlay in your meetings, calls, and interviews.
+            Suite of features to use Hovrlay in your meetings, calls and interviews.
           </p>
         </div>
 

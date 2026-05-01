@@ -194,7 +194,7 @@ const Pricing = () => {
             </span>
             <br />
             <span className="text-sm sm:text-base">
-              1 credit = 1 hour of live AI help. Includes free usage.
+              1 credit = 1 hour of live AI help.
             </span>
           </p>
           </div>
