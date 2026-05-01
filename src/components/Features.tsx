@@ -21,7 +21,7 @@ const formatMmSs = (totalSeconds: number) => {
 
 /** Compact helpers so three actions stay on one row inside the feature card. */
 const listeningDemoHelperButtonClassNameFeatures =
-  "flex shrink-0 cursor-pointer items-center gap-0.5 rounded-full border-0 bg-transparent py-1.5 pl-0.5 pr-1 text-[10px] leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 sm:gap-1 sm:pl-1 sm:pr-1.5";
+  "flex shrink-0 cursor-pointer items-center gap-0.5 rounded-full border-0 bg-transparent py-1 pl-0.5 pr-0.5 text-[8px] leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 sm:py-1.5 sm:pl-1 sm:pr-1 sm:text-[10px] md:pr-1.5";
 
 const listeningDemoChatKeyPillClassFeatures =
   "inline-flex h-4 shrink-0 items-center justify-center rounded-[4px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[7px] leading-none text-white/50";
@@ -73,64 +73,64 @@ const ListeningConversationCard = () => {
 
       <div className="absolute inset-0 flex h-full min-h-0 flex-col">
         <div
-          className="flex w-full shrink-0 items-center px-3 py-2.5 md:px-4 md:py-3"
+          className="flex w-full shrink-0 items-center px-2.5 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3"
           style={{ backgroundColor: "rgba(255,255,255,0.6)" }}
         >
-          <div className="flex items-center gap-1.5">
-            <div className="relative flex h-[18px] w-[18px] shrink-0 items-center justify-center">
+          <div className="flex items-center gap-1 sm:gap-1.5">
+            <div className="relative flex h-[15px] w-[15px] shrink-0 items-center justify-center sm:h-[18px] sm:w-[18px]">
               <div
-                className="absolute h-[7px] w-[7px] rounded-full bg-[#7F77DD]"
+                className="absolute h-[6px] w-[6px] rounded-full bg-[#7F77DD] sm:h-[7px] sm:w-[7px]"
                 style={{ animation: "featuresSonarRing 1.8s ease-out infinite" }}
               />
               <div
-                className="absolute h-[7px] w-[7px] rounded-full bg-[#7F77DD]"
+                className="absolute h-[6px] w-[6px] rounded-full bg-[#7F77DD] sm:h-[7px] sm:w-[7px]"
                 style={{ animation: "featuresSonarRing 1.8s ease-out infinite 0.7s" }}
               />
-              <div className="relative z-10 h-[7px] w-[7px] rounded-full bg-[#7F77DD]" />
+              <div className="relative z-10 h-[6px] w-[6px] rounded-full bg-[#7F77DD] sm:h-[7px] sm:w-[7px]" />
             </div>
-            <span className="text-[11px] font-medium text-[#374151]">Hovrlay</span>
+            <span className="text-[10px] font-medium text-[#374151] sm:text-[11px]">Hovrlay</span>
           </div>
-          <span className="ml-auto text-[11px] font-medium tabular-nums text-[#6B7280]">
+          <span className="ml-auto text-[10px] font-medium tabular-nums text-[#6B7280] sm:text-[11px]">
             {formatMmSs(elapsedSeconds)}
           </span>
         </div>
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 p-[10px] sm:p-3 md:p-[14px] xl:p-4">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 p-2 sm:gap-2 sm:p-3 md:p-[14px] xl:p-4">
           <div className="flex min-h-0 min-w-0 w-full flex-1 flex-col justify-center">
-            <div className="flex w-full flex-col gap-2">
-              <div className="rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2.5">
-                <div className="mb-1.5 flex items-center gap-1.5">
+            <div className="flex w-full flex-col gap-1.5 sm:gap-2">
+              <div className="rounded-lg bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2 sm:rounded-xl sm:p-2.5">
+                <div className="mb-1 flex items-center gap-1 sm:mb-1.5 sm:gap-1.5">
                   <div
-                    className="size-[10px] shrink-0 rounded-full bg-[#C4C9D8]"
+                    className="size-[8px] shrink-0 rounded-full bg-[#C4C9D8] sm:size-[10px]"
                     aria-hidden
                   />
-                  <span className="text-[10px] font-medium text-[#6B7280]">Them</span>
+                  <span className="text-[9px] font-medium text-[#6B7280] sm:text-[10px]">Them</span>
                 </div>
-                <p className="text-[10px] leading-relaxed text-[#374151]">
+                <p className="text-[8px] leading-snug text-[#374151] sm:text-[10px] sm:leading-relaxed">
                   How would you design Twitter's timeline?
                 </p>
               </div>
               <div
-                className="rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2.5"
+                className="rounded-lg bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2 sm:rounded-xl sm:p-2.5"
                 aria-label="You, currently typing"
               >
-                <div className="mb-1.5 flex items-center gap-1.5">
+                <div className="mb-1 flex items-center gap-1 sm:mb-1.5 sm:gap-1.5">
                   <div
-                    className="size-[10px] shrink-0 rounded-full bg-[#7F77DD]"
+                    className="size-[8px] shrink-0 rounded-full bg-[#7F77DD] sm:size-[10px]"
                     aria-hidden
                   />
-                  <span className="text-[10px] font-medium text-[#6B7280]">You</span>
+                  <span className="text-[9px] font-medium text-[#6B7280] sm:text-[10px]">You</span>
                 </div>
-                <p className="text-[10px] leading-relaxed text-[#374151]">
+                <p className="text-[8px] leading-snug text-[#374151] sm:text-[10px] sm:leading-relaxed">
                   I’d use fan-out on write to push tweets to followers’ timelines and store them in Redis for fast loading
                 </p>
               </div>
             </div>
           </div>
           <div className="w-full min-w-0 shrink-0">
-          <div className="mb-2 flex justify-center">
+          <div className="mb-1.5 flex justify-center sm:mb-2">
             <div
-              className="mx-auto flex w-fit items-center gap-1 rounded-full px-2 py-1.5"
+              className="mx-auto flex w-fit items-center gap-0.5 rounded-full px-1.5 py-1 sm:gap-1 sm:px-2 sm:py-1.5"
               style={{
                 backgroundColor: "hsla(252, 10%, 10%, 0.8)",
                 boxShadow:
@@ -139,7 +139,7 @@ const ListeningConversationCard = () => {
             >
               <button
                 type="button"
-                className="mr-1 flex h-6 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-2 text-[10px] font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+                className="mr-0.5 flex h-5 items-center gap-0.5 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-1.5 text-[9px] font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105 sm:mr-1 sm:h-6 sm:gap-1 sm:px-2 sm:text-[10px]"
                 aria-label="Hide overlay"
               >
                 <svg
@@ -152,26 +152,26 @@ const ListeningConversationCard = () => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="size-3.5 text-[#b2b3ba]"
+                  className="size-3 text-[#b2b3ba] sm:size-3.5"
                   aria-hidden
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
                 <span>Hide</span>
               </button>
-              <span className="mx-0.5 h-5 w-px bg-white/70" aria-hidden />
+              <span className="mx-0.5 h-4 w-px bg-white/70 sm:h-5" aria-hidden />
               <button
                 type="button"
-                className="ml-0.5 flex h-6 items-center rounded-full text-white transition-colors"
+                className="ml-0 flex h-5 items-center rounded-full text-white transition-colors sm:ml-0.5 sm:h-6"
                 aria-label="Move AI assistant demo card"
               >
-                <MoveGripDotsIcon className="h-4 w-4" aria-hidden />
+                <MoveGripDotsIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
               </button>
             </div>
           </div>
 
           <div
-            className="flex w-full min-w-0 shrink-0 flex-col overflow-hidden rounded-2xl border border-white/25"
+            className="flex w-full min-w-0 shrink-0 flex-col overflow-hidden rounded-xl border border-white/25 sm:rounded-2xl"
             style={{
               background:
                 "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
@@ -179,30 +179,30 @@ const ListeningConversationCard = () => {
                 "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
             }}
           >
-          <div className="min-w-0 px-2.5 pb-2 pt-2.5 sm:px-3 sm:pb-2 sm:pt-3">
-            <div className="flex min-h-0 min-w-0 w-full flex-nowrap items-center justify-start gap-x-1 overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-x-1.5 md:gap-x-2">
-              <span className="group/static-insight flex shrink-0 items-center gap-1.5">
+          <div className="min-w-0 px-2 pb-1.5 pt-2 sm:px-2.5 sm:pb-2 sm:pt-2.5 md:px-3 md:pt-3">
+            <div className="flex min-h-0 min-w-0 w-full flex-nowrap items-center justify-start gap-x-0.5 overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-x-1 md:gap-x-1.5 lg:gap-x-2">
+              <span className="group/static-insight flex shrink-0 items-center gap-1 sm:gap-1.5">
                 <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
                   <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                    <SparklesIcon className="size-3" aria-hidden />
+                    <SparklesIcon className="size-2.5 sm:size-3" aria-hidden />
                   </span>
                   <span className="whitespace-nowrap text-[#edeef2]">Assist</span>
                 </button>
               </span>
-              <span className="group/static-insight flex shrink-0 items-center gap-1.5">
+              <span className="group/static-insight flex shrink-0 items-center gap-1 sm:gap-1.5">
                 <div className="size-[3px] shrink-0 rounded-full bg-[#898b91]" aria-hidden />
                 <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
                   <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                    <WandSparklesIcon className="size-3" aria-hidden />
+                    <WandSparklesIcon className="size-2.5 sm:size-3" aria-hidden />
                   </span>
                   <span className="whitespace-nowrap text-[#edeef2]">What should I say?</span>
                 </button>
               </span>
-              <span className="group/static-insight flex shrink-0 items-center gap-1.5 pr-1 sm:pr-0">
+              <span className="group/static-insight flex shrink-0 items-center gap-1 pr-1 sm:gap-1.5 sm:pr-0">
                 <div className="size-[3px] shrink-0 rounded-full bg-[#898b91]" aria-hidden />
                 <button type="button" className={listeningDemoHelperButtonClassNameFeatures}>
                   <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                    <MessageSquareIcon className="size-3" aria-hidden />
+                    <MessageSquareIcon className="size-2.5 sm:size-3" aria-hidden />
                   </span>
                   <span className="whitespace-nowrap text-[#edeef2]">Follow-up questions</span>
                 </button>
@@ -210,23 +210,23 @@ const ListeningConversationCard = () => {
             </div>
           </div>
 
-          <div className="min-w-0 px-2.5 pb-2.5 sm:px-3 sm:pb-3">
+          <div className="min-w-0 px-2 pb-2 sm:px-2.5 sm:pb-2.5 md:px-3 md:pb-3">
             <div
-              className="flex min-w-0 flex-col rounded-xl"
+              className="flex min-w-0 flex-col rounded-lg sm:rounded-xl"
               style={{
                 border: "0.5px solid rgba(155, 155, 155, 0.4)",
                 boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)",
               }}
             >
               <div
-                className="relative flex items-center gap-1.5 p-2"
+                className="relative flex items-center gap-1 p-1.5 sm:gap-1.5 sm:p-2"
                 style={{
                   boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)",
                 }}
               >
-                <div className="relative flex min-h-[24px] min-w-0 flex-1 items-center">
+                <div className="relative flex min-h-[20px] min-w-0 flex-1 items-center sm:min-h-[24px]">
                   {chatInput.length === 0 && (
-                    <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-0.5 overflow-hidden font-light text-[10px] leading-tight text-white/60">
+                    <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-0.5 overflow-hidden font-light text-[8px] leading-tight text-white/60 sm:text-[10px]">
                       <span className="shrink-0">Ask a question, or </span>
                       <span
                         className={`${listeningDemoChatKeyPillClassFeatures} ${
@@ -249,12 +249,12 @@ const ListeningConversationCard = () => {
                         ? "Type a message. In the app, use ⌘ and Return to focus this field."
                         : "Type a message. In the app, use Ctrl and Enter to focus this field."
                     }
-                    className="relative z-10 min-h-[24px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[10px] text-white outline-none placeholder:text-transparent focus-visible:ring-0"
+                    className="relative z-10 min-h-[20px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[8px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 sm:min-h-[24px] sm:text-[10px]"
                   />
                 </div>
                 <button
                   type="button"
-                  className="flex size-5 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97]"
+                  className="flex size-[18px] shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] sm:size-5"
                   style={{
                     background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
                     boxShadow:
