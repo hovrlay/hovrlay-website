@@ -4,7 +4,8 @@ import SparklesIcon from "@/assets/sparkles.svg?react";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
 import MessageSquareIcon from "@/assets/message-square.svg?react";
 import RefreshCwIcon from "@/assets/refresh-cw.svg?react";
-import { useEffect, useRef, useState } from "react";
+import MoveGripDotsIcon from "@/assets/move-grip-dots.svg?react";
+import { type PointerEvent, useEffect, useRef, useState } from "react";
 
 type Star = {
   x: number;
@@ -24,6 +25,11 @@ type ShootingStar = {
   trailLength: number;
 };
 
+type DemoCardPosition = {
+  x: number;
+  y: number;
+};
+
 const demoHelperButtonClassName =
   "flex cursor-pointer items-center gap-1.5 rounded-full border-0 bg-transparent py-2 pl-1.5 pr-2 text-xs leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30";
 
@@ -35,6 +41,17 @@ const Home = () => {
   const starsRef = useRef<Star[]>([]);
   const shootingStarsRef = useRef<ShootingStar[]>([]);
   const [demoChatInput, setDemoChatInput] = useState("");
+  const [isDemoOverlayVisible, setIsDemoOverlayVisible] = useState(true);
+  const [shouldAnimateDemoContent, setShouldAnimateDemoContent] = useState(true);
+  const [demoCardPosition, setDemoCardPosition] = useState<DemoCardPosition>({ x: 0, y: 0 });
+  const [isDemoCardDragging, setIsDemoCardDragging] = useState(false);
+  const demoPlaneRef = useRef<HTMLDivElement | null>(null);
+  const demoCardRef = useRef<HTMLDivElement | null>(null);
+  const dragStartRef = useRef<{
+    pointerId: number;
+    pointerOffsetX: number;
+    pointerOffsetY: number;
+  } | null>(null);
   const downloadPlatform = detectDownloadPlatform();
   const modifierKeyLabel = downloadPlatform === "mac" ? "⌘" : "Ctrl";
   const headingText = "#1 AI Assistant for Interviews";
@@ -49,14 +66,133 @@ const Home = () => {
 
   const aiDemoResponseText =
     "A closure in JavaScript is a function that retains access to its outer scope even after the outer function has returned. For example, a counter function that increments a private variable — the inner function closes over that variable.";
-  const aiDemoResponseWords = [
-    "\u201C",
-    ...aiDemoResponseText.split(/\s+/),
-    "\u201D"
-  ];
-  // Word-by-word animation: 0.05s stagger per word after 0.5s intro
-  const aiResponseDelay = demoCardDelay + 0.5 + aiDemoResponseWords.length * 0.05;
-  const demoBottomSectionDelay = aiResponseDelay;
+  const aiDemoResponseDisplayText = `\u201C${aiDemoResponseText}\u201D`;
+  const [visibleAiResponseChars, setVisibleAiResponseChars] = useState(0);
+  const userQuestionDelay = demoCardDelay + 0.55;
+  // Response streaming starts shortly after the user question appears.
+  const aiResponseStartDelay = userQuestionDelay + 0.35;
+
+  const handleToggleDemoOverlay = () => {
+    setShouldAnimateDemoContent(false);
+    setIsDemoOverlayVisible((current) => !current);
+  };
+
+  const getClampedDemoCardPosition = (x: number, y: number): DemoCardPosition => {
+    const plane = demoPlaneRef.current;
+    const card = demoCardRef.current;
+    if (!plane || !card) {
+      return { x, y };
+    }
+
+    const maxX = Math.max(0, plane.clientWidth - card.offsetWidth);
+    const maxY = Math.max(0, plane.clientHeight - card.offsetHeight);
+
+    return {
+      x: Math.min(Math.max(0, x), maxX),
+      y: Math.min(Math.max(0, y), maxY)
+    };
+  };
+
+  useEffect(() => {
+    const updateDemoCardPositionForLayout = () => {
+      const plane = demoPlaneRef.current;
+      const card = demoCardRef.current;
+      if (!plane || !card) {
+        return;
+      }
+
+      setDemoCardPosition((current) => {
+        // Keep card top-aligned on first layout, clamp on resizes.
+        const isInitialPosition = current.x === 0 && current.y === 0;
+        if (isInitialPosition) {
+          const centeredX = (plane.clientWidth - card.offsetWidth) / 2;
+          const centeredY = 0;
+          return getClampedDemoCardPosition(centeredX, centeredY);
+        }
+
+        return getClampedDemoCardPosition(current.x, current.y);
+      });
+    };
+
+    updateDemoCardPositionForLayout();
+    window.addEventListener("resize", updateDemoCardPositionForLayout);
+    return () => {
+      window.removeEventListener("resize", updateDemoCardPositionForLayout);
+    };
+  }, []);
+
+  const handleDemoMovePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    const plane = demoPlaneRef.current;
+    if (!plane) {
+      return;
+    }
+
+    const planeRect = plane.getBoundingClientRect();
+    dragStartRef.current = {
+      pointerId: event.pointerId,
+      pointerOffsetX: event.clientX - planeRect.left - demoCardPosition.x,
+      pointerOffsetY: event.clientY - planeRect.top - demoCardPosition.y
+    };
+    setIsDemoCardDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handleDemoMovePointerMove = (event: PointerEvent<HTMLButtonElement>) => {
+    const dragStart = dragStartRef.current;
+    const plane = demoPlaneRef.current;
+    if (!dragStart || !plane || dragStart.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const planeRect = plane.getBoundingClientRect();
+    const nextX = event.clientX - planeRect.left - dragStart.pointerOffsetX;
+    const nextY = event.clientY - planeRect.top - dragStart.pointerOffsetY;
+    setDemoCardPosition(getClampedDemoCardPosition(nextX, nextY));
+  };
+
+  const handleDemoMovePointerUp = (event: PointerEvent<HTMLButtonElement>) => {
+    if (!dragStartRef.current || dragStartRef.current.pointerId !== event.pointerId) {
+      return;
+    }
+
+    dragStartRef.current = null;
+    setIsDemoCardDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  useEffect(() => {
+    if (!shouldAnimateDemoContent) {
+      setVisibleAiResponseChars(aiDemoResponseDisplayText.length);
+      return;
+    }
+
+    setVisibleAiResponseChars(0);
+    const streamingStartMs = aiResponseStartDelay * 1000;
+    const charsPerTick = 3;
+    const tickMs = 18;
+    let intervalId: number | undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        setVisibleAiResponseChars((current) => {
+          const next = Math.min(aiDemoResponseDisplayText.length, current + charsPerTick);
+          if (next >= aiDemoResponseDisplayText.length && intervalId !== undefined) {
+            window.clearInterval(intervalId);
+          }
+          return next;
+        });
+      }, tickMs);
+    }, streamingStartMs);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (intervalId !== undefined) {
+        window.clearInterval(intervalId);
+      }
+    };
+  }, [aiDemoResponseDisplayText, aiResponseStartDelay, shouldAnimateDemoContent]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -288,7 +424,7 @@ const Home = () => {
           {/* Download buttons section — scroll anchor for sticky CTA on HomePage */}
           <div 
             id="hero-download-cta"
-            className="mb-32 opacity-0 animate-fade-in-up"
+            className="mb-20 opacity-0 animate-fade-in-up"
             style={{ animationDelay: `${buttonsDelay}s` }}
           >
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -296,182 +432,248 @@ const Home = () => {
             </div>
           </div>
 
-          {/* AI Assistant Demo Card — layout/visuals aligned with product chat card */}
+          {/* AI Assistant Demo Card — draggable in a transparent bounded plane */}
           <div
-            className="w-full max-w-xl opacity-0 animate-expand-down"
+            className="w-[min(95vw,900px)] opacity-0 animate-expand-down"
             style={{ animationDelay: `${demoCardDelay}s` }}
           >
             <div
-              className="flex flex-col overflow-hidden rounded-2xl border border-white/25"
-              style={{
-                background:
-                  "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
-                boxShadow:
-                  "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
-              }}
+              ref={demoPlaneRef}
+              className="relative mx-auto h-[480px] w-full rounded-2xl"
             >
-              <div className="flex flex-1 flex-col p-4 pb-2">
-                <div className="relative">
-                  <div className="flex max-h-[min(260px,52vh)] flex-col gap-3 overflow-y-auto overflow-x-hidden pb-1.5 pr-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                    <div className="flex justify-end pt-1.5">
-                      <div
-                        className="w-fit max-w-72 cursor-pointer select-text rounded-xl rounded-br-sm px-2.5 py-1.5 text-sm text-white"
-                        style={{
-                          background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
-                          boxShadow:
-                            "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset"
-                        }}
+              <div
+                ref={demoCardRef}
+                className={`absolute w-full max-w-xl select-none ${isDemoCardDragging ? "" : "transition-transform duration-100"}`}
+                style={{
+                  transform: `translate3d(${demoCardPosition.x}px, ${demoCardPosition.y}px, 0)`
+                }}
+              >
+                <div className="mb-2 flex justify-center">
+                  <div
+                    className="mx-auto flex w-fit items-center gap-1 rounded-full px-3 py-1.5"
+                    style={{
+                      backgroundColor: "hsla(252, 10%, 10%, 0.8)",
+                      boxShadow:
+                        "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={handleToggleDemoOverlay}
+                      className="mr-1 flex h-8 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-3 text-xs font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+                      aria-label={isDemoOverlayVisible ? "Hide overlay" : "Show overlay"}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`size-4 text-[#b2b3ba] transition-transform ${
+                          isDemoOverlayVisible ? "" : "rotate-180"
+                        }`}
+                        aria-hidden
                       >
-                        What should I say?
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                      <span>{isDemoOverlayVisible ? "Hide" : "Show"}</span>
+                    </button>
+                    <span className="mx-1 h-7 w-px bg-white/70" aria-hidden />
+                    <button
+                      type="button"
+                      onPointerDown={handleDemoMovePointerDown}
+                      onPointerMove={handleDemoMovePointerMove}
+                      onPointerUp={handleDemoMovePointerUp}
+                      onPointerCancel={handleDemoMovePointerUp}
+                      className="flex h-8 ml-1 cursor-grab items-center rounded-full text-white/90 transition-colors active:cursor-grabbing"
+                      aria-label="Move AI assistant demo card"
+                    >
+                      <MoveGripDotsIcon className="h-5 w-5" aria-hidden />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className={`flex flex-col overflow-hidden rounded-2xl border border-white/25 transition-opacity duration-150 ${
+                    isDemoOverlayVisible
+                      ? "visible opacity-100"
+                      : "pointer-events-none invisible opacity-0"
+                  }`}
+                  style={{
+                    background:
+                      "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
+                    boxShadow:
+                      "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
+                  }}
+                  aria-hidden={!isDemoOverlayVisible}
+                >
+                  <div className="flex flex-1 flex-col p-4 pb-2">
+                    <div className="relative">
+                      <div className="flex max-h-[min(260px,52vh)] flex-col gap-3 overflow-y-auto overflow-x-hidden pb-1.5 pr-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                        <div className="flex justify-end pt-1.5">
+                          <div
+                            className={`w-fit max-w-72 cursor-pointer select-text rounded-xl rounded-br-sm px-2.5 py-1.5 text-sm text-white ${
+                              shouldAnimateDemoContent ? "opacity-0 animate-fade-in-up" : ""
+                            }`}
+                            style={{
+                              background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                              boxShadow:
+                                "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset",
+                              animationDelay: shouldAnimateDemoContent
+                                ? `${userQuestionDelay}s`
+                                : undefined
+                            }}
+                          >
+                            What should I say?
+                          </div>
+                        </div>
+
+                        <div className="w-full text-sm font-light leading-[1.6] text-[#edeef2]">
+                          <p className="relative text-left">
+                            {shouldAnimateDemoContent && (
+                              <span className="pointer-events-none invisible select-none">
+                                {aiDemoResponseDisplayText}
+                              </span>
+                            )}
+                            <span className={shouldAnimateDemoContent ? "absolute inset-0" : ""}>
+                              {shouldAnimateDemoContent
+                                ? aiDemoResponseDisplayText.slice(0, visibleAiResponseChars)
+                                : aiDemoResponseDisplayText}
+                            </span>
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="w-full text-sm font-light leading-[1.6] text-[#edeef2]">
-                      <p className="text-left">
-                        {aiDemoResponseWords.map((word, index) => (
-                          <span
-                            key={index}
-                            className="animate-word mr-1"
-                            style={{
-                              animationDelay: `${demoCardDelay + 0.5 + index * 0.05}s`
-                            }}
-                          >
-                            {word}
+                    <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 font-light sm:mt-8 md:mt-12">
+                      <span className="group/static-insight flex items-center gap-2">
+                        <button type="button" className={demoHelperButtonClassName}>
+                          <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                            <SparklesIcon className="size-3.5" aria-hidden />
                           </span>
-                        ))}
-                      </p>
+                          <span className="truncate text-[#edeef2]">Assist</span>
+                        </button>
+                      </span>
+                      <span className="group/static-insight flex items-center gap-2">
+                        <div
+                          className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                          aria-hidden
+                        />
+                        <button type="button" className={demoHelperButtonClassName}>
+                          <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                            <WandSparklesIcon className="size-3.5" aria-hidden />
+                          </span>
+                          <span className="truncate text-[#edeef2]">What should I say?</span>
+                        </button>
+                      </span>
+                      <span className="group/static-insight hidden items-center gap-2 md:flex">
+                        <div
+                          className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                          aria-hidden
+                        />
+                        <button type="button" className={demoHelperButtonClassName}>
+                          <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                            <MessageSquareIcon className="size-3.5" aria-hidden />
+                          </span>
+                          <span className="truncate text-[#edeef2]">Follow-up questions</span>
+                        </button>
+                      </span>
+                      <span className="group/static-insight hidden items-center gap-2 xl:flex">
+                        <div
+                          className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                          aria-hidden
+                        />
+                        <button type="button" className={demoHelperButtonClassName}>
+                          <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                            <RefreshCwIcon className="size-3.5" aria-hidden />
+                          </span>
+                          <span className="truncate text-[#edeef2]">Recap</span>
+                        </button>
+                      </span>
                     </div>
                   </div>
-                </div>
 
-                <div
-                  className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 font-light opacity-0 animate-fade-in-up sm:mt-8 md:mt-12"
-                  style={{ animationDelay: `${demoBottomSectionDelay}s` }}
-                >
-                  <span className="group/static-insight flex items-center gap-2">
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                        <SparklesIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate text-[#edeef2]">Assist</span>
-                    </button>
-                  </span>
-                  <span className="group/static-insight flex items-center gap-2">
                     <div
-                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
-                      aria-hidden
-                    />
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                        <WandSparklesIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate text-[#edeef2]">What should I say?</span>
-                    </button>
-                  </span>
-                  <span className="group/static-insight hidden items-center gap-2 md:flex">
-                    <div
-                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
-                      aria-hidden
-                    />
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                        <MessageSquareIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate text-[#edeef2]">Follow-up questions</span>
-                    </button>
-                  </span>
-                  <span className="group/static-insight hidden items-center gap-2 xl:flex">
-                    <div
-                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
-                      aria-hidden
-                    />
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
-                        <RefreshCwIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate text-[#edeef2]">Recap</span>
-                    </button>
-                  </span>
-                </div>
-              </div>
-
-              <div
-                className="px-3 pb-3 opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${demoBottomSectionDelay}s` }}
-              >
-                <div
-                  className="flex flex-col rounded-xl"
-                  style={{
-                    border: "0.5px solid rgba(155, 155, 155, 0.4)",
-                    boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)"
-                  }}
-                >
-                  <div
-                    className="relative flex items-center gap-2 p-2 md:gap-2.5 md:p-2.5"
-                    style={{
-                      boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)"
-                    }}
-                  >
-                    <div className="relative flex min-h-[26px] min-w-0 flex-1 items-center md:min-h-[28px]">
-                      {demoChatInput.length === 0 && (
-                        <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[10px] text-white/60 sm:text-[11px] md:flex-wrap md:gap-y-0.5 md:text-[13px]">
-                          <span className="shrink-0 md:hidden">Ask a question, or </span>
-                          <span className="hidden shrink-0 md:inline">
-                            Ask about your screen or conversation,{" "}
-                          </span>
-                          <span
-                            className={`${demoChatKeyPillClass} ${
-                              downloadPlatform === "mac" ? "min-w-[1.125rem]" : "min-w-[1.75rem] px-1 md:min-w-[2rem]"
-                            }`}
-                          >
-                            {modifierKeyLabel}
-                          </span>
-                          <span className={`${demoChatKeyPillClass} min-w-[1.125rem] md:min-w-[1.25rem]`}>
-                            ⏎
-                          </span>
-                          <span className="hidden shrink-0 md:inline"> to start typing</span>
-                        </div>
-                      )}
-                      <input
-                        type="text"
-                        value={demoChatInput}
-                        onChange={(e) => setDemoChatInput(e.target.value)}
-                        aria-label="Chat"
-                        title={
-                          downloadPlatform === "mac"
-                            ? "Type a message. In the app, use ⌘ and Return to focus this field."
-                            : "Type a message. In the app, use Ctrl and Enter to focus this field."
-                        }
-                        className="relative z-10 min-h-[26px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 md:min-h-[28px] md:py-1 md:text-[13px]"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] md:size-7"
-                      style={{
-                        background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
-                        boxShadow:
-                          "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset"
-                      }}
-                      aria-label="Send"
+                      className="px-3 pb-3"
                     >
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="currentColor"
-                        className="ml-0.5 size-3"
-                        aria-hidden
+                      <div
+                        className="flex flex-col rounded-xl"
+                        style={{
+                          border: "0.5px solid rgba(155, 155, 155, 0.4)",
+                          boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)"
+                        }}
                       >
-                        <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" />
-                      </svg>
-                    </button>
+                        <div
+                          className="relative flex items-center gap-2 p-2 md:gap-2.5 md:p-2.5"
+                          style={{
+                            boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)"
+                          }}
+                        >
+                          <div className="relative flex min-h-[26px] min-w-0 flex-1 items-center md:min-h-[28px]">
+                            {demoChatInput.length === 0 && (
+                              <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[10px] text-white/60 sm:text-[11px] md:flex-wrap md:gap-y-0.5 md:text-[13px]">
+                                <span className="shrink-0 md:hidden">Ask a question, or </span>
+                                <span className="hidden shrink-0 md:inline">
+                                  Ask about your screen or conversation,{" "}
+                                </span>
+                                <span
+                                  className={`${demoChatKeyPillClass} ${
+                                    downloadPlatform === "mac" ? "min-w-[1.125rem]" : "min-w-[1.75rem] px-1 md:min-w-[2rem]"
+                                  }`}
+                                >
+                                  {modifierKeyLabel}
+                                </span>
+                                <span className={`${demoChatKeyPillClass} min-w-[1.125rem] md:min-w-[1.25rem]`}>
+                                  ⏎
+                                </span>
+                                <span className="hidden shrink-0 md:inline"> to start typing</span>
+                              </div>
+                            )}
+                            <input
+                              type="text"
+                              value={demoChatInput}
+                              onChange={(e) => setDemoChatInput(e.target.value)}
+                              aria-label="Chat"
+                              title={
+                                downloadPlatform === "mac"
+                                  ? "Type a message. In the app, use ⌘ and Return to focus this field."
+                                  : "Type a message. In the app, use Ctrl and Enter to focus this field."
+                              }
+                              className="relative z-10 min-h-[26px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 md:min-h-[28px] md:py-1 md:text-[13px]"
+                            />
+                          </div>
+                          <button
+                            type="button"
+                            className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] md:size-7"
+                            style={{
+                              background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                              boxShadow:
+                                "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset"
+                            }}
+                            aria-label="Send"
+                          >
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="currentColor"
+                              className="ml-0.5 size-3"
+                              aria-hidden
+                            >
+                              <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </section>
   );
