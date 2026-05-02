@@ -376,13 +376,11 @@ const Home = () => {
       id="hero" 
       className="flex items-center justify-center relative pt-36 mb-44 bg-[hsl(var(--background))]"
     >
-      {/* Light mode background - top 75% */}
       <div 
         className="hero-bg-light absolute top-0 left-0 right-0 bg-no-repeat"
         style={{
-          backgroundImage: 'url(/hero/bg.svg)',
+          backgroundImage: 'url(/hero/bg.webp)',
           height: '130%',
-          backgroundPosition: 'center top',
           backgroundSize: 'max(1700px, 100vw) auto',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)',
           maskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)'

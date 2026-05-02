@@ -27,8 +27,8 @@ const listeningDemoChatKeyPillClassFeatures =
   "inline-flex h-4 shrink-0 items-center justify-center rounded-[4px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[7px] leading-none text-white/50";
 
 const TRANSCRIPT_SNIPPETS = [
-  "How would you design Instagram?",
-  "I'd start with the core loop where users post and followers see it...",
+  "How would you design offline sync for a mobile app?",
+  "I'd use a local database with a background sync queue, retries, and conflict resolution",
   "Walk me through designing a distributed cache like Redis",
   "I'd go bottom up. Single node first, then consistent hashing",
   "How would you design the Twitter feed?",
