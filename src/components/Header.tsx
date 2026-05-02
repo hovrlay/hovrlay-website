@@ -52,12 +52,6 @@ const Header = () => {
         Demo
       </button>
       <button
-        onClick={() => handleScroll("pricing")}
-        className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
-      >
-        Pricing
-      </button>
-      <button
         onClick={() => handleScroll("faq")}
         className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       >
@@ -116,12 +110,6 @@ const Header = () => {
             className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
           >
             Demo
-          </button>
-          <button
-            onClick={() => handleScroll("pricing")}
-            className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
-          >
-            Pricing
           </button>
           <button
             onClick={() => handleScroll("faq")}

@@ -26,6 +26,98 @@ const listeningDemoHelperButtonClassNameFeatures =
 const listeningDemoChatKeyPillClassFeatures =
   "inline-flex h-4 shrink-0 items-center justify-center rounded-[4px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[7px] leading-none text-white/50";
 
+const TRANSCRIPT_SNIPPETS = [
+  "How would you design Instagram?",
+  "I'd start with the core loop where users post and followers see it...",
+  "Walk me through designing a distributed cache like Redis",
+  "I'd go bottom up. Single node first, then consistent hashing",
+  "How would you design the Twitter feed?",
+  "Fan out on write, cache per user timeline in Redis...",
+];
+
+const TranscriptPill = () => {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    let swapTimer: ReturnType<typeof setTimeout> | undefined;
+    const interval = setInterval(() => {
+      setVisible(false);
+      swapTimer = setTimeout(() => {
+        setIndex((i) => (i + 1) % TRANSCRIPT_SNIPPETS.length);
+        setVisible(true);
+      }, 400);
+    }, 3000);
+    return () => {
+      clearInterval(interval);
+      if (swapTimer !== undefined) clearTimeout(swapTimer);
+    };
+  }, []);
+
+  const isQuestion = index % 2 === 0;
+  const animationName = visible
+    ? isQuestion
+      ? "featuresTranscriptPillEnterLeft"
+      : "featuresTranscriptPillEnterRight"
+    : isQuestion
+      ? "featuresTranscriptPillExitLeft"
+      : "featuresTranscriptPillExitRight";
+
+  return (
+    <>
+      <style>
+        {`
+          @keyframes featuresTranscriptPillEnterLeft {
+            from { opacity: 0; transform: translateX(-28px); }
+            to { opacity: 1; transform: translateX(0); }
+          }
+          @keyframes featuresTranscriptPillEnterRight {
+            from { opacity: 0; transform: translateX(28px); }
+            to { opacity: 1; transform: translateX(0); }
+          }
+          @keyframes featuresTranscriptPillExitLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-14px); }
+          }
+          @keyframes featuresTranscriptPillExitRight {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(14px); }
+          }
+        `}
+      </style>
+      <div
+        className="mx-auto max-w-[85%] rounded-full px-4 py-2"
+        style={{
+          animation: `${animationName} 400ms ease-out both`,
+          background: isQuestion
+            ? "rgba(255,255,255,0.6)"
+            : "rgba(127,119,221,0.12)",
+          border: isQuestion
+            ? "0.5px solid rgba(0,0,0,0.08)"
+            : "0.5px solid rgba(127,119,221,0.25)",
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <div
+            className="size-[6px] shrink-0 rounded-full"
+            style={{
+              backgroundColor: isQuestion ? "#C4C9D8" : "#7F77DD",
+            }}
+          />
+          <p
+            className="text-[10px] leading-snug"
+            style={{
+              color: isQuestion ? "#6B7280" : "#374151",
+            }}
+          >
+            {TRANSCRIPT_SNIPPETS[index]}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const ListeningConversationCard = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -72,10 +164,11 @@ const ListeningConversationCard = () => {
       </style>
 
       <div className="absolute inset-0 flex h-full min-h-0 flex-col">
-        <div
-          className="flex w-full shrink-0 items-center px-2.5 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3"
-          style={{ backgroundColor: "rgba(255,255,255,0.6)" }}
-        >
+        <div className="shrink-0 px-2.5 pt-2.5 sm:px-3 sm:pt-3 md:px-4 md:pt-3.5">
+          <div
+            className="flex w-full items-center rounded-xl shadow-[0_8px_28px_-6px_rgba(15,23,42,0.18),0_2px_8px_-4px_rgba(15,23,42,0.08)] px-2.5 py-2 backdrop-blur-sm sm:rounded-2xl sm:px-3 sm:py-2.5 md:px-4 md:py-3"
+            style={{ backgroundColor: "rgba(255,255,255,0.72)" }}
+          >
           <div className="flex items-center gap-1 sm:gap-1.5">
             <div className="relative flex h-[15px] w-[15px] shrink-0 items-center justify-center sm:h-[18px] sm:w-[18px]">
               <div
@@ -93,39 +186,12 @@ const ListeningConversationCard = () => {
           <span className="ml-auto text-[10px] font-medium tabular-nums text-[#6B7280] sm:text-[11px]">
             {formatMmSs(elapsedSeconds)}
           </span>
+          </div>
         </div>
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 p-2 sm:gap-2 sm:p-3 md:p-[14px] xl:p-4">
-          <div className="flex min-h-0 min-w-0 w-full flex-1 flex-col justify-center">
-            <div className="flex w-full flex-col gap-1.5 sm:gap-2">
-              <div className="rounded-lg bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2 sm:rounded-xl sm:p-2.5">
-                <div className="mb-1 flex items-center gap-1 sm:mb-1.5 sm:gap-1.5">
-                  <div
-                    className="size-[8px] shrink-0 rounded-full bg-[#C4C9D8] sm:size-[10px]"
-                    aria-hidden
-                  />
-                  <span className="text-[9px] font-medium text-[#6B7280] sm:text-[10px]">Them</span>
-                </div>
-                <p className="text-[8px] leading-snug text-[#374151] sm:text-[10px] sm:leading-relaxed">
-                  How would you design Twitter's timeline?
-                </p>
-              </div>
-              <div
-                className="rounded-lg bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] p-2 sm:rounded-xl sm:p-2.5"
-                aria-label="You, currently typing"
-              >
-                <div className="mb-1 flex items-center gap-1 sm:mb-1.5 sm:gap-1.5">
-                  <div
-                    className="size-[8px] shrink-0 rounded-full bg-[#7F77DD] sm:size-[10px]"
-                    aria-hidden
-                  />
-                  <span className="text-[9px] font-medium text-[#6B7280] sm:text-[10px]">You</span>
-                </div>
-                <p className="text-[8px] leading-snug text-[#374151] sm:text-[10px] sm:leading-relaxed">
-                  I’d use fan-out on write to push tweets to followers’ timelines and store them in Redis for fast loading
-                </p>
-              </div>
-            </div>
+          <div className="flex min-h-0 min-w-0 w-full flex-1 flex-col items-center justify-center">
+            <TranscriptPill />
           </div>
           <div className="w-full min-w-0 shrink-0">
           <div className="mb-1.5 flex justify-center sm:mb-2">
