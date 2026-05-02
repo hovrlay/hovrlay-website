@@ -381,6 +381,7 @@ const Home = () => {
         style={{
           backgroundImage: 'url(/hero/bg.webp)',
           height: '130%',
+          backgroundPosition: 'center top',
           backgroundSize: 'max(1700px, 100vw) auto',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)',
           maskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 100%)'
