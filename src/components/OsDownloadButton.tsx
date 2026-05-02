@@ -1,6 +1,7 @@
 import AppleIcon from "@/assets/apple.svg?react";
 import WindowsIcon from "@/assets/windows.svg?react";
 import PlatformIcon from "@/assets/platform.svg?react";
+import LaptopIcon from "@/assets/laptop.svg?react";
 import {
   detectDownloadPlatform,
   handleDownload,
@@ -38,8 +39,10 @@ export function OsDownloadButton() {
       />
 
       <span className="relative z-10 inline-flex items-center gap-[6px]">
-        <Icon className={`h-5 w-5 shrink-0`} />
-        {label}
+        <LaptopIcon className="h-5 w-5 shrink-0 md:hidden" aria-hidden />
+        <span className="md:hidden">Get the desktop app</span>
+        <Icon className="hidden h-5 w-5 shrink-0 md:block" aria-hidden />
+        <span className="hidden md:inline">{label}</span>
       </span>
     </button>
   );
