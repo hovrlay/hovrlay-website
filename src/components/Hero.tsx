@@ -5,6 +5,7 @@ import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
 import MessageSquareIcon from "@/assets/message-square.svg?react";
 import RefreshCwIcon from "@/assets/refresh-cw.svg?react";
 import MoveGripDotsIcon from "@/assets/move-grip-dots.svg?react";
+import DemoOverlayChevronIcon from "@/assets/demo-overlay-chevron.svg?react";
 import { type PointerEvent, useEffect, useRef, useState } from "react";
 
 type Star = {
@@ -25,10 +26,23 @@ type ShootingStar = {
   trailLength: number;
 };
 
-type DemoCardPosition = {
-  x: number;
-  y: number;
+type DemoCardPosition = { x: number; y: number };
+
+/** Overscroll dampening while dragging (edge cushion). */
+const DEMO_EDGE_RUBBER = 0.26;
+
+const rubberBandAxis = (value: number, min: number, max: number): number => {
+  if (value < min) {
+    return min + (value - min) * DEMO_EDGE_RUBBER;
+  }
+  if (value > max) {
+    return max + (value - max) * DEMO_EDGE_RUBBER;
+  }
+  return value;
 };
+
+const clampAxis = (value: number, min: number, max: number): number =>
+  Math.min(Math.max(value, min), max);
 
 const demoHelperButtonClassName =
   "flex cursor-pointer items-center gap-1.5 rounded-full border-0 bg-transparent py-2 pl-1.5 pr-2 text-xs leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30";
@@ -47,6 +61,7 @@ const Home = () => {
   const [isDemoCardDragging, setIsDemoCardDragging] = useState(false);
   const demoPlaneRef = useRef<HTMLDivElement | null>(null);
   const demoCardRef = useRef<HTMLDivElement | null>(null);
+  const hasUserDraggedDemoCardRef = useRef(false);
   const dragStartRef = useRef<{
     pointerId: number;
     pointerOffsetX: number;
@@ -77,24 +92,37 @@ const Home = () => {
     setIsDemoOverlayVisible((current) => !current);
   };
 
+  const getDemoCardBounds = (plane: HTMLElement, card: HTMLElement) => {
+    const maxX = Math.max(0, plane.clientWidth - card.offsetWidth);
+    const maxY = Math.max(0, plane.clientHeight - card.offsetHeight);
+    return { maxX, maxY };
+  };
+
   const getClampedDemoCardPosition = (x: number, y: number): DemoCardPosition => {
     const plane = demoPlaneRef.current;
     const card = demoCardRef.current;
     if (!plane || !card) {
       return { x, y };
     }
+    const { maxX, maxY } = getDemoCardBounds(plane, card);
+    return { x: clampAxis(x, 0, maxX), y: clampAxis(y, 0, maxY) };
+  };
 
-    const maxX = Math.max(0, plane.clientWidth - card.offsetWidth);
-    const maxY = Math.max(0, plane.clientHeight - card.offsetHeight);
-
+  const getRubberDemoCardPosition = (x: number, y: number): DemoCardPosition => {
+    const plane = demoPlaneRef.current;
+    const card = demoCardRef.current;
+    if (!plane || !card) {
+      return { x, y };
+    }
+    const { maxX, maxY } = getDemoCardBounds(plane, card);
     return {
-      x: Math.min(Math.max(0, x), maxX),
-      y: Math.min(Math.max(0, y), maxY)
+      x: rubberBandAxis(x, 0, maxX),
+      y: rubberBandAxis(y, 0, maxY)
     };
   };
 
   useEffect(() => {
-    const updateDemoCardPositionForLayout = () => {
+    const syncDemoCardPosition = () => {
       const plane = demoPlaneRef.current;
       const card = demoCardRef.current;
       if (!plane || !card) {
@@ -102,22 +130,29 @@ const Home = () => {
       }
 
       setDemoCardPosition((current) => {
-        // Keep card top-aligned on first layout, clamp on resizes.
-        const isInitialPosition = current.x === 0 && current.y === 0;
-        if (isInitialPosition) {
-          const centeredX = (plane.clientWidth - card.offsetWidth) / 2;
-          const centeredY = 0;
-          return getClampedDemoCardPosition(centeredX, centeredY);
+        if (!hasUserDraggedDemoCardRef.current) {
+          const { maxX } = getDemoCardBounds(plane, card);
+          const centeredX = maxX / 2;
+          return getClampedDemoCardPosition(centeredX, 0);
         }
-
         return getClampedDemoCardPosition(current.x, current.y);
       });
     };
 
-    updateDemoCardPositionForLayout();
-    window.addEventListener("resize", updateDemoCardPositionForLayout);
+    syncDemoCardPosition();
+    window.addEventListener("resize", syncDemoCardPosition);
+    const plane = demoPlaneRef.current;
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined" && plane
+        ? new ResizeObserver(() => {
+            syncDemoCardPosition();
+          })
+        : null;
+    resizeObserver?.observe(plane);
+
     return () => {
-      window.removeEventListener("resize", updateDemoCardPositionForLayout);
+      window.removeEventListener("resize", syncDemoCardPosition);
+      resizeObserver?.disconnect();
     };
   }, []);
 
@@ -145,9 +180,10 @@ const Home = () => {
     }
 
     const planeRect = plane.getBoundingClientRect();
-    const nextX = event.clientX - planeRect.left - dragStart.pointerOffsetX;
-    const nextY = event.clientY - planeRect.top - dragStart.pointerOffsetY;
-    setDemoCardPosition(getClampedDemoCardPosition(nextX, nextY));
+    const rawX = event.clientX - planeRect.left - dragStart.pointerOffsetX;
+    const rawY = event.clientY - planeRect.top - dragStart.pointerOffsetY;
+    hasUserDraggedDemoCardRef.current = true;
+    setDemoCardPosition(getRubberDemoCardPosition(rawX, rawY));
   };
 
   const handleDemoMovePointerUp = (event: PointerEvent<HTMLButtonElement>) => {
@@ -157,6 +193,7 @@ const Home = () => {
 
     dragStartRef.current = null;
     setIsDemoCardDragging(false);
+    setDemoCardPosition((current) => getClampedDemoCardPosition(current.x, current.y));
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
@@ -431,84 +468,76 @@ const Home = () => {
             </div>
           </div>
 
-          {/* AI Assistant Demo Card — draggable in a transparent bounded plane */}
+          {/* AI Assistant Demo Card */}
           <div
-            className="w-[min(95vw,900px)] opacity-0 animate-expand-down"
+            className="w-[min(95vw,1200px)] opacity-0 animate-expand-down"
             style={{ animationDelay: `${demoCardDelay}s` }}
           >
             <div
               ref={demoPlaneRef}
-              className="relative mx-auto h-[480px] w-full rounded-2xl"
+              className="relative mx-auto box-border w-full max-w-5xl min-h-[30rem]"
             >
               <div
                 ref={demoCardRef}
-                className={`absolute w-full max-w-xl select-none ${isDemoCardDragging ? "" : "transition-transform duration-100"}`}
+                className={`absolute left-0 top-0 min-w-0 select-none ${
+                  isDemoCardDragging
+                    ? "cursor-grabbing touch-none"
+                    : "cursor-default transition-transform duration-200 ease-out"
+                } w-[min(100%,36rem)] max-w-xl`}
                 style={{
                   transform: `translate3d(${demoCardPosition.x}px, ${demoCardPosition.y}px, 0)`
                 }}
               >
-                <div className="mb-2 flex justify-center">
-                  <div
-                    className="mx-auto flex w-fit items-center gap-1 rounded-full px-3 py-1.5"
-                    style={{
-                      backgroundColor: "hsla(252, 10%, 10%, 0.8)",
-                      boxShadow:
-                        "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
-                    }}
-                  >
-                    <button
-                      type="button"
-                      onClick={handleToggleDemoOverlay}
-                      className="mr-1 flex h-8 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-3 text-xs font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
-                      aria-label={isDemoOverlayVisible ? "Hide overlay" : "Show overlay"}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className={`size-4 text-[#b2b3ba] transition-transform ${
-                          isDemoOverlayVisible ? "" : "rotate-180"
-                        }`}
-                        aria-hidden
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                      <span>{isDemoOverlayVisible ? "Hide" : "Show"}</span>
-                    </button>
-                    <span className="mx-1 h-7 w-px bg-white/70" aria-hidden />
-                    <button
-                      type="button"
-                      onPointerDown={handleDemoMovePointerDown}
-                      onPointerMove={handleDemoMovePointerMove}
-                      onPointerUp={handleDemoMovePointerUp}
-                      onPointerCancel={handleDemoMovePointerUp}
-                      className="flex h-8 ml-1 cursor-grab items-center rounded-full text-white transition-colors active:cursor-grabbing"
-                      aria-label="Move AI assistant demo card"
-                    >
-                      <MoveGripDotsIcon className="h-5 w-5" aria-hidden />
-                    </button>
-                  </div>
-                </div>
+              <div className="mb-2 flex justify-center">
                 <div
-                  className={`flex flex-col overflow-hidden rounded-2xl border border-white/25 transition-opacity duration-150 ${
-                    isDemoOverlayVisible
-                      ? "visible opacity-100"
-                      : "pointer-events-none invisible opacity-0"
-                  }`}
+                  className="mx-auto flex w-fit items-center gap-1 rounded-full px-3 py-1.5"
                   style={{
-                    background:
-                      "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
-                    boxShadow:
-                      "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
+                    backgroundColor: "hsla(252, 10%, 10%, 0.8)",
+                    boxShadow: "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
                   }}
-                  aria-hidden={!isDemoOverlayVisible}
                 >
+                  <button
+                    type="button"
+                    onClick={handleToggleDemoOverlay}
+                    className="mr-1 flex h-8 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-3 text-xs font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+                    aria-label={isDemoOverlayVisible ? "Hide overlay" : "Show overlay"}
+                  >
+                    <DemoOverlayChevronIcon
+                      className={`size-4 text-[#b2b3ba] transition-transform ${
+                        isDemoOverlayVisible ? "" : "rotate-180"
+                      }`}
+                      aria-hidden
+                    />
+                    <span>{isDemoOverlayVisible ? "Hide" : "Show"}</span>
+                  </button>
+                  <span className="mx-1 h-7 w-px shrink-0 bg-white/70" aria-hidden />
+                  <button
+                    type="button"
+                    onPointerDown={handleDemoMovePointerDown}
+                    onPointerMove={handleDemoMovePointerMove}
+                    onPointerUp={handleDemoMovePointerUp}
+                    onPointerCancel={handleDemoMovePointerUp}
+                    className="flex h-8 shrink-0 cursor-grab items-center rounded-full pl-0.5 text-white transition-colors active:cursor-grabbing touch-none"
+                    aria-label="Move AI assistant demo card"
+                  >
+                    <MoveGripDotsIcon className="h-5 w-5" aria-hidden />
+                  </button>
+                </div>
+              </div>
+              <div
+                className={`flex flex-col overflow-hidden rounded-2xl border border-white/25 transition-opacity duration-150 ${
+                  isDemoOverlayVisible
+                    ? "visible opacity-100"
+                    : "pointer-events-none invisible opacity-0"
+                }`}
+                style={{
+                  background:
+                    "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
+                  boxShadow:
+                    "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
+                }}
+                aria-hidden={!isDemoOverlayVisible}
+              >
                   <div className="flex flex-1 flex-col p-4 pb-2">
                     <div className="relative">
                       <div className="flex max-h-[min(260px,52vh)] flex-col gap-3 overflow-y-auto overflow-x-hidden pb-1.5 pr-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -668,11 +697,11 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+              </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </section>
   );
