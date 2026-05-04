@@ -130,7 +130,7 @@ const FAQ = () => {
 
   return (
     <section id="faq" className="px-4 md:px-8 lg:px-12">
-      <div className="container-custom mx-auto max-w-6xl">
+      <div className="container-custom mx-auto max-w-6xl mb-24">
         <div className="mx-auto max-w-4xl text-left">
           <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-medium section-title-gradient mb-16">
             Frequently Asked Questions

@@ -56,11 +56,9 @@ const HomePage = () => {
 
       <Hero />
 
-      <div className="space-y-56 pb-24 md:space-y-60 lg:space-y-64">
-        <div className="space-y-44 md:space-y-50 lg:space-y-54">
-          <PoweredBy />
-          <Demo />
-        </div>
+      <div className="mt-20 md:mt-0 space-y-56 md:space-y-60 lg:space-y-64">
+        <PoweredBy />
+        <Demo />
         <Features />
         <Transcription />
         <Pricing />
