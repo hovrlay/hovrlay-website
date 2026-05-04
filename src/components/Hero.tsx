@@ -45,7 +45,7 @@ const clampAxis = (value: number, min: number, max: number): number =>
   Math.min(Math.max(value, min), max);
 
 const demoHelperButtonClassName =
-  "flex cursor-pointer items-center gap-1.5 rounded-full border-0 bg-transparent py-2 pl-1.5 pr-2 text-xs leading-none text-[#edeef2] transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30";
+  "flex cursor-pointer items-center gap-1.5 rounded-full border-0 bg-transparent py-2 pl-1.5 pr-2 text-xs leading-none text-white transition duration-75 ease-out group-hover/static-insight:bg-[#EDEEF2]/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30";
 
 const demoChatKeyPillClass =
   "inline-flex h-[18px] shrink-0 items-center justify-center rounded-[5px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[8px] leading-none text-white/50 md:h-[22px] md:text-[9px]";
@@ -495,7 +495,7 @@ const Home = () => {
       >
         <div
           ref={demoCardRef}
-          className={`absolute left-0 top-0 flex aspect-[1080/656] min-h-[360px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col overflow-hidden text-center select-none ${
+          className={`absolute left-0 top-0 flex aspect-[1080/656] min-h-[360px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
             isDemoCardDragging
               ? "cursor-grabbing touch-none"
               : "cursor-default transition-transform duration-200 ease-out"
@@ -558,7 +558,7 @@ const Home = () => {
                   >
                     <div className="flex justify-end pt-1.5">
                       <div
-                        className={`w-fit max-w-72 cursor-pointer select-text rounded-xl rounded-br-sm px-2.5 py-1.5 text-sm text-white ${
+                        className={`w-fit max-w-72 cursor-pointer select-text rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-[0.125rem] px-2.5 py-1.5 font-light text-sm text-white ${
                           shouldAnimateDemoContent ? "opacity-0 animate-fade-in-up" : ""
                         }`}
                         style={{
@@ -593,10 +593,10 @@ const Home = () => {
                 <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 font-light sm:mt-8 md:mt-12">
                   <span className="group/static-insight flex items-center gap-2">
                     <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
                         <SparklesIcon className="size-3.5" aria-hidden />
                       </span>
-                      <span className="truncate text-[#edeef2]">Assist</span>
+                      <span className="truncate">Assist</span>
                     </button>
                   </span>
                   <span className="group/static-insight flex items-center gap-2">
@@ -605,41 +605,41 @@ const Home = () => {
                       aria-hidden
                     />
                     <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
                         <WandSparklesIcon className="size-3.5" aria-hidden />
                       </span>
-                      <span className="truncate text-[#edeef2]">What should I say?</span>
+                      <span className="truncate">What should I say?</span>
                     </button>
                   </span>
-                  <span className="group/static-insight hidden items-center gap-2 md:flex">
+                  <span className="group/static-insight hidden min-[450px]:flex items-center gap-2">
                     <div
                       className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
                       aria-hidden
                     />
                     <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
                         <MessageSquareIcon className="size-3.5" aria-hidden />
                       </span>
-                      <span className="truncate text-[#edeef2]">Follow-up questions</span>
+                      <span className="truncate">Follow-up questions</span>
                     </button>
                   </span>
-                  <span className="group/static-insight hidden items-center gap-2 xl:flex">
+                  <span className="group/static-insight hidden min-[600px]:flex items-center gap-2">
                     <div
                       className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
                       aria-hidden
                     />
                     <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#edeef2]">
+                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
                         <RefreshCwIcon className="size-3.5" aria-hidden />
                       </span>
-                      <span className="truncate text-[#edeef2]">Recap</span>
+                      <span className="truncate">Recap</span>
                     </button>
                   </span>
                 </div>
               </div>
 
                 <div
-                  className="flex shrink-0 flex-col rounded-xl px-3 pb-3"
+                  className="flex shrink-0 flex-col rounded-xl mx-3 mb-3"
                   style={{
                     border: "0.5px solid rgba(155, 155, 155, 0.4)",
                     boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)"
