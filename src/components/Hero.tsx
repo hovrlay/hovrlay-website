@@ -611,7 +611,7 @@ const Home = () => {
                       <span className="truncate">What should I say?</span>
                     </button>
                   </span>
-                  <span className="group/static-insight hidden min-[450px]:flex items-center gap-2">
+                  <span className="group/static-insight hidden min-[500px]:flex items-center gap-2">
                     <div
                       className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
                       aria-hidden
@@ -646,29 +646,31 @@ const Home = () => {
                   }}
                 >
                     <div
-                      className="relative flex items-center gap-2 p-2 md:gap-2.5 md:p-2.5"
+                      className="relative flex items-center gap-2 p-2 min-[500px]:gap-2.5 min-[500px]:p-2.5"
                       style={{
                         boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)"
                       }}
                     >
-                      <div className="relative flex min-h-[26px] min-w-0 flex-1 items-center md:min-h-[28px]">
+                      <div className="relative flex min-h-[26px] min-w-0 flex-1 items-center min-[500px]:min-h-[28px]">
                         {demoChatInput.length === 0 && (
-                          <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[10px] text-white/60 sm:text-[11px] md:flex-wrap md:gap-y-0.5 md:text-[13px]">
-                            <span className="shrink-0 md:hidden">Ask a question, or </span>
-                            <span className="hidden shrink-0 md:inline">
+                          <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[13px] text-white/60 min-[500px]:flex-wrap min-[500px]:gap-y-0.5 min-[500px]:text-[13px]">
+                            <span className="shrink-0 min-[500px]:hidden">Ask a question, or </span>
+                            <span className="hidden shrink-0 min-[500px]:inline">
                               Ask about your screen or conversation,{" "}
                             </span>
                             <span
                               className={`${demoChatKeyPillClass} ${
-                                downloadPlatform === "mac" ? "min-w-[1.125rem]" : "min-w-[1.75rem] px-1 md:min-w-[2rem]"
+                                downloadPlatform === "mac"
+                                  ? "min-w-[1.125rem]"
+                                  : "min-w-[1.75rem] px-1 min-[500px]:min-w-[2rem]"
                               }`}
                             >
                               {modifierKeyLabel}
                             </span>
-                            <span className={`${demoChatKeyPillClass} min-w-[1.125rem] md:min-w-[1.25rem]`}>
+                            <span className={`${demoChatKeyPillClass} min-w-[1.125rem] min-[500px]:min-w-[1.25rem]`}>
                               ⏎
                             </span>
-                            <span className="hidden shrink-0 md:inline"> to start typing</span>
+                            <span className="hidden shrink-0 min-[500px]:inline"> to start typing</span>
                           </div>
                         )}
                         <input
@@ -681,12 +683,12 @@ const Home = () => {
                               ? "Type a message. In the app, use ⌘ and Return to focus this field."
                               : "Type a message. In the app, use Ctrl and Enter to focus this field."
                           }
-                          className="relative z-10 min-h-[26px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 md:min-h-[28px] md:py-1 md:text-[13px]"
+                          className="relative z-10 min-h-[26px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 min-[500px]:min-h-[28px] min-[500px]:py-1 min-[500px]:text-[13px]"
                         />
                       </div>
                       <button
                         type="button"
-                        className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] md:size-7"
+                        className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] min-[500px]:size-7"
                         style={{
                           background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
                           boxShadow:
