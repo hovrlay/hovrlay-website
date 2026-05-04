@@ -467,7 +467,7 @@ const Home = () => {
           ))}
         </h1>
         <p 
-          className="text-primary-foreground text-sm md:text-base lg:text-md mt-12 text-center text-balance font-light max-w-[30.5rem] opacity-0 animate-fade-in-up"
+          className="text-primary-foreground text-sm md:text-base lg:text-md mt-16 text-center text-balance max-w-[30.5rem] opacity-0 animate-fade-in-up"
           style={{ animationDelay: `${subheadingDelay}s` }}
         >
           Get answers to every interview question in real time without being detected. Start free, no credit card required.
