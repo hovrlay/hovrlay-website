@@ -495,7 +495,7 @@ const Home = () => {
       >
         <div
           ref={demoCardRef}
-          className={`absolute left-0 top-0 flex aspect-[1080/656] min-h-[360px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
+          className={`absolute left-0 top-0 flex min-h-[360px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
             isDemoCardDragging
               ? "cursor-grabbing touch-none"
               : "cursor-default transition-transform duration-200 ease-out"
