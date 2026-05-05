@@ -51,7 +51,7 @@ const demoChatKeyPillClass =
   "inline-flex h-[18px] shrink-0 items-center justify-center rounded-[5px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[8px] leading-none text-white/50 md:h-[22px] md:text-[9px]";
 
 /** Minimum height reserved for the demo bounds layer (card sits inside and is shorter at narrow widths). */
-const DEMO_BOUNDS_MIN_HEIGHT_PX = 380;
+const DEMO_BOUNDS_MIN_HEIGHT_PX = 320;
 
 const Home = () => {
   const heroCanvasWrapRef = useRef<HTMLDivElement | null>(null);
@@ -452,7 +452,7 @@ const Home = () => {
 
       {/* Text content section (title, subheading, download CTA) */}
       <div className="flex flex-col items-center justify-center text-center pt-[10rem] pb-[4.5rem] md:pb-24 max-md:px-6">
-        <h1 className="font-heading max-w-[32rem] text-5xl md:text-6xl lg:text-7xl text-primary-foreground text-balance leading-tight">
+        <h1 className="font-heading max-w-[32rem] text-[48px] md:text-[60px] lg:text-[72px] text-primary-foreground text-balance leading-tight">
           {words.map((word, index) => (
             <span
               key={index}
@@ -467,7 +467,7 @@ const Home = () => {
           ))}
         </h1>
         <p 
-          className="text-primary-foreground text-sm md:text-base lg:text-md mt-16 text-center text-balance max-w-[30.5rem] opacity-0 animate-fade-in-up"
+          className="text-primary-foreground text-[13px] md:text-[15px] lg:text-[17px] mt-8 md:mt-12 text-center text-balance max-w-[30.5rem] opacity-0 animate-fade-in-up"
           style={{ animationDelay: `${subheadingDelay}s` }}
         >
           Get answers to every interview question in real time without being detected. Start free, no credit card required.
@@ -475,7 +475,7 @@ const Home = () => {
         {/* Scroll anchor for sticky CTA on HomePage */}
         <div
           id="hero-download-cta"
-          className="mt-16 p-1 opacity-0 animate-fade-in-up"
+          className="mt-12 md:mt-16 p-1 opacity-0 animate-fade-in-up"
           style={{ animationDelay: `${buttonsDelay}s` }}
         >
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -495,7 +495,7 @@ const Home = () => {
       >
         <div
           ref={demoCardRef}
-          className={`absolute left-0 top-0 flex min-h-[360px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
+          className={`absolute left-0 top-0 flex min-h-[300px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
             isDemoCardDragging
               ? "cursor-grabbing touch-none"
               : "cursor-default transition-transform duration-200 ease-out"
