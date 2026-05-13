@@ -406,10 +406,10 @@ const Features = () => {
       <div className="container-custom">
         <div ref={headerRef} className={`mb-10 text-center animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}>
           <h2 className="my-6 text-3xl font-medium section-title-gradient sm:text-4xl md:text-4xl lg:text-5xl">
-            Why Choose Hovrlay?
+            Invisible. Undetectable. Powerful.
           </h2>
           <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-base md:text-base lg:text-lg">
-            Suite of features to use Hovrlay in your meetings, calls and interviews.
+            Suite of features to use Hovrlay without a trace.
           </p>
         </div>
 
