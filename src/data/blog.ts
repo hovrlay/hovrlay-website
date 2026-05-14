@@ -33,7 +33,7 @@ export const CATEGORY_GRADIENTS: Record<BlogCategory, string> = {
 
 export const POSTS: BlogPost[] = [
   {
-    slug: "meeting-bots-surveillance",
+    slug: "meeting-bots-comparison",
     title: "How Hovrlay compares to other Meeting Bots",
     category: "Updates",
     date: "2026-05-14",

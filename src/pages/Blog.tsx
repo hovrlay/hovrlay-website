@@ -59,7 +59,7 @@ const Blog = () => {
   const groupedPosts = useMemo(() => groupByMonth(filteredPosts), [filteredPosts]);
 
   return (
-    <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-16 sm:mt-20 md:mt-24 lg:mt-32">
+    <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-24 sm:mt-24 md:mt-28 lg:mt-32">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 md:gap-16">
         <header className="flex flex-col items-center gap-4 text-center">
           <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold section-title-gradient leading-[1.15] pb-1">

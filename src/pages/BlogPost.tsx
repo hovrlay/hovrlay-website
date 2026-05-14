@@ -7,6 +7,7 @@ const BlogPost = () => {
   const post = getPostBySlug(slug);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
     if (post) {
       document.title = `${post.title} | Hovrlay`;
     }

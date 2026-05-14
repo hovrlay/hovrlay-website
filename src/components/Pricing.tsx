@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { detectDownloadPlatform, handleDownload } from "@/utils/downloads";
@@ -162,6 +163,12 @@ const Pricing = () => {
     triggerOnce: true
   });
 
+  const { ref: compareRef, isVisible: compareVisible } = useScrollAnimation({
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+    triggerOnce: true
+  });
+
   return (
     <section id="pricing" className=" px-4 md:px-8 lg:px-12">
       <div className="container-custom mx-auto max-w-6xl">
@@ -190,7 +197,7 @@ const Pricing = () => {
           <div className="max-w-2xl mx-auto text-center mb-12">
           <p className="mt-14 max-w-xl mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed">
             <span className="text-lg sm:text-lg font-medium text-foreground">
-              Start for free. Pay when you need more.
+              Start for free. No subscription. Pay when you need more.
             </span>
             <br />
             <span className="text-sm sm:text-base">
@@ -202,17 +209,17 @@ const Pricing = () => {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* Emphasis pills */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-            <span className="inline-flex items-center rounded-full border border-border bg-background/60 px-4 py-2 text-xs sm:text-sm font-medium text-muted-foreground">
-              Start for free
-            </span>
-            <span className="inline-flex items-center rounded-full border border-border bg-background/60 px-4 py-2 text-xs sm:text-sm font-medium text-muted-foreground">
-              No subscription
-            </span>
-            <span className="inline-flex items-center rounded-full border border-border bg-background/60 px-4 py-2 text-xs sm:text-sm font-medium text-muted-foreground">
-              Credits never expire
-            </span>
+          <div
+            ref={compareRef}
+            className={`flex justify-center animate-scroll-fade-in-up ${compareVisible ? "visible" : ""}`}
+          >
+            <Link
+              to="/blog/meeting-bots-comparison"
+              className="blue-glassy-button inline-flex items-center justify-center gap-2 rounded-sm px-6 py-2 text-sm sm:text-base font-medium text-primary-foreground transition-colors"
+            >
+              See how we compare with other AI meeting assistants
+              <span aria-hidden>→</span>
+            </Link>
           </div>
 
           {/* —— Plans —— */}
