@@ -53,7 +53,7 @@ export const POSTS: BlogPost[] = [
     author: "anshul",
     image: "/man-vs-robot.jpg",
     description:
-      "\"Build the thing you wish existed.\" The whole story from the day Roy got viral from Interview Coder to the day I launched Hovrlay on Product Hunt."
+      "The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt."
   }
 ];
 

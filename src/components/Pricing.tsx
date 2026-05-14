@@ -215,10 +215,12 @@ const Pricing = () => {
           >
             <Link
               to="/blog/meeting-bots-comparison"
-              className="blue-glassy-button inline-flex items-center justify-center gap-2 rounded-sm px-6 py-2 text-sm sm:text-base font-medium text-primary-foreground transition-colors"
+              className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground/90 underline-offset-4 transition-colors hover:text-foreground/80 hover:underline"
             >
               See how we compare with other AI meeting assistants
-              <span aria-hidden>→</span>
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                →
+              </span>
             </Link>
           </div>
 

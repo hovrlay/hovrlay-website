@@ -451,7 +451,34 @@ const Home = () => {
       </div>
 
       {/* Text content section (title, subheading, download CTA) */}
-      <div className="flex flex-col items-center justify-center text-center pt-[10rem] pb-[4.5rem] md:pb-24 max-md:px-6">
+      <div className="flex flex-col items-center justify-center text-center pt-[7rem] pb-[4.5rem] md:pb-24 max-md:px-6">
+        
+        <a
+          href="https://www.producthunt.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mb-8 inline-flex items-center gap-2.5 rounded-full bg-[rgba(8,9,10,0.15)] p-1 pr-1.5 backdrop-blur-md transition-colors hover:bg-[rgba(8,9,10,0.07)] opacity-0 animate-fade-in-up"
+          style={{ animationDelay: `${buttonsDelay}s` }}
+        >
+          <span className="rounded-full bg-[#0c8c5e] px-2.5 py-1 text-[11px] uppercase leading-none text-white ]">
+            New
+          </span>
+          <span className="text-sm leading-none text-white whitespace-nowrap">
+            Launching soon on Product Hunt
+          </span>
+          <svg
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="size-4 shrink-0 select-none text-white"
+            aria-hidden
+          >
+            <path
+              d="M9 1C4.589 1 1 4.589 1 9C1 13.411 4.589 17 9 17C13.411 17 17 13.411 17 9C17 4.589 13.411 1 9 1ZM11.53 9.53L8.53 12.53C8.384 12.676 8.192 12.75 8 12.75C7.808 12.75 7.616 12.677 7.47 12.53C7.177 12.237 7.177 11.762 7.47 11.469L9.94 8.999L7.47 6.529C7.177 6.236 7.177 5.761 7.47 5.468C7.763 5.175 8.238 5.175 8.531 5.468L11.531 8.468C11.824 8.761 11.824 9.236 11.531 9.529L11.53 9.53Z"
+              fill="currentColor"
+            />
+          </svg>
+        </a>
         <h1 className="font-heading max-w-[32rem] text-[48px] md:text-[60px] lg:text-[72px] text-primary-foreground text-balance leading-tight">
           {words.map((word, index) => (
             <span

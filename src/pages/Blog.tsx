@@ -59,7 +59,7 @@ const Blog = () => {
   const groupedPosts = useMemo(() => groupByMonth(filteredPosts), [filteredPosts]);
 
   return (
-    <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-24 sm:mt-24 md:mt-28 lg:mt-32">
+    <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-24 sm:mt-24 md:mt-28 lg:mt-32 mb-12">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 md:gap-16">
         <header className="flex flex-col items-center gap-4 text-center">
           <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold section-title-gradient leading-[1.15] pb-1">
@@ -141,7 +141,7 @@ const Blog = () => {
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Search for posts"
-                className="w-full rounded-full border border-transparent bg-white py-3 pr-4 pl-12 text-base text-gray-900 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:ring-0 focus:outline-none md:text-sm"
+                className="w-full rounded-full border border-gray-100 bg-white py-3 pr-4 pl-12 text-base text-gray-900 placeholder-gray-400 shadow-sm focus:border-gray-400 focus:ring-0 focus:outline-none md:text-sm"
               />
             </div>
             <div className="relative z-10 flex flex-wrap gap-2">

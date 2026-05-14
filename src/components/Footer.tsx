@@ -23,8 +23,8 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-background border-t border-border pt-12 pb-8 mx-6 md:mx-12 lg:mx-16">
-      <div className="container-custom">
+    <footer className="bg-background pb-8 px-4 md:px-8 lg:px-12">
+      <div className="container-custom mx-auto max-w-7xl border-t border-border pt-12">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="md:col-span-3">
@@ -37,36 +37,9 @@ const Footer = () => {
               <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
               <span className="text-xl font-bold text-foreground">hovrlay</span>
             </a>
-            <p className="font-light text-muted-foreground mb-8 max-w-md">
+            <p className="font-light text-muted-foreground max-w-md">
             AI assistant for Interviews that gives you answers in real time without being detected. Start free, no credit card required.
             </p>
-            <div className="flex gap-4">
-              <a 
-                href="mailto:support@hovrlay.com" 
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Email us"
-              >
-                <EmailIcon className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://x.com/hovrlay" 
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Follow us on X"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <XIcon className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://github.com/hovrlay/hovrlay-releases" 
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Hovrlay releases on GitHub"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GitHubIcon className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Product */}
@@ -157,8 +130,37 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-border mt-12 pt-8">
-          <div className="text-sm text-muted-foreground text-left">
-            <span>&copy; 2026 Hovrlay. All rights reserved.</span>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <span className="text-sm text-muted-foreground text-left">
+              &copy; 2026 Hovrlay. All rights reserved.
+            </span>
+            <div className="flex gap-4">
+              <a
+                href="mailto:support@hovrlay.com"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="Email us"
+              >
+                <EmailIcon className="w-5 h-5" />
+              </a>
+              <a
+                href="https://x.com/hovrlay"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="Follow us on X"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <XIcon className="w-5 h-5" />
+              </a>
+              <a
+                href="https://github.com/hovrlay/hovrlay-releases"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="Hovrlay releases on GitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GitHubIcon className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
