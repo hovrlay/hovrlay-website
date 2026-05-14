@@ -6,7 +6,8 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
-  const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
+  const isBlogPath = location.pathname === "/blog" || location.pathname.startsWith("/blog/");
+  const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms" || isBlogPath;
   const navTextClass = isHomePage ? "text-primary-foreground" : "text-secondary-foreground";
 
   const handleScroll = (sectionId: string) => {
@@ -37,6 +38,11 @@ const Header = () => {
     </a>
   );
 
+  const handleBlogClick = () => {
+    navigate("/blog");
+    setIsHamburgerOpen(false);
+  };
+
   const desktopNavigation = (
     <nav className="flex items-center gap-6">
       <button
@@ -56,6 +62,12 @@ const Header = () => {
         className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
       >
         FAQ
+      </button>
+      <button
+        onClick={handleBlogClick}
+        className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+      >
+        Blog
       </button>
     </nav>
   );
@@ -116,6 +128,12 @@ const Header = () => {
             className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
           >
             FAQ
+          </button>
+          <button
+            onClick={handleBlogClick}
+            className={`text-base ${navTextClass} hover:opacity-70 transition-opacity duration-200`}
+          >
+            Blog
           </button>
         </div>
       </nav>

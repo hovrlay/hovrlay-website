@@ -8,13 +8,21 @@ import AuthCallback from "@/components/AuthCallback";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import PaymentSuccess from "@/pages/PaymentSuccess";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import { OsDownloadButton } from "@/components/OsDownloadButton";
 
-const CHROME_PATHS = new Set([
-  "/",
-  "/privacy-policy",
-  "/terms"
-]);
+const EXACT_CHROME_PATHS = new Set(["/", "/privacy-policy", "/terms"]);
+const EXACT_LEGAL_PATHS = new Set(["/privacy-policy", "/terms"]);
+
+const isBlogPath = (pathname: string) =>
+  pathname === "/blog" || pathname.startsWith("/blog/");
+
+const hasChrome = (pathname: string) =>
+  EXACT_CHROME_PATHS.has(pathname) || isBlogPath(pathname);
+
+const hasLegalChrome = (pathname: string) =>
+  EXACT_LEGAL_PATHS.has(pathname) || isBlogPath(pathname);
 
 const AppContent = () => {
   const navigate = useNavigate();
@@ -34,6 +42,8 @@ const AppContent = () => {
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
       <Route path="/payment-success" element={<PaymentSuccess />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -42,8 +52,8 @@ const AppContent = () => {
 
 const AppLayout = () => {
   const location = useLocation();
-  const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms";
-  const isStandalonePage = !CHROME_PATHS.has(location.pathname);
+  const isLegalPage = hasLegalChrome(location.pathname);
+  const isStandalonePage = !hasChrome(location.pathname);
 
   return (
     <div className="min-h-screen bg-background">
