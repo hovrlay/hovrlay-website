@@ -57,7 +57,7 @@ export const POSTS: BlogPost[] = [
     author: "anshul",
     image: "/man-vs-robot.jpg",
     description:
-      "The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt."
+      '"Build what you want to see in the world." The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt.'
   }
 ];
 

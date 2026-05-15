@@ -2,7 +2,7 @@ const LaunchingHovrlay = () => {
   return (
     <div className="w-full text-gray-800">
       <p className="mb-5 text-base leading-relaxed font-light">
-        For months I kept watching people do strange things to get through interviews. Bots
+        For months I kept watching people do strange things to get through interviews. AI bots
         slipping quietly into Zoom calls under names nobody recognized. Phones propped against
         laptops at angles that fooled no one. Friends on standby in a Discord server,
         listening to the call and answering questions. Everyone was solving the wrong part of
@@ -82,7 +82,8 @@ const LaunchingHovrlay = () => {
         Designers, engineers, marketers, all working on the exact problem I was sitting alone with. 
         I read the announcement on my phone and felt two things at once, neither of them clean. 
         The first was a flicker of validation, I wasn't crazy, I'd seen the same thing he saw. 
-        The second was a slower, heavier thing. He had the network. He had the capital. He had the people. 
+        The second hit harder. The problem I had convinced myself was worth solving was now being attacked by a company with venture funding, 
+        elite talent, virality and momentum on its side.
         I had a laptop, a Cursor subscription and a half finished overlay running on my desk.
       </p>
       <p className="mb-5 text-base leading-relaxed font-light">
@@ -127,31 +128,32 @@ const LaunchingHovrlay = () => {
         Unfinished business
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
-        The strange part about those two months away from Hovrlay is that I never actually stopped thinking about it.
-        I stopped coding. Stopped opening the repo. But the product kept running in the background of my head. I'd see another AI interview tool and immediately start thinking about latency, UX or implementation details. 
-        People who are truly done with something don't keep mentally rebuilding it when nobody is asking them to.
+          The strange thing about those two months away from Hovrlay was that I never really left it. I stopped coding. Stopped opening the repo. 
+          Stopped telling myself I was working on it. But the product stayed alive somewhere in the background of my head.
+          Every time I came across another AI interview tool, my brain would immediately drift into implementation mode. I’d start thinking about latency, 
+          overlays, edge cases, conversation flow, tiny UX decisions nobody else would notice. People who are actually finished with something don’t keep mentally rebuilding it in silence.
       </p>
       <p className="mb-5 text-base leading-relaxed font-light">
-        So eventually I opened the laptop again.
-        And somewhere during those late night rebuilds, something shifted. Earlier versions of Hovrlay felt like prototypes trying to prove a point.
-        This version felt different. Cleaner. Faster. Smaller. More confident.
+        Eventually the laptop opened again.
+        At first it was supposed to be temporary. Just clean up a few rough edges. Fix a couple things that had been bothering me. 
+        But somewhere during those late night rebuilds, the product changed. Or maybe my understanding of it did.
+        Earlier versions of Hovrlay felt like prototypes trying to justify their existence. Every feature felt eager. Overexplained. Slightly insecure. This version felt different. The product became quieter. Faster. More deliberate.
         I started deleting things aggressively. Simplifying flows. Tightening the overlay. Reducing friction everywhere I could.
         For the first time, the product stopped feeling like an experiment and started feeling inevitable.
       </p>
       <p className="mb-5 text-base leading-relaxed font-light">
-        Around the same time, the comparison with Cluely quietly dissolved too. Not because they became less impressive, but because I finally understood the goal was 
-        never to build their company. It was to build the sharpest version of the thing I personally believed should exist.
-        And honestly I think I did.
+        Around the same time, I also stopped obsessing over Cluely. Not because they weren’t impressive, they obviously were, but because I finally understood I
+        wasn’t actually trying to build their company. I wasn’t trying to win some imaginary race against them either. I just wanted to build the version of this
+        product that made the most sense to me. Once I understood that, things became a lot clearer.
       </p>
 
       <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
         The launch
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
-        Hovrlay has officially launched on macOS and Windows and is free to try.
-        No bot joins your interview call. No second device beside your laptop. No friend feeding you answers from another microphone. Nothing leaves your machine.
-        It just sits quietly on your screen.
-        It listens to the conversation already happening, understands the context in real time and helps while you think. Invisible to everyone except you.
+        Hovrlay has officially launched on macOS and Windows and anyone can try it for free.
+        No bot joins your interview call, no phone beside your laptop, no friend feeding you answers from another microphone.
+        It simply sits on your screen, listens to the conversation, understands the context in real time and helps when you need it.
         That's the entire idea.
       </p>
       <p className="mb-5 text-base leading-relaxed font-light">
