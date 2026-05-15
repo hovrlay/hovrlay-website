@@ -18,6 +18,11 @@ export const AUTHORS = {
 
 export type AuthorId = keyof typeof AUTHORS;
 
+export interface BlogSection {
+  id: string;
+  label: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -28,6 +33,7 @@ export interface BlogPost {
   description?: string;
   featured?: boolean;
   image?: string;
+  sections?: BlogSection[];
 }
 
 export const CATEGORY_GRADIENTS: Record<BlogCategory, string> = {
@@ -46,7 +52,11 @@ export const POSTS: BlogPost[] = [
     featured: true,
     image: "/robots-at-table.jpg",
     description:
-      "The difference between a tool that helps and a tool that spies is often just how it shows up. A bot with a name and camera slot feels like a stranger entering the room."
+      "The difference between a tool that helps and a tool that spies is often just how it shows up. A bot with a name and camera slot feels like a stranger entering the room.",
+    sections: [
+      { id: "overview", label: "Overview" },
+      { id: "comparison", label: "Side-by-side comparison" }
+    ]
   },
   {
     slug: "launching-hovrlay",
@@ -57,7 +67,15 @@ export const POSTS: BlogPost[] = [
     author: "anshul",
     image: "/man-vs-robot.jpg",
     description:
-      '"Build what you want to see in the world." The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt.'
+      '"Build what you want to see in the world." The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt.',
+    sections: [
+      { id: "the-setup", label: "The Setup" },
+      { id: "the-spark", label: "The Spark" },
+      { id: "same-idea-different-zip-code", label: "Same Idea, Different Zip Code" },
+      { id: "the-grind-then-the-quiet", label: "The Grind, Then the Quiet" },
+      { id: "unfinished-business", label: "Unfinished Business" },
+      { id: "the-launch", label: "The Launch" }
+    ]
   }
 ];
 

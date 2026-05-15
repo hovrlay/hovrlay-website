@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { BlogPostSidebar } from "@/components/BlogPostSidebar";
 import { AUTHORS, POSTS, formatLongDate, getBlogBody, getPostBySlug } from "@/utils/blog";
 
 const BlogPost = () => {
@@ -69,8 +70,13 @@ const BlogPost = () => {
         )}
 
         {Body && (
-          <div className="mt-10">
-            <Body />
+          <div className="mt-10 grid grid-cols-1 gap-10 md:gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(240px,30%)] lg:gap-x-12 xl:gap-x-16">
+            <div className="min-w-0">
+              <Body />
+            </div>
+            {post.sections && post.sections.length > 0 && (
+              <BlogPostSidebar sections={post.sections} />
+            )}
           </div>
         )}
       </article>

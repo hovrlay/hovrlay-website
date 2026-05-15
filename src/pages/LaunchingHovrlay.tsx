@@ -10,8 +10,11 @@ const LaunchingHovrlay = () => {
         the part that felt broken.
       </p>
 
-      <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
-        The setup
+      <h2
+        id="the-setup"
+        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+      >
+        The Setup
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
         At the time, I was a SWE at a startup that had millions of monthly active users. I was good at the job, the kind of engineer people called when something was actually on fire.
@@ -48,8 +51,11 @@ const LaunchingHovrlay = () => {
         some of the things my friends were doing in their interviews.
       </p>
 
-      <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
-        The spark
+      <h2
+        id="the-spark"
+        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+      >
+        The Spark
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
         Somewhere around January 2025, Interview Coder went viral. I sat with that for a long time. Roy was doing it
@@ -73,8 +79,11 @@ const LaunchingHovrlay = () => {
         said? That single question is what started everything.
       </p>
 
-      <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
-        Same idea, different zip code
+      <h2
+        id="same-idea-different-zip-code"
+        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+      >
+        Same Idea, Different Zip Code
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
         Eventually Roy got expelled from Columbia and went through a phase of his own. After a few months, on 20th April 2025 he launched Cluely.
@@ -93,8 +102,11 @@ const LaunchingHovrlay = () => {
         Not because I had a plan for how to win. Just because stopping felt worse than continuing.
       </p>
 
-      <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
-        The grind, then the quiet
+      <h2
+        id="the-grind-then-the-quiet"
+        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+      >
+        The Grind, Then the Quiet
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
         I was building Hovrlay on the side while still at my job. Then my manager, who had a way of 
@@ -124,8 +136,11 @@ const LaunchingHovrlay = () => {
       shows up as a quiet, total redirect. One day you want a million users. The next day you want bigger arms.
       </p>
 
-      <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
-        Unfinished business
+      <h2
+        id="unfinished-business"
+        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+      >
+        Unfinished Business
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
           The strange thing about those two months away from Hovrlay was that I never really left it. I stopped coding. Stopped opening the repo. 
@@ -147,8 +162,11 @@ const LaunchingHovrlay = () => {
         product that made the most sense to me. Once I understood that, things became a lot clearer.
       </p>
 
-      <h2 className="mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900">
-        The launch
+      <h2
+        id="the-launch"
+        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+      >
+        The Launch
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
         Hovrlay has officially launched on macOS and Windows and anyone can try it for free.

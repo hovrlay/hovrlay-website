@@ -106,6 +106,7 @@ const Cell = ({ value }: { value: Support }) => {
 const MeetingBotsComparison = () => {
   return (
     <div className="w-full text-gray-800">
+      <section id="overview" className="scroll-mt-28">
       <p className="mb-5 text-base leading-relaxed font-light">
         Most meeting assistants today work the same way. They join the call as a guest, take a
         camera slot and quietly record everyone in the room. After the call ends, they show you the transcripts and summaries. That's a design choice, not a
@@ -120,7 +121,12 @@ const MeetingBotsComparison = () => {
       <p className="mb-8 text-base leading-relaxed font-light">
         Here's how that compares to the tools people most often ask us about.
       </p>
+      </section>
 
+      <section id="comparison" className="scroll-mt-28">
+      <h2 className="mb-6 text-2xl font-semibold tracking-tight text-gray-900">
+        Side-by-side comparison
+      </h2>
       <div className="-mx-5 mb-8 overflow-x-auto px-5 md:mx-0 md:px-0">
         <table className="w-full min-w-[900px] border-separate border-spacing-0 text-left text-sm">
           <thead>
@@ -177,6 +183,7 @@ const MeetingBotsComparison = () => {
           </tbody>
         </table>
       </div>
+      </section>
     </div>
   );
 };
