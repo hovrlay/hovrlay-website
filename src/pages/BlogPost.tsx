@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { AUTHORS, POSTS, formatLongDate, getPostBySlug } from "@/data/blog";
+import { AUTHORS, POSTS, formatLongDate, getBlogBody, getPostBySlug } from "@/utils/blog";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = getPostBySlug(slug);
+  const Body = getBlogBody(slug);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
@@ -64,6 +65,12 @@ const BlogPost = () => {
               alt={post.title}
               className="h-full w-full object-cover object-center"
             />
+          </div>
+        )}
+
+        {Body && (
+          <div className="mt-10">
+            <Body />
           </div>
         )}
       </article>

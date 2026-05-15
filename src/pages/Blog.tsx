@@ -11,7 +11,7 @@ import {
   formatShortDate,
   groupByMonth,
   type BlogCategory
-} from "@/data/blog";
+} from "@/utils/blog";
 
 const SearchIcon = () => (
   <BlogSearchIcon

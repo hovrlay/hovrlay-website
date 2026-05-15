@@ -1,3 +1,7 @@
+import type { ComponentType } from "react";
+import LaunchingHovrlay from "@/pages/LaunchingHovrlay";
+import MeetingBotsComparison from "@/pages/MeetingBotsComparison";
+
 export type BlogCategory = "Updates" | "Product";
 
 export interface Author {
@@ -49,7 +53,7 @@ export const POSTS: BlogPost[] = [
     title: "Launching Hovrlay",
     category: "Product",
     date: "2026-04-05",
-    readMinutes: 3,
+    readMinutes: 6,
     author: "anshul",
     image: "/man-vs-robot.jpg",
     description:
@@ -98,3 +102,11 @@ export const groupByMonth = (posts: BlogPost[]) => {
 
 export const getPostBySlug = (slug: string | undefined) =>
   slug ? POSTS.find((p) => p.slug === slug) : undefined;
+
+const BLOG_BODIES: Record<string, ComponentType> = {
+  "meeting-bots-comparison": MeetingBotsComparison,
+  "launching-hovrlay": LaunchingHovrlay
+};
+
+export const getBlogBody = (slug: string | undefined) =>
+  slug ? BLOG_BODIES[slug] : undefined;
