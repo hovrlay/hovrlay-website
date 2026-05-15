@@ -121,7 +121,9 @@ const LaunchingHovrlay = () => {
         For the next stretch, I stopped thinking about outcomes. Money stopped mattering, in
         the slightly unhealthy way money stops mattering when you're avoiding looking at it.
         Launching stopped mattering. I just fed my ADHD brain whatever it wanted next. One
-        task, then the next, then the next. Hours disappeared. Days disappeared.
+        task, then the next, then the next. Building the Electron app, setting up the server infra, setting up CI/CD pipelines, transcription research,
+        UI design, the website, GTM strategy, Apple approvals, Google verification, onboarding flows, monetization flows.  
+        All of it, alone, in no particular order, with no particular plan. Hours disappeared. Days disappeared.
         There's something almost holy about that state. There's also something a little
         dangerous about it. I have a lot of affection for the version of me that lived inside
         those months but I wouldn't recommend being him.
