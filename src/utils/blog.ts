@@ -47,7 +47,7 @@ export const POSTS: BlogPost[] = [
     title: "How Hovrlay compares to other Meeting Bots",
     category: "Updates",
     date: "2026-05-14",
-    readMinutes: 2,
+    readMinutes: 6,
     author: "anshul",
     featured: true,
     image: "/robots-at-table.jpg",
@@ -55,7 +55,12 @@ export const POSTS: BlogPost[] = [
       "The difference between a tool that helps and a tool that spies is often just how it shows up. A bot with a name and camera slot feels like a stranger entering the room.",
     sections: [
       { id: "overview", label: "Overview" },
-      { id: "comparison", label: "Side-by-side comparison" }
+      { id: "two-approaches", label: "Two ways AI Assistants work" },
+      { id: "what-we-compared", label: "What we compared" },
+      { id: "comparison", label: "Tool comparison" },
+      { id: "takeaways", label: "What stands out" },
+      { id: "which-to-pick", label: "Which fits your call" },
+      { id: "faq", label: "FAQ" }
     ]
   },
   {
@@ -67,7 +72,7 @@ export const POSTS: BlogPost[] = [
     author: "anshul",
     image: "/man-vs-robot.jpg",
     description:
-      '"Build what you want to see in the world." The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt.',
+      '"Build what you want to see in the world." — The whole story from the day Roy got viral for Interview Coder to the day I launched Hovrlay on Product Hunt.',
     sections: [
       { id: "the-setup", label: "The Setup" },
       { id: "the-spark", label: "The Spark" },

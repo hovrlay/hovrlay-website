@@ -71,7 +71,7 @@ const BlogPost = () => {
 
         {Body && (
           <div className="mt-10 grid grid-cols-1 gap-10 md:gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(240px,30%)] lg:gap-x-12 xl:gap-x-16">
-            <div className="min-w-0">
+            <div className="min-w-0 [&_h2]:!text-3xl [&_h2]:lg:!text-3xl">
               <Body />
             </div>
             {post.sections && post.sections.length > 0 && (
