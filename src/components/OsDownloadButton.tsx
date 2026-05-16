@@ -6,19 +6,21 @@ import PlatformIcon from "@/assets/platform.svg";
 import LaptopIcon from "@/assets/laptop.svg";
 import {
   detectDownloadPlatform,
+  downloadButtonLabels,
   handleDownload,
   type DownloadPlatform
 } from "@/utils/downloads";
 
-const platformMeta: Record<DownloadPlatform, { label: string; Icon: typeof AppleIcon }> = {
-  windows: { label: "Get for Windows", Icon: WindowsIcon },
-  mac: { label: "Get for Mac", Icon: AppleIcon },
-  linux: { label: "Get for Linux", Icon: PlatformIcon }
+const platformMeta: Record<DownloadPlatform, { Icon: typeof AppleIcon }> = {
+  windows: { Icon: WindowsIcon },
+  mac: { Icon: AppleIcon },
+  linux: { Icon: PlatformIcon }
 };
 
 export function OsDownloadButton() {
   const platform = detectDownloadPlatform();
-  const { label, Icon } = platformMeta[platform];
+  const label = downloadButtonLabels[platform];
+  const { Icon } = platformMeta[platform];
 
   return (
     <button

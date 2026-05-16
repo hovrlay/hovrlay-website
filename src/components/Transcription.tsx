@@ -74,7 +74,7 @@ const Transcription = () => {
         <div className="flex flex-col gap-y-12 lg:gap-y-20 w-full lg:flex-1">
           <h2 
             ref={headerRef}
-            className={`text-3xl sm:text-4xl lg:text-5xl font-medium section-title-gradient leading-tight animate-scroll-fade-in-up ${headerVisible ? 'visible' : ''}`}
+            className={`text-4xl md:text-5xl lg:text-5xl font-medium section-title-gradient leading-tight animate-scroll-fade-in-up ${headerVisible ? 'visible' : ''}`}
           >
             Real-time transcription
           </h2>

@@ -206,7 +206,7 @@ All colors MUST be HSL.
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    border: 2px solid transparent;
+    border: 1.5px solid transparent;
     background: var(--brand-blue-glassy-gradient) border-box;
     -webkit-mask:
       linear-gradient(#fff 0 0) padding-box,

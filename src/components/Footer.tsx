@@ -38,9 +38,6 @@ const Footer = () => {
               <img src="/logo.svg" alt="Hovrlay" className="w-8 h-8" />
               <span className="text-xl font-bold text-foreground">hovrlay</span>
             </a>
-            <p className="font-light text-muted-foreground max-w-md">
-              AI assistant for Interviews that gives you answers in real time without being detected. Start free, no credit card required.
-            </p>
           </div>
 
           <div>
@@ -71,12 +68,12 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => handleSectionClick("hero")}
+                <a
+                  href="/blog"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
-                  Download
-                </button>
+                  Blog
+                </a>
               </li>
             </ul>
           </div>
@@ -97,7 +94,7 @@ const Footer = () => {
                   href="mailto:support@hovrlay.com"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
-                  Contact Support
+                  Contact Us
                 </a>
               </li>
             </ul>

@@ -1,5 +1,11 @@
 export type DownloadPlatform = "mac" | "windows" | "linux";
 
+export const downloadButtonLabels: Record<DownloadPlatform, string> = {
+  mac: "Get for Mac",
+  windows: "Get for Windows",
+  linux: "Get for Linux",
+};
+
 function getDownloadApiBase(): string | null {
   const raw = process.env.NEXT_PUBLIC_DOWNLOAD_API_BASE;
   if (typeof raw !== "string" || !raw.trim()) {
