@@ -1,10 +1,12 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
-import chevronDown from "../assets/chevron-down.svg";
-import invisibleToolSparkle from "../assets/invisible-tool-sparkle.svg";
-import SparklesIcon from "@/assets/sparkles.svg?react";
-import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
-import MessageSquareIcon from "@/assets/message-square.svg?react";
-import MoveGripDotsIcon from "@/assets/move-grip-dots.svg?react";
+import ChevronDownIcon from "../assets/chevron-down.svg";
+import InvisibleToolSparkleIcon from "../assets/invisible-tool-sparkle.svg";
+import SparklesIcon from "@/assets/sparkles.svg";
+import WandSparklesIcon from "@/assets/wand-sparkles.svg";
+import MessageSquareIcon from "@/assets/message-square.svg";
+import MoveGripDotsIcon from "@/assets/move-grip-dots.svg";
 import { detectDownloadPlatform } from "@/utils/downloads";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -479,7 +481,7 @@ const Features = () => {
                         </div>
                         <button type="button" className="flex items-center gap-0.5 text-[7px] font-medium text-[#374151] md:gap-1 md:text-[8px] xl:text-[10px]">
                           Speaker
-                          <img src={chevronDown} alt="" aria-hidden="true" className="size-[8px] md:size-[9px] xl:size-[10px]" />
+                          <ChevronDownIcon aria-hidden="true" className="size-[8px] md:size-[9px] xl:size-[10px]" />
                         </button>
                       </div>
 
@@ -493,7 +495,7 @@ const Features = () => {
                         </div>
                         <button type="button" className="flex items-center gap-0.5 text-[7px] font-medium text-[#374151] md:gap-1 md:text-[8px] xl:text-[10px]">
                           Speaker
-                          <img src={chevronDown} alt="" aria-hidden="true" className="size-[8px] md:size-[9px] xl:size-[10px]" />
+                          <ChevronDownIcon aria-hidden="true" className="size-[8px] md:size-[9px] xl:size-[10px]" />
                         </button>
                       </div>
 
@@ -507,7 +509,7 @@ const Features = () => {
                         </div>
                         <button type="button" className="flex items-center gap-0.5 text-[7px] font-medium text-[#374151] md:gap-1 md:text-[8px] xl:text-[10px]">
                           Speaker
-                          <img src={chevronDown} alt="" aria-hidden="true" className="size-[8px] md:size-[9px] xl:size-[10px]" />
+                          <ChevronDownIcon aria-hidden="true" className="size-[8px] md:size-[9px] xl:size-[10px]" />
                         </button>
                       </div>
                     </div>
@@ -561,7 +563,7 @@ const Features = () => {
 
                   <div className="absolute left-4 right-4 top-4 z-20 mt-10 rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] px-3 pb-2 pt-1 md:left-6 md:right-6 md:top-6 md:mt-11 md:px-4 md:pb-2 md:pt-2">
                     <div className="flex items-center gap-1 text-[8px] font-semibold tracking-tight text-[#1F2A37] md:text-[10px]">
-                      <img src={invisibleToolSparkle} alt="" aria-hidden="true" className="size-[8px] md:size-[10px]" />
+                      <InvisibleToolSparkleIcon aria-hidden="true" className="size-[8px] md:size-[10px]" />
                       AI Response
                     </div>
 

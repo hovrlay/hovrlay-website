@@ -1,5 +1,7 @@
+"use client";
+
 import { useState, type ReactNode } from "react";
-import ChevronDownIcon from "@/assets/chevron-down.svg?react";
+import ChevronDownIcon from "@/assets/chevron-down.svg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface FAQItemProps {

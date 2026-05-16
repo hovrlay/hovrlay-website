@@ -1,18 +1,20 @@
+"use client";
+
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const isHomePage = location.pathname === "/";
-  const isBlogPath = location.pathname === "/blog" || location.pathname.startsWith("/blog/");
-  const isLegalPage = location.pathname === "/privacy-policy" || location.pathname === "/terms" || isBlogPath;
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
+  const isBlogPath = pathname === "/blog" || pathname.startsWith("/blog/");
+  const isLegalPage = pathname === "/privacy-policy" || pathname === "/terms" || isBlogPath;
   const navTextClass = isHomePage ? "text-primary-foreground" : "text-secondary-foreground";
 
   const handleScroll = (sectionId: string) => {
-    if (location.pathname !== "/") {
-      navigate(`/?section=${sectionId}`);
+    if (pathname !== "/") {
+      router.push(`/?section=${sectionId}`);
     } else {
       const element = document.getElementById(sectionId);
       if (element) { element.scrollIntoView({ behavior: "smooth" }); }
@@ -21,7 +23,7 @@ const Header = () => {
   };
 
   const handleLogoClick = () => {
-    if (location.pathname === "/") {
+    if (pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -39,7 +41,7 @@ const Header = () => {
   );
 
   const handleBlogClick = () => {
-    navigate("/blog");
+    router.push("/blog");
     setIsHamburgerOpen(false);
   };
 
@@ -149,7 +151,6 @@ const Header = () => {
         />
       )}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center h-10">
           <div className="flex items-center gap-20">
             {hovrlayButton}
@@ -157,13 +158,11 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <div className="flex md:hidden items-center justify-between h-16">
           {hovrlayButton}
           <div className="flex items-center gap-4">{hamburgerButton}</div>
         </div>
 
-        {/* Mobile Menu Sheet */}
         {mobileMenuSheet}
       </div>
     </header>

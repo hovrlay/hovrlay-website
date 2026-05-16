@@ -1,7 +1,7 @@
 export type DownloadPlatform = "mac" | "windows" | "linux";
 
 function getDownloadApiBase(): string | null {
-  const raw = import.meta.env.VITE_DOWNLOAD_API_BASE;
+  const raw = process.env.NEXT_PUBLIC_DOWNLOAD_API_BASE;
   if (typeof raw !== "string" || !raw.trim()) {
     return null;
   }
@@ -38,8 +38,8 @@ export const handleDownload = (platform: DownloadPlatform) => {
   const base = getDownloadApiBase();
   if (!base) {
     console.error(
-      "Missing VITE_DOWNLOAD_API_BASE. Copy .env.example to .env.local and set the URL, " +
-        "or define it in your hosting provider’s build environment."
+      "Missing NEXT_PUBLIC_DOWNLOAD_API_BASE. Add it to .env.local for local dev, " +
+        "or set it in your Vercel project environment variables for production."
     );
     return;
   }

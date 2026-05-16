@@ -1,11 +1,13 @@
+"use client";
+
 import { OsDownloadButton } from "@/components/OsDownloadButton";
 import { detectDownloadPlatform } from "@/utils/downloads";
-import SparklesIcon from "@/assets/sparkles.svg?react";
-import WandSparklesIcon from "@/assets/wand-sparkles.svg?react";
-import MessageSquareIcon from "@/assets/message-square.svg?react";
-import RefreshCwIcon from "@/assets/refresh-cw.svg?react";
-import MoveGripDotsIcon from "@/assets/move-grip-dots.svg?react";
-import DemoOverlayChevronIcon from "@/assets/demo-overlay-chevron.svg?react";
+import SparklesIcon from "@/assets/sparkles.svg";
+import WandSparklesIcon from "@/assets/wand-sparkles.svg";
+import MessageSquareIcon from "@/assets/message-square.svg";
+import RefreshCwIcon from "@/assets/refresh-cw.svg";
+import MoveGripDotsIcon from "@/assets/move-grip-dots.svg";
+import DemoOverlayChevronIcon from "@/assets/demo-overlay-chevron.svg";
 import { type PointerEvent, useEffect, useRef, useState } from "react";
 
 type Star = {

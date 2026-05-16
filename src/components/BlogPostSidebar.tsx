@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { BlogSection } from "@/utils/blog";
 import { detectDownloadPlatform, handleDownload } from "@/utils/downloads";

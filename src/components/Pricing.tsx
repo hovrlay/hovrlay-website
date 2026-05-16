@@ -1,6 +1,8 @@
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
-import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import RazorpayLogo from "@/assets/logo-razorpay.svg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { detectDownloadPlatform, handleDownload } from "@/utils/downloads";
 
@@ -31,11 +33,15 @@ function formatUSDPerCredit(amount: number): string {
 }
 
 function useIndiaPricingRegion(): boolean {
-  return useMemo(() => {
-    if (typeof window === "undefined") return false;
+  const [isIndia, setIsIndia] = useState(false);
+
+  useEffect(() => {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if (tz === "Asia/Kolkata" || tz === "Asia/Calcutta") return true;
+      if (tz === "Asia/Kolkata" || tz === "Asia/Calcutta") {
+        setIsIndia(true);
+        return;
+      }
       let region: string | undefined;
       try {
         region = new Intl.Locale(navigator.language).maximize().region;
@@ -43,11 +49,13 @@ function useIndiaPricingRegion(): boolean {
         const parts = navigator.language.split("-");
         region = parts.length > 1 ? parts[parts.length - 1]?.toUpperCase() : undefined;
       }
-      return region === "IN";
+      if (region === "IN") setIsIndia(true);
     } catch {
-      return false;
+      // keep false
     }
   }, []);
+
+  return isIndia;
 }
 
 type PricingPlan = {
@@ -271,7 +279,7 @@ const Pricing = () => {
             className={`flex justify-center animate-scroll-fade-in-up ${compareVisible ? "visible" : ""}`}
           >
             <Link
-              to="/blog/meeting-bots-comparison"
+              href="/blog/meeting-bots-comparison"
               className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground/90 underline-offset-4 transition-colors hover:text-foreground/80 hover:underline"
             >
               See how we compare with other AI meeting assistants
