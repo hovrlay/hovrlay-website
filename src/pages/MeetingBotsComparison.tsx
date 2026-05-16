@@ -25,7 +25,7 @@ const INVISIBLE_OVERLAY_COMPETITORS: Competitor[] = [
   {
     name: "Hovrlay",
     logo: hovrlayLogo,
-    pricingShort: "$3/hour",
+    pricingShort: "$2/hour",
     freeTrial: "yes",
     realTimeAnswers: "yes",
     invisibleToOthers: "yes",
@@ -43,7 +43,7 @@ const INVISIBLE_OVERLAY_COMPETITORS: Competitor[] = [
   {
     name: "ParakeetAI",
     logo: parakeetLogo,
-    pricingShort: "$10/hour",
+    pricingShort: "$6/hour",
     freeTrial: "no",
     realTimeAnswers: "yes",
     invisibleToOthers: "yes",

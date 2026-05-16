@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -11,14 +12,55 @@ function formatINR(amount: number): string {
   }).format(Math.round(amount));
 }
 
+function formatUSD(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  }).format(amount);
+}
+
+function formatUSDPerCredit(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2
+  }).format(amount);
+}
+
+function useIndiaPricingRegion(): boolean {
+  return useMemo(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz === "Asia/Kolkata" || tz === "Asia/Calcutta") return true;
+      let region: string | undefined;
+      try {
+        region = new Intl.Locale(navigator.language).maximize().region;
+      } catch {
+        const parts = navigator.language.split("-");
+        region = parts.length > 1 ? parts[parts.length - 1]?.toUpperCase() : undefined;
+      }
+      return region === "IN";
+    } catch {
+      return false;
+    }
+  }, []);
+}
+
 type PricingPlan = {
   name: string;
   creditCount: number;
   priceRupees: number;
   pricePerCreditRupees: number;
+  priceUsd: number;
+  pricePerCreditUsd: number;
   tier: "default" | "bestValue";
   featurePlaceholder: string;
   listPriceRupees?: number;
+  listPriceUsd?: number;
   savePercent?: number;
 };
 
@@ -28,6 +70,8 @@ const plans: PricingPlan[] = [
     creditCount: 3,
     priceRupees: 899,
     pricePerCreditRupees: 299,
+    priceUsd: 9,
+    pricePerCreditUsd: 3,
     tier: "default" as const,
     featurePlaceholder: "Perfect if you have a few interviews coming up and want focused AI help without committing too much."
   },
@@ -36,8 +80,11 @@ const plans: PricingPlan[] = [
     creditCount: 8,
     priceRupees: 1999,
     listPriceRupees: 2499,
+    listPriceUsd: 24,
     savePercent: 20,
     pricePerCreditRupees: 249,
+    priceUsd: 20,
+    pricePerCreditUsd: 2.5,
     tier: "default" as const,
     featurePlaceholder: "For active job seekers who need consistent practice and feedback across multiple interviews."
   },
@@ -46,8 +93,11 @@ const plans: PricingPlan[] = [
     creditCount: 20,
     priceRupees: 3999,
     listPriceRupees: 5999,
+    listPriceUsd: 60,
     savePercent: 33,
     pricePerCreditRupees: 199,
+    priceUsd: 40,
+    pricePerCreditUsd: 2,
     tier: "bestValue" as const,
     featurePlaceholder: "For serious candidates preparing for high stakes interviews (FAANG, startups, or role switches)."
   }
@@ -56,9 +106,10 @@ const plans: PricingPlan[] = [
 interface PricingCardProps {
   plan: PricingPlan;
   delay?: number;
+  useInr: boolean;
 }
 
-const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
+const PricingCard = ({ plan, delay = 0, useInr }: PricingCardProps) => {
   const { ref, isVisible } = useScrollAnimation({
     threshold: 0.1,
     rootMargin: "0px 0px -50px 0px",
@@ -66,7 +117,11 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
   });
 
   const isBest = plan.tier === "bestValue";
-  const hasDiscount = plan.listPriceRupees != null;
+  const hasDiscount = useInr ? plan.listPriceRupees != null : plan.listPriceUsd != null;
+  const formatMain = useInr ? formatINR : formatUSD;
+  const mainPrice = useInr ? plan.priceRupees : plan.priceUsd;
+  const listPrice = useInr ? plan.listPriceRupees : plan.listPriceUsd;
+  const perCredit = useInr ? plan.pricePerCreditRupees : plan.pricePerCreditUsd;
   const platform = detectDownloadPlatform();
 
   const cardRing = isBest
@@ -102,16 +157,16 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
 
           <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <p className="text-4xl sm:text-5xl font-semibold tabular-nums tracking-tight text-foreground leading-none">
-              {formatINR(plan.priceRupees)}
+              {formatMain(mainPrice)}
             </p>
-            {hasDiscount ? (
-              <span className="text-2xl sm:text-3xl font-light tabular-nums text-muted-foreground line-through decoration-muted-foreground/80">
-                {formatINR(plan.listPriceRupees!)}
+            {hasDiscount && listPrice != null ? (
+              <span className="text-xl sm:text-2xl font-light tabular-nums text-muted-foreground line-through decoration-muted-foreground/80">
+                {formatMain(listPrice)}
               </span>
             ) : null}
           </div>
 
-          <p className={`mt-4 text-xl sm:text-2xl font-semibold tabular-nums tracking-tight ${isBest ? "text-brand-blue" : "text-foreground"}`}>
+          <p className={`mt-4 text-xl sm:text-2xl font-medium tabular-nums tracking-tight ${isBest ? "text-brand-blue" : "text-foreground"}`}>
             {plan.creditCount} credit{plan.creditCount === 1 ? "" : "s"}
           </p>
 
@@ -128,7 +183,7 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
               <span className="text-brand-blue mt-0.5 text-sm font-semibold" aria-hidden>
                 ✓
               </span>
-              <span>{formatINR(plan.pricePerCreditRupees)} per credit</span>
+              <span>{useInr ? formatINR(perCredit) : formatUSDPerCredit(perCredit)} per credit</span>
             </p>
             <p className="flex items-start gap-2">
               <span className="text-brand-blue mt-0.5 text-sm font-semibold" aria-hidden>
@@ -158,6 +213,8 @@ const PricingCard = ({ plan, delay = 0 }: PricingCardProps) => {
 };
 
 const Pricing = () => {
+  const useInr = useIndiaPricingRegion();
+
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({
     threshold: 0.1,
     triggerOnce: true
@@ -201,7 +258,7 @@ const Pricing = () => {
             </span>
             <br />
             <span className="text-sm sm:text-base">
-              1 credit = 1 hour of live AI help.
+              1 credit = 1 hour of interview assistance
             </span>
           </p>
           </div>
@@ -227,7 +284,7 @@ const Pricing = () => {
           {/* —— Plans —— */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
             {plans.map((plan, index) => (
-              <PricingCard key={plan.name} plan={plan} delay={index * 100} />
+              <PricingCard key={plan.name} plan={plan} delay={index * 100} useInr={useInr} />
             ))}
           </div>
 
