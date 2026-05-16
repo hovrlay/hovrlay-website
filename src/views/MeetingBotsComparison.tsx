@@ -1,9 +1,9 @@
-import cluelyLogo from "@/assets/cluely.svg";
-import firefliesLogo from "@/assets/fireflies.svg";
-import granolaLogo from "@/assets/granola.svg";
-import hovrlayLogo from "@/assets/hovrlay.svg";
-import otterLogo from "@/assets/otter.svg";
-import parakeetLogo from "@/assets/parakeet.webp";
+const cluelyLogo = "/logos/cluely.svg";
+const firefliesLogo = "/logos/fireflies.svg";
+const granolaLogo = "/logos/granola.svg";
+const hovrlayLogo = "/logos/hovrlay.svg";
+const otterLogo = "/logos/otter.svg";
+const parakeetLogo = "/logos/parakeet.webp";
 
 type Support = "yes" | "no" | "partial" | "unknown";
 

@@ -1,7 +1,10 @@
+"use client";
+
 import { useEffect, useMemo, useState } from "react";
-import BlogUpdatesIcon from "@/assets/blog-updates.svg?react";
-import BlogProductIcon from "@/assets/blog-product.svg?react";
-import BlogSearchIcon from "@/assets/blog-search.svg?react";
+import Link from "next/link";
+import BlogUpdatesIcon from "@/assets/blog-updates.svg";
+import BlogProductIcon from "@/assets/blog-product.svg";
+import BlogSearchIcon from "@/assets/blog-search.svg";
 import {
   AUTHORS,
   CATEGORIES,
@@ -73,7 +76,7 @@ const Blog = () => {
         {featuredPost && (
           <section className="w-full">
             <article className="group relative">
-              <a href={`/blog/${featuredPost.slug}`} className="block">
+              <Link href={`/blog/${featuredPost.slug}`} className="block">
                 <div className="relative block aspect-[4/3] overflow-hidden rounded-[2rem] transition-all duration-500 sm:aspect-[16/10] lg:aspect-[2/1]">
                   <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
                     <img
@@ -127,7 +130,7 @@ const Blog = () => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             </article>
           </section>
         )}
@@ -186,7 +189,7 @@ const Blog = () => {
                       const isVeryLast = isLastGroup && isLastInGroup;
                       return (
                         <article key={post.slug} className="group">
-                          <a
+                          <Link
                             href={`/blog/${post.slug}`}
                             className="flex items-start gap-4 pt-4 sm:gap-6"
                           >
@@ -222,7 +225,7 @@ const Blog = () => {
                                 </div>
                               </div>
                             </div>
-                          </a>
+                          </Link>
                         </article>
                       );
                     })}

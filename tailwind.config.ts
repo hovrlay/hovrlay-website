@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  content: ["./src/App.tsx", "./src/components/*.tsx", "./src/**/*.{ts,tsx}"],
+  content: ["./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
@@ -79,8 +79,8 @@ export default {
         "fade-in-down": "fade-in-down 0.6s ease-out forwards",
       },
       fontFamily: {
-        sans: ["Geist", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        heading: ['"EB Garamond"', "Garamond", "Georgia", "serif"],
+        sans: ["var(--font-geist)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        heading: ["var(--font-eb-garamond)", "Garamond", "Georgia", "serif"],
       },
     },
   },

@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
-import LaunchingHovrlay from "@/pages/LaunchingHovrlay";
-import MeetingBotsComparison from "@/pages/MeetingBotsComparison";
+import LaunchingHovrlay from "@/views/LaunchingHovrlay";
+import MeetingBotsComparison from "@/views/MeetingBotsComparison";
 
 export type BlogCategory = "Updates" | "Product";
 

@@ -1,14 +1,14 @@
+"use client";
+
 import React from "react";
-import OpenAILogo from "@/assets/logo-openai.svg?react";
-import GrokLogo from "@/assets/logo-grok.svg?react";
-import GeminiLogo from "@/assets/logo-gemini.svg?react";
-import ClaudeLogo from "@/assets/logo-claude.svg?react";
-import SupabaseLogo from "@/assets/logo-supabase.svg?react";
-import DeepgramLogo from "@/assets/logo-deepgram.svg?react";
-import RazorpayLogo from "@/assets/logo-razorpay.svg?react";
+import OpenAILogo from "@/assets/logo-openai.svg";
+import GrokLogo from "@/assets/logo-grok.svg";
+import ClaudeLogo from "@/assets/logo-claude.svg";
+import SupabaseLogo from "@/assets/logo-supabase.svg";
+import DeepgramLogo from "@/assets/logo-deepgram.svg";
+import RazorpayLogo from "@/assets/logo-razorpay.svg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-// Define TypeScript interface for logo objects
 interface Logo {
   name: string;
   component: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -27,8 +27,7 @@ const PoweredBy = () => {
     { name: "Deepgram", component: DeepgramLogo, offsetDown: true },
     { name: "OpenAI", component: OpenAILogo },
     { name: "Grok", component: GrokLogo },
-    { name: "Google Gemini", component: GeminiLogo, offsetUp: true },
-    { name: "Claude", component: ClaudeLogo }
+    { name: "Claude", component: ClaudeLogo },
   ];
 
   // Duplicate the logos array for the marquee effect (3 sets for better coverage on bigger screens)
@@ -39,7 +38,7 @@ const PoweredBy = () => {
       {duplicatedLogos.map(({ name, component: Logo, offsetUp, offsetDown }, index) => (
         <div
           key={`logo-${index}`}
-          className={`flex items-center justify-center min-w-[120px] md:min-w-[140px] h-12 md:h-16 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 ${offsetUp ? '-translate-y-1' : ''} ${offsetDown ? 'translate-y-1' : ''}`}
+          className={`flex items-center justify-center min-w-[120px] md:min-w-[140px] h-12 md:h-16 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 ${offsetUp ? "-translate-y-1" : ""} ${offsetDown ? "translate-y-1" : ""}`}
         >
           <Logo
             role="img"

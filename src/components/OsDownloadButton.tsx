@@ -1,7 +1,9 @@
-import AppleIcon from "@/assets/apple.svg?react";
-import WindowsIcon from "@/assets/windows.svg?react";
-import PlatformIcon from "@/assets/platform.svg?react";
-import LaptopIcon from "@/assets/laptop.svg?react";
+"use client";
+
+import AppleIcon from "@/assets/apple.svg";
+import WindowsIcon from "@/assets/windows.svg";
+import PlatformIcon from "@/assets/platform.svg";
+import LaptopIcon from "@/assets/laptop.svg";
 import {
   detectDownloadPlatform,
   handleDownload,

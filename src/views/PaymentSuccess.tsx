@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect } from "react";
-import SuccessCheckIcon from "@/assets/success-check.svg?react";
+import SuccessCheckIcon from "@/assets/success-check.svg";
 
 const PaymentSuccess = () => {
   useEffect(() => {

@@ -1,21 +1,23 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import EmailIcon from "@/assets/email.svg?react";
-import XIcon from "@/assets/x.svg?react";
-import GitHubIcon from "@/assets/github.svg?react";
+"use client";
+
+import { usePathname, useRouter } from "next/navigation";
+import EmailIcon from "@/assets/email.svg";
+import XIcon from "@/assets/x.svg";
+import GitHubIcon from "@/assets/github.svg";
 
 const Footer = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogoClick = () => {
-    if (location.pathname === "/") {
+    if (pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleSectionClick = (sectionId: string) => {
-    if (location.pathname !== "/") {
-      navigate(`/?section=${sectionId}`);
+    if (pathname !== "/") {
+      router.push(`/?section=${sectionId}`);
     } else {
       const element = document.getElementById(sectionId);
       if (element) { element.scrollIntoView({ behavior: "smooth" }); }
@@ -26,7 +28,6 @@ const Footer = () => {
     <footer className="bg-background pb-8 px-4 md:px-8 lg:px-12">
       <div className="container-custom mx-auto max-w-7xl border-t border-border pt-12">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
-          {/* Company Info */}
           <div className="md:col-span-3">
             <a
               href="/"
@@ -38,16 +39,15 @@ const Footer = () => {
               <span className="text-xl font-bold text-foreground">hovrlay</span>
             </a>
             <p className="font-light text-muted-foreground max-w-md">
-            AI assistant for Interviews that gives you answers in real time without being detected. Start free, no credit card required.
+              AI assistant for Interviews that gives you answers in real time without being detected. Start free, no credit card required.
             </p>
           </div>
 
-          {/* Product */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Product</h3>
             <ul className="space-y-3">
               <li>
-                <button 
+                <button
                   onClick={() => handleSectionClick("features")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -55,7 +55,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => handleSectionClick("demo")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -63,7 +63,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => handleSectionClick("pricing")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -71,7 +71,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => handleSectionClick("hero")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -81,12 +81,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Support */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Support</h3>
             <ul className="space-y-3">
               <li>
-                <button 
+                <button
                   onClick={() => handleSectionClick("faq")}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -94,8 +93,8 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <a 
-                  href="mailto:support@hovrlay.com" 
+                <a
+                  href="mailto:support@hovrlay.com"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Contact Support
@@ -104,12 +103,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <a 
+                <a
                   href="/privacy-policy"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -117,7 +115,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   href="/terms"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
@@ -128,7 +126,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Section */}
         <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <span className="text-sm text-muted-foreground text-left">

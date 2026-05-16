@@ -1,23 +1,23 @@
+"use client";
+
 import { useEffect } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import Link from "next/link";
 import { BlogPostSidebar } from "@/components/BlogPostSidebar";
 import { AUTHORS, POSTS, formatLongDate, getBlogBody, getPostBySlug } from "@/utils/blog";
 
-const BlogPost = () => {
-  const { slug } = useParams<{ slug: string }>();
+interface BlogPostProps {
+  slug: string;
+}
+
+const BlogPost = ({ slug }: BlogPostProps) => {
   const post = getPostBySlug(slug);
   const Body = getBlogBody(slug);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
-    if (post) {
-      document.title = `${post.title} | Hovrlay`;
-    }
-  }, [post]);
+  }, [slug]);
 
-  if (!post) {
-    return <Navigate to="/blog" replace />;
-  }
+  if (!post) return null;
 
   const author = AUTHORS[post.author];
   const otherPosts = POSTS.filter((p) => p.slug !== post.slug);
@@ -90,7 +90,7 @@ const BlogPost = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {otherPosts.map((other) => (
               <article key={other.slug} className="group">
-                <Link to={`/blog/${other.slug}`}>
+                <Link href={`/blog/${other.slug}`}>
                   <div className="flex h-full flex-col overflow-hidden rounded-2xl border bg-white border-gray-200 transition-shadow hover:shadow-md">
                     {other.image && (
                       <div className="aspect-video overflow-hidden">

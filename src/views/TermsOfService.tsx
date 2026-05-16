@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import UpArrowIcon from "@/assets/up-arrow.svg?react";
+import UpArrowIcon from "@/assets/up-arrow.svg";
 
 const TermsOfService = () => {
   const [activeSection, setActiveSection] = useState("");

@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import NotFound from "@/pages/NotFound";
-import SuccessCheckIcon from "@/assets/success-check.svg?react";
+import NotFound from "@/views/NotFound";
+import SuccessCheckIcon from "@/assets/success-check.svg";
 
 const AuthCallback = () => {
   const [shouldShow404, setShouldShow404] = useState(false);

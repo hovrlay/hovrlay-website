@@ -1,5 +1,6 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { OsDownloadButton } from "@/components/OsDownloadButton";
 import Hero from "@/components/Hero";
 import PoweredBy from "@/components/PoweredBy";
@@ -10,12 +11,11 @@ import Transcription from "@/components/Transcription";
 import FAQ from "@/components/FAQ";
 
 const HomePage = () => {
-  const location = useLocation();
   const [showStickyDownload, setShowStickyDownload] = useState(false);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const section = urlParams.get('section');
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get("section");
     if (section) {
       const element = document.getElementById(section);
       if (element) {
@@ -24,7 +24,7 @@ const HomePage = () => {
         }, 50);
       }
     }
-  }, [location.search]);
+  }, []);
 
   useEffect(() => {
     const el = document.getElementById("hero-download-cta");
