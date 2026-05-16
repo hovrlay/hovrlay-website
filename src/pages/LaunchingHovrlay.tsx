@@ -93,7 +93,7 @@ const LaunchingHovrlay = () => {
         The Launch
       </h2>
       <p className="mb-5 text-base leading-relaxed font-light">
-        Hovrlay has officially launched on macOS and Windows and you can try it for free. No bot joins your interview call, no phone beside your laptop, no friend feeding you answers from another microphone. It will sit on your screen, listen into the conversation, understand the context all in real time to give you the help you need. will sit on your screen, listen into the conversation, understand the context all in real time to give you the help you need. That's the entire idea.
+        Hovrlay has officially launched on macOS and Windows and you can try it for free. No bot joins your interview call, no phone beside your laptop, no friend feeding you answers from another microphone. It will sit on your screen, listen into the conversation, understand the context all in real time to give you the help you need. That's the entire idea.
       </p>
       <p className="mb-5 text-base leading-relaxed font-light">
         In a way, this project started long before I wrote any code for it. It started the moment I realized people weren't cheating because they were lazy. They were doing it because interviews had already become a performance of optimization and everyone was solving for survival in their own way. Hovrlay was my answer to that feeling.

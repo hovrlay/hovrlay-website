@@ -44,23 +44,20 @@ export const CATEGORY_GRADIENTS: Record<BlogCategory, string> = {
 export const POSTS: BlogPost[] = [
   {
     slug: "meeting-bots-comparison",
-    title: "How Hovrlay compares to other Meeting Bots",
+    title: "The State of AI Meeting Assistants in 2026",
     category: "Updates",
     date: "2026-05-14",
-    readMinutes: 6,
+    readMinutes: 2,
     author: "anshul",
     featured: true,
     image: "/robots-at-table.jpg",
     description:
       "The difference between a tool that helps and a tool that spies is often just how it shows up. A bot with a name and camera slot feels like a stranger entering the room.",
     sections: [
-      { id: "overview", label: "Overview" },
-      { id: "two-approaches", label: "Two ways AI Assistants work" },
-      { id: "what-we-compared", label: "What we compared" },
+      { id: "overview", label: "Traditional Meeting Bots" },
+      { id: "invisible-overlays", label: "Invisible Overlays" },
       { id: "comparison", label: "Tool comparison" },
-      { id: "takeaways", label: "What stands out" },
-      { id: "which-to-pick", label: "Which fits your call" },
-      { id: "faq", label: "FAQ" }
+      { id: "which-to-pick", label: "Why both still exist" }
     ]
   },
   {
@@ -68,7 +65,7 @@ export const POSTS: BlogPost[] = [
     title: "Launching Hovrlay",
     category: "Product",
     date: "2026-04-05",
-    readMinutes: 6,
+    readMinutes: 5,
     author: "anshul",
     image: "/man-vs-robot.jpg",
     description:

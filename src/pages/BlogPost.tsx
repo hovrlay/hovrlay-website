@@ -91,7 +91,7 @@ const BlogPost = () => {
             {otherPosts.map((other) => (
               <article key={other.slug} className="group">
                 <Link to={`/blog/${other.slug}`}>
-                  <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 transition-shadow hover:shadow-md">
+                  <div className="flex h-full flex-col overflow-hidden rounded-2xl border bg-white border-gray-200 transition-shadow hover:shadow-md">
                     {other.image && (
                       <div className="aspect-video overflow-hidden">
                         <img
