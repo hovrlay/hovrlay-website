@@ -126,34 +126,13 @@ const Transcription = () => {
         <div 
           className="mt-8 lg:hidden animate-scroll-fade-in-up visible"
         >
-          <div className="glass rounded-3xl p-6 shadow-xl">
-            <img 
-              src="/transcript-preview.png" 
-              alt="Real-time transcript"
-              width={450}
-              height={569}
-              className="rounded-2xl pointer-events-none select-none w-full max-w-md mx-auto h-auto"
-              onError={(e) => {
-                // Fallback to placeholder if image doesn't exist
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const fallback = target.nextElementSibling as HTMLDivElement;
-                if (fallback) fallback.style.display = 'flex';
-              }}
-            />
-            {/* Fallback placeholder */}
-            <div className="w-full max-w-md mx-auto h-[400px] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl flex items-center justify-center" style={{ display: 'none' }}>
-              <div className="text-center px-8">
-                <div className="text-6xl mb-4">🎙️</div>
-                <p className="text-lg text-muted-foreground">
-                  Real-time transcript preview
-                </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Add transcript-preview.png to /public folder
-                </p>
-              </div>
-            </div>
-          </div>
+          <img 
+            src="/transcript-preview.jpg" 
+            alt="Real-time transcript"
+            width={450}
+            height={569}
+            className="rounded-2xl pointer-events-none select-none w-[400px] h-auto"
+          />
         </div>
       </div>
     </section>
