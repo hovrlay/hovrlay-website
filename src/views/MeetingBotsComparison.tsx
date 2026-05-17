@@ -148,7 +148,7 @@ const MeetingBotsComparison = () => {
         </h2>
         <p className="mb-5 text-base leading-relaxed font-light">
           A lot of the meeting assistants work the same way even in 2026. They join the call as a guest, take a
-          camera slot and quietly record everyone in the room. After the call ends, they show you
+          camera slot and record everyone in the room. After the call ends, they show you
           the transcripts and summaries. That's a design choice, not a requirement.
         </p>
         <p className="mb-8 text-base leading-relaxed font-light">
@@ -178,11 +178,6 @@ const MeetingBotsComparison = () => {
         <h2 className="mb-4 text-2xl font-semibold tracking-tight text-gray-900">
           Tool comparison
         </h2>
-        <p className="mb-12 text-base leading-relaxed font-light">
-          Neither approach is universally better. They optimize for different outcomes. A meeting bot is designed to extract rich insights from the transcripts 
-          and convert them into actionable items in the user's workflow after the call ends. An invisible overlay is designed to assist during the conversation 
-          itself, providing context aware help during the call.
-        </p>
         <div className="mb-16 space-y-12">
           <div>
             <p className="mb-4 ml-1 text-sm font-medium tracking-tight text-gray-500">Invisible overlays</p>
