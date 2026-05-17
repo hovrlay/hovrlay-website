@@ -53,21 +53,19 @@ const Transcription = () => {
       id="transcription" 
       className="w-full"
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-x-12 lg:flex-row px-4 md:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-x-12 lg:gap-x-24 lg:flex-row px-4 md:px-8">
         {/* Image/Visual Element - Hidden on mobile, shown on desktop */}
         <div 
           ref={imageRef}
           className={`hidden lg:block animate-scroll-fade-in-up ${imageVisible ? 'visible' : ''}`}
         >
-          <div className="glass rounded-3xl p-6 shadow-xl">
-            <img 
-              src="/transcript-preview.png" 
-              alt="Real-time transcript"
-              width={450}
-              height={569}
-              className="rounded-2xl pointer-events-none select-none w-[400px] h-auto"
-            />
-          </div>
+          <img 
+            src="/transcript-preview.jpg" 
+            alt="Real-time transcript"
+            width={450}
+            height={569}
+            className="rounded-2xl pointer-events-none select-none w-[400px] h-auto"
+          />
         </div>
 
         {/* Content Section */}

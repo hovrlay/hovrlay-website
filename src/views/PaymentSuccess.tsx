@@ -44,7 +44,7 @@ const PaymentSuccess = () => {
       <div className="mx-auto flex min-h-screen max-w-xl items-center justify-center py-16">
         <div className="w-full text-center">
           <div className="mb-7 flex justify-center">
-            <SuccessCheckIcon />
+            <SuccessCheckIcon className="h-12 w-12 shrink-0" />
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-semibold text-foreground mb-3">
