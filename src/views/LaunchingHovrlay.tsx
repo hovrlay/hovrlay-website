@@ -58,10 +58,19 @@ const LaunchingHovrlay = () => {
 
       <h2
         id="the-grind-then-the-quiet"
-        className="scroll-mt-28 mt-12 mb-3 text-2xl font-semibold tracking-tight text-gray-900"
+        className="scroll-mt-28 mt-12 mb-6 text-2xl font-semibold tracking-tight text-gray-900"
       >
         The Grind, Then the Quiet
       </h2>
+      <div className="mb-8 overflow-hidden rounded-2xl">
+        <img
+          src="/mr-beast.jpg"
+          alt="Meme: We put 40 people to work, 40 hours a week for 40 years"
+          className="w-full"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
       <p className="mb-5 text-base leading-relaxed font-light">
         I was building Hovrlay on the side while still at my job. My then manager,  who had a way of making you feel like your best work would never quite be enough, made the decision to quit my job easy for me. I put in my notice, packed up Bangalore and moved back home to Mumbai. No rent, home food and my own space to build, definitely a cheat code.
       </p>
