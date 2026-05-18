@@ -436,7 +436,7 @@ const Features = () => {
               <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)] select-none">
                 <div
                   ref={sliderRef}
-                  className="relative aspect-[855/855] w-full cursor-ew-resize"
+                  className="relative aspect-[855/855] w-full"
                   onPointerDown={handlePointerDown}
                 >
                 <div className="absolute inset-0">
@@ -494,12 +494,12 @@ const Features = () => {
                 </div>
 
                 <div
-                  className="absolute bottom-0 top-0 z-10 w-px -translate-x-1/2 bg-[#111827] shadow-[-1px_0px_8px_0px_#00000036]"
+                  className="pointer-events-none absolute bottom-0 top-0 z-10 w-px -translate-x-1/2 bg-[#111827] shadow-[-1px_0px_8px_0px_#00000036]"
                   style={{ left: `${sliderPosition}%` }}
                 />
 
                 <div
-                  className="absolute top-1/2 z-20 flex size-[18px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#111827] shadow-[0px_4px_10px_0px_#00000026] transition-transform duration-[210ms] ease-in md:size-6"
+                  className="absolute top-1/2 z-20 flex size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-[#111827] shadow-[0px_4px_10px_0px_#00000026] transition-transform duration-[210ms] ease-in md:size-6"
                   style={{ left: `${sliderPosition}%`, transform: "translate(-50%, -50%)" }}
                 >
                   <svg
