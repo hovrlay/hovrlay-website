@@ -110,9 +110,7 @@ const FAQ = () => {
         <>
           Unlike other meeting AI tools, it never joins your calls as a participant, doesn&apos;t appear in meeting recordings and won&apos;t show up in screen shares (limitations{" "}
           <a
-            href="https://google.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/blog/supported-apps-undetectability"
             className="text-[#0099CC] underline-offset-2 underline"
           >
             here
