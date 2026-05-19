@@ -19,8 +19,8 @@ const BlogPost = ({ slug }: BlogPostProps) => {
 
   if (!post) return null;
 
-  const author = AUTHORS[post.author];
   const isSupportPost = post.category === "Support";
+  const author = isSupportPost ? null : AUTHORS[post.author];
   const otherPosts = POSTS.filter((p) => {
     if (p.slug === post.slug) return false;
     const isSupportCandidate = p.category === "Support";
@@ -42,21 +42,25 @@ const BlogPost = ({ slug }: BlogPostProps) => {
             </h1>
             <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-gray-600">
               <span>{formatLongDate(post.date)}</span>
-              <span>-</span>
-              <span>{post.readMinutes} min read</span>
-              <span>-</span>
-              <div className="flex items-center gap-2">
-                <img
-                  src={author.avatar}
-                  alt={author.name}
-                  width={24}
-                  height={24}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-6 w-6 rounded-full object-cover"
-                />
-                <span className="font-normal">{author.name}</span>
-              </div>
+              {!isSupportPost && author && (
+                <>
+                  <span>-</span>
+                  <span>{post.readMinutes} min read</span>
+                  <span>-</span>
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={author.avatar}
+                      alt={author.name}
+                      width={24}
+                      height={24}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-6 w-6 rounded-full object-cover"
+                    />
+                    <span className="font-normal">{author.name}</span>
+                  </div>
+                </>
+              )}
             </div>
             {post.description && (
               <p className="text-sm leading-relaxed font-light text-gray-700">{post.description}</p>
@@ -108,7 +112,8 @@ const BlogPost = ({ slug }: BlogPostProps) => {
                     )}
                     <div className="flex flex-1 flex-col p-6">
                       <div className="mb-3 text-xs text-gray-400">
-                        {formatLongDate(other.date)} - {other.readMinutes} min read
+                        {formatLongDate(other.date)}
+                        {other.category !== "Support" && <> - {other.readMinutes} min read</>}
                       </div>
                       <h3 className="mb-3 line-clamp-2 text-xl leading-tight font-semibold text-gray-900">
                         {other.title}

@@ -215,14 +215,16 @@ const Blog = () => {
                                 {post.title}
                               </h3>
                               <div className="flex items-center gap-3 text-sm text-gray-400 lg:gap-4">
-                                <div className="flex items-center gap-2">
-                                  <img
-                                    src={AUTHORS[post.author].avatar}
-                                    alt={AUTHORS[post.author].name}
-                                    className="h-6 w-6 rounded-full object-cover"
-                                  />
-                                  <span className="text-foreground">{AUTHORS[post.author].name}</span>
-                                </div>
+                                {post.category !== "Support" && (
+                                  <div className="flex items-center gap-2">
+                                    <img
+                                      src={AUTHORS[post.author].avatar}
+                                      alt={AUTHORS[post.author].name}
+                                      className="h-6 w-6 rounded-full object-cover"
+                                    />
+                                    <span className="text-foreground">{AUTHORS[post.author].name}</span>
+                                  </div>
+                                )}
                                 <div className="flex items-center gap-1 text-gray-400">
                                   <time>{formatShortDate(post.date)}</time>
                                 </div>

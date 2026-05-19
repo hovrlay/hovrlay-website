@@ -88,7 +88,7 @@ const FAQ = () => {
     {
       question: "Why Hovrlay vs. a regular AI notetaker?",
       answer:
-        "Unlike regular AI notetakers like Otter or Granola that work after your meeting ends, Hovrlay provides real time meeting intelligence during your calls. While other AI meeting assistants create meeting summaries afterward, Hovrlay helps you answer technical questions, handle objections, and perform better during high stakes conversations."
+        "Unlike regular AI notetakers like Otter or Fireflies that work after your meeting ends, Hovrlay provides real time meeting intelligence during your calls. While other AI meeting assistants create meeting summaries afterward, Hovrlay helps you answer technical questions, handle objections, and perform better during high stakes conversations."
     },
     {
       question: "Is Hovrlay free?",
