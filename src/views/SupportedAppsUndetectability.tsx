@@ -116,9 +116,7 @@ const SupportedAppsUndetectability = () => {
       </h3>
       <p className={pClass}>
         Undetectable unless system requirements are not met. We&apos;ve thoroughly tested
-        this and can confirm it works. Hovrlay was specifically tested and confirmed on
-        the Oracle Software Engineer CodeSignal OA (Sep 2025) and Roblox Software Engineer
-        CodeSignal OA.
+        this and can confirm it works.
       </p>
 
       <h3 id="amazon-chime" className={h3Class}>
