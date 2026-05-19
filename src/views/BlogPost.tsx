@@ -20,7 +20,12 @@ const BlogPost = ({ slug }: BlogPostProps) => {
   if (!post) return null;
 
   const author = AUTHORS[post.author];
-  const otherPosts = POSTS.filter((p) => p.slug !== post.slug);
+  const isSupportPost = post.category === "Support";
+  const otherPosts = POSTS.filter((p) => {
+    if (p.slug === post.slug) return false;
+    const isSupportCandidate = p.category === "Support";
+    return isSupportPost ? isSupportCandidate : !isSupportCandidate;
+  });
 
   return (
     <div className="relative mx-auto flex max-w-7xl flex-col px-5 md:px-8 py-8 sm:py-10 md:py-12 mt-16">
@@ -71,7 +76,7 @@ const BlogPost = ({ slug }: BlogPostProps) => {
 
         {Body && (
           <div className="mt-10 grid grid-cols-1 gap-10 md:gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(240px,30%)] lg:gap-x-12 xl:gap-x-16">
-            <div className="min-w-0 [&_h2]:!text-3xl [&_h2]:lg:!text-3xl">
+            <div className="min-w-0">
               <Body />
             </div>
             {post.sections && post.sections.length > 0 && (

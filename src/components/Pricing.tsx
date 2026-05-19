@@ -267,7 +267,7 @@ const Pricing = () => {
           >
             <Link
               href="/blog/meeting-bots-comparison"
-              className="group inline-block max-w-[min(100%,20rem)] text-center text-sm md:text-base lg:text-base text-brand-blue underline-offset-4 transition-colors hover:text-brand-blue hover:underline sm:max-w-none"
+              className="group inline-block max-w-[min(100%,20rem)] text-center text-sm md:text-base lg:text-base text-[#0099CC] underline-offset-4 underline transition-colors sm:max-w-none"
             >
               How we compare with other AI meeting assistants
             </Link>

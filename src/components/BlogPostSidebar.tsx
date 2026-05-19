@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import type { BlogSection } from "@/utils/blog";
-import { detectDownloadPlatform, handleDownload } from "@/utils/downloads";
 
 const SCROLL_OFFSET = 112;
 
@@ -12,7 +11,6 @@ interface BlogPostSidebarProps {
 
 export function BlogPostSidebar({ sections }: BlogPostSidebarProps) {
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
-  const platform = detectDownloadPlatform();
 
   useEffect(() => {
     const sectionIds = sections.map((s) => s.id);
@@ -52,21 +50,7 @@ export function BlogPostSidebar({ sections }: BlogPostSidebarProps) {
 
   return (
     <aside className="hidden lg:block">
-      <div className="sticky top-32 h-fit space-y-8">
-        <div className="rounded-2xl bg-gray-900 px-6 py-10 text-white">
-          <h3 className="mb-8 text-2xl font-semibold tracking-tight lg:text-3xl">
-            Download and try Hovrlay for free today
-          </h3>
-          <button
-            type="button"
-            onClick={() => handleDownload(platform)}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-xs font-medium text-gray-900 transition-colors hover:bg-gray-100"
-          >
-            Get Started
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
-
+      <div className="sticky top-32 h-fit">
         <div className="rounded-lg pt-2">
           <h3 className="mb-4 text-sm font-extralight text-gray-400">Table of contents</h3>
           <nav className="flex flex-col" aria-label="Table of contents">

@@ -1,8 +1,10 @@
 import type { ComponentType } from "react";
 import LaunchingHovrlay from "@/views/LaunchingHovrlay";
 import MeetingBotsComparison from "@/views/MeetingBotsComparison";
+import SupportedAppsUndetectability from "@/views/SupportedAppsUndetectability";
+import SystemRequirements from "@/views/SystemRequirements";
 
-export type BlogCategory = "Updates" | "Product";
+export type BlogCategory = "Updates" | "Product" | "Support";
 
 export interface Author {
   name: string;
@@ -37,16 +39,60 @@ export interface BlogPost {
 }
 
 export const CATEGORY_GRADIENTS: Record<BlogCategory, string> = {
-  Product: "linear-gradient(90deg, #1337B6 0%, #0D1B4E 100%)",
-  Updates: "linear-gradient(90deg, #2EBA96 0%, #020D36 100%)"
+  Product: "linear-gradient(90deg, #F97316 0%, #BE123C 100%)",
+  Updates: "linear-gradient(90deg, #2EBA96 0%, #020D36 100%)",
+  Support: "linear-gradient(90deg, #1337B6 0%, #0D1B4E 100%)"
 };
 
 export const POSTS: BlogPost[] = [
   {
+    slug: "system-requirements",
+    title: "What are the system requirements for Hovrlay?",
+    category: "Support",
+    date: "2025-12-14",
+    readMinutes: 1,
+    author: "anshul",
+    sections: [
+      { id: "compatibility", label: "Compatibility" },
+      { id: "known-issues", label: "Known Issues for Incompatible Laptops" },
+      { id: "windows-requirements", label: "Windows System Requirements" },
+      { id: "mac-requirements", label: "Mac System Requirements" },
+      { id: "general-compute", label: "General Compute Requirements" }
+    ]
+  },
+  {
+    slug: "supported-apps-undetectability",
+    title: "What apps are supported for undetectability?",
+    category: "Support",
+    date: "2025-12-25",
+    readMinutes: 2,
+    author: "anshul",
+    sections: [
+      { id: "overview", label: "Overview" },
+      { id: "how-to-test", label: "How to Test Undetectability" },
+      { id: "conferencing-software", label: "Undetectability for Conferencing Software" },
+      { id: "zoom", label: "Zoom: Not Undetectable by Default" },
+      { id: "codesignal", label: "CodeSignal" },
+      { id: "amazon-chime", label: "Amazon Chime" },
+      { id: "coderpad", label: "CoderPad" },
+      { id: "codility", label: "Codility" },
+      { id: "lark-feishu", label: "Lark/Feishu" },
+      { id: "hackerrank", label: "HackerRank" },
+      { id: "google-meet", label: "Google Meet" },
+      { id: "microsoft-teams", label: "Microsoft Teams" },
+      { id: "cisco-webex", label: "Cisco WebEx" },
+      { id: "slack-huddle", label: "Slack Huddle" },
+      { id: "ring-central", label: "Ring Central" },
+      { id: "apollo-dialer", label: "Apollo Dialer" },
+      { id: "facetime", label: "FaceTime" },
+      { id: "not-undetectable-for", label: "Hovrlay is NOT Undetectable For..." }
+    ]
+  },
+  {
     slug: "meeting-bots-comparison",
     title: "The State of AI Meeting Assistants in 2026",
     category: "Updates",
-    date: "2026-05-14",
+    date: "2026-01-26",
     readMinutes: 2,
     author: "anshul",
     featured: true,
@@ -81,7 +127,7 @@ export const POSTS: BlogPost[] = [
   }
 ];
 
-export const CATEGORIES: ("All" | BlogCategory)[] = ["All", "Updates", "Product"];
+export const CATEGORIES: ("All" | BlogCategory)[] = ["All", "Updates", "Product", "Support"];
 
 const MONTH_NAMES = [
   "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
@@ -117,13 +163,18 @@ export const groupByMonth = (posts: BlogPost[]) => {
   }
   return Array.from(groups.entries())
     .sort(([a], [b]) => (a < b ? 1 : -1))
-    .map(([, value]) => value);
+    .map(([, value]) => ({
+      ...value,
+      posts: value.posts.sort((a, b) => b.date.localeCompare(a.date))
+    }));
 };
 
 export const getPostBySlug = (slug: string | undefined) =>
   slug ? POSTS.find((p) => p.slug === slug) : undefined;
 
 const BLOG_BODIES: Record<string, ComponentType> = {
+  "system-requirements": SystemRequirements,
+  "supported-apps-undetectability": SupportedAppsUndetectability,
   "meeting-bots-comparison": MeetingBotsComparison,
   "launching-hovrlay": LaunchingHovrlay
 };

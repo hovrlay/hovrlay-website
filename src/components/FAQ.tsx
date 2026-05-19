@@ -106,8 +106,20 @@ const FAQ = () => {
     },
     {
       question: "How is it undetectable in meetings?",
-      answer:
-        "Unlike other meeting AI tools, it never joins your calls as a participant, doesn't appear in meeting recordings and won't show up in screen shares. It captures meeting audio in the background and provides a discreet, translucent overlay that only you can see, making it completely undetectable to other meeting participants."
+      answer: (
+        <>
+          Unlike other meeting AI tools, it never joins your calls as a participant, doesn&apos;t appear in meeting recordings and won&apos;t show up in screen shares (limitations{" "}
+          <a
+            href="https://google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#0099CC] underline-offset-2 underline"
+          >
+            here
+          </a>
+          ). It captures meeting audio in the background and provides a discreet, translucent overlay that only you can see, making it completely undetectable to other meeting participants.
+        </>
+      )
     },
     {
       question: "What languages and apps are supported?",
@@ -120,7 +132,7 @@ const FAQ = () => {
           Contact us at{" "}
           <a
             href="mailto:support@hovrlay.com"
-            className="text-primary underline-offset-2 hover:underline font-medium"
+            className="text-[#0099CC] underline-offset-2 underline"
           >
             support@hovrlay.com
           </a>{" "}

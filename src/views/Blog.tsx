@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import BlogUpdatesIcon from "@/assets/blog-updates.svg";
 import BlogProductIcon from "@/assets/blog-product.svg";
+import BlogSupportIcon from "@/assets/blog-support.svg";
 import BlogSearchIcon from "@/assets/blog-search.svg";
 import {
   AUTHORS,
@@ -35,6 +36,8 @@ const CategoryIcon = ({
       return <BlogUpdatesIcon className={className} aria-hidden="true" />;
     case "Product":
       return <BlogProductIcon className={className} aria-hidden="true" />;
+    case "Support":
+      return <BlogSupportIcon className={className} aria-hidden="true" />;
     default:
       return null;
   }
@@ -179,7 +182,7 @@ const Blog = () => {
             ) : (
               groupedPosts.map((group, groupIdx) => (
                 <div key={group.label} className="mb-10">
-                  <h2 className="text-left text-[11px] font-bold tracking-[0.5em] text-gray-400 uppercase lg:text-[13px]">
+                  <h2 className="text-left text-[11px] font-bold tracking-[0.5em] text-gray-400 uppercase lg:text-[13px] mb-2">
                     {group.label}
                   </h2>
                   <div>
@@ -191,7 +194,7 @@ const Blog = () => {
                         <article key={post.slug} className="group">
                           <Link
                             href={`/blog/${post.slug}`}
-                            className="flex items-start gap-4 pt-4 sm:gap-6"
+                            className="flex items-start gap-4 pt-2 sm:gap-6"
                           >
                             <div className="flex flex-col items-center">
                               <div
@@ -204,7 +207,7 @@ const Blog = () => {
                                 />
                               </div>
                               {!isVeryLast && (
-                                <div className="mt-2 -mb-4 h-16 w-[1.5px] rounded-full bg-gray-300 sm:h-20" />
+                                <div className="mt-1 -mb-2 h-10 w-[1.5px] rounded-full bg-gray-300 sm:h-14" />
                               )}
                             </div>
                             <div className="flex flex-1 flex-col">
