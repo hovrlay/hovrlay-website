@@ -6,7 +6,13 @@ import InvisibleToolSparkleIcon from "../assets/invisible-tool-sparkle.svg";
 import SparklesIcon from "@/assets/sparkles.svg";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg";
 import MessageSquareIcon from "@/assets/message-square.svg";
-import MoveGripDotsIcon from "@/assets/move-grip-dots.svg";
+import DemoOverlayChevronIcon from "@/assets/demo-overlay-chevron.svg";
+import SettingsIcon from "@/assets/settings.svg";
+import StopIcon from "@/assets/stop.svg";
+import CommandIcon from "@/assets/command.svg";
+import ReturnIcon from "@/assets/return.svg";
+import MonitorIcon from "@/assets/monitor.svg";
+import SendIcon from "@/assets/send.svg";
 import { detectDownloadPlatform } from "@/utils/downloads";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -125,8 +131,8 @@ const ListeningConversationCard = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [chatInput, setChatInput] = useState("");
+  const [screenSelected, setScreenSelected] = useState(false);
   const downloadPlatform = detectDownloadPlatform();
-  const modifierKeyLabel = downloadPlatform === "mac" ? "⌘" : "Ctrl";
 
   useEffect(() => {
     const el = cardRef.current;
@@ -198,7 +204,7 @@ const ListeningConversationCard = () => {
           <div className="w-full min-w-0 shrink-0">
           <div className="mb-1.5 flex justify-center sm:mb-2">
             <div
-              className="mx-auto flex w-fit items-center gap-0.5 rounded-full px-1.5 py-1 sm:gap-1 sm:px-2 sm:py-1.5"
+              className="mx-auto flex w-fit items-center gap-0.5 rounded-full px-1.5 py-1 sm:px-2 sm:py-1.5"
               style={{
                 backgroundColor: "hsla(252, 10%, 10%, 0.8)",
                 boxShadow:
@@ -207,33 +213,25 @@ const ListeningConversationCard = () => {
             >
               <button
                 type="button"
-                className="mr-0.5 flex h-5 items-center gap-0.5 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-1.5 text-[9px] font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105 sm:mr-1 sm:h-6 sm:gap-1 sm:px-2 sm:text-[10px]"
-                aria-label="Hide overlay"
+                className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105 sm:size-[22px]"
+                aria-label="Settings"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="size-3 text-[#b2b3ba] sm:size-3.5"
-                  aria-hidden
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-                <span>Hide</span>
+                <SettingsIcon className="size-2.5 text-white sm:size-3" aria-hidden />
               </button>
-              <span className="mx-0.5 h-4 w-px bg-white/70 sm:h-5" aria-hidden />
               <button
                 type="button"
-                className="ml-0 flex h-5 items-center rounded-full text-white transition-colors sm:ml-0.5 sm:h-6"
-                aria-label="Move AI assistant demo card"
+                className="flex h-6 items-center gap-0.5 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-1.5 text-[9px] font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105 sm:h-7 sm:gap-1 sm:px-2 sm:text-[10px]"
+                aria-label="Hide overlay"
               >
-                <MoveGripDotsIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
+                <DemoOverlayChevronIcon className="size-3 text-[#b2b3ba] sm:size-3.5" aria-hidden />
+                <span>Hide</span>
+              </button>
+              <button
+                type="button"
+                className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105 sm:size-[22px]"
+                aria-label="Stop"
+              >
+                <StopIcon className="size-2.5 text-white sm:size-3" aria-hidden />
               </button>
             </div>
           </div>
@@ -287,12 +285,12 @@ const ListeningConversationCard = () => {
               }}
             >
               <div
-                className="relative flex items-center gap-1 p-1.5 sm:gap-1.5 sm:p-2"
+                className="relative flex items-center gap-1 p-1 sm:gap-1.5 sm:p-1.5"
                 style={{
                   boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)",
                 }}
               >
-                <div className="relative flex min-h-[20px] min-w-0 flex-1 items-center sm:min-h-[24px]">
+                <div className="relative flex min-h-[16px] min-w-0 flex-1 items-center sm:min-h-[18px]">
                   {chatInput.length === 0 && (
                     <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-0.5 overflow-hidden font-light text-[8px] leading-tight text-white/60 sm:text-[10px]">
                       <span className="shrink-0">Ask a question, or </span>
@@ -301,9 +299,15 @@ const ListeningConversationCard = () => {
                           downloadPlatform === "mac" ? "min-w-[1rem]" : "min-w-[1.5rem] px-0.5"
                         }`}
                       >
-                        {modifierKeyLabel}
+                        {downloadPlatform === "mac" ? (
+                          <CommandIcon className="size-[0.5rem]" aria-hidden />
+                        ) : (
+                          "Ctrl"
+                        )}
                       </span>
-                      <span className={`${listeningDemoChatKeyPillClassFeatures} min-w-[1rem]`}>⏎</span>
+                      <span className={`${listeningDemoChatKeyPillClassFeatures} min-w-[1rem]`}>
+                        <ReturnIcon className="size-[0.5rem]" aria-hidden />
+                      </span>
                       <span className="shrink-0"> to start typing</span>
                     </div>
                   )}
@@ -317,9 +321,25 @@ const ListeningConversationCard = () => {
                         ? "Type a message. In the app, use ⌘ and Return to focus this field."
                         : "Type a message. In the app, use Ctrl and Enter to focus this field."
                     }
-                    className="relative z-10 min-h-[20px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[8px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 sm:min-h-[24px] sm:text-[10px]"
+                    className="relative z-10 min-h-[16px] w-full min-w-0 flex-1 bg-transparent py-0 text-[8px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 sm:min-h-[18px] sm:text-[10px]"
                   />
                 </div>
+              </div>
+              <div className="flex items-center justify-between px-1.5 pb-1.5 sm:px-2 sm:pb-2">
+                <button
+                  type="button"
+                  onClick={() => setScreenSelected((s) => !s)}
+                  className={`flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[8px] font-medium transition-colors duration-150 sm:text-[10px] ${
+                    screenSelected
+                      ? "bg-[#3d3000] text-[#eab308]"
+                      : "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white/80"
+                  }`}
+                  aria-pressed={screenSelected}
+                  aria-label="Include screen context"
+                >
+                  <MonitorIcon className="size-2.5 shrink-0 sm:size-3" aria-hidden />
+                  <span>Screen</span>
+                </button>
                 <button
                   type="button"
                   className="flex size-[18px] shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] sm:size-5"
@@ -330,16 +350,7 @@ const ListeningConversationCard = () => {
                   }}
                   aria-label="Send"
                 >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="currentColor"
-                    className="ml-0.5 size-2.5"
-                    aria-hidden
-                  >
-                    <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" />
-                  </svg>
+                  <SendIcon className="size-2.5 sm:size-3" aria-hidden />
                 </button>
               </div>
             </div>
@@ -428,7 +439,7 @@ const Features = () => {
               <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
                 <span className="font-medium">Hovrlay listens to the conversation. </span>
                 <span className="text-muted-foreground font-light">
-                  It transcribes your meeting in real time, gaining context, so it can help when you need it.
+                  It transcribes your meeting in real time and observes your screen, so it can help when you need it.
                 </span>
               </p>
             </div>

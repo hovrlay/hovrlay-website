@@ -6,8 +6,13 @@ import SparklesIcon from "@/assets/sparkles.svg";
 import WandSparklesIcon from "@/assets/wand-sparkles.svg";
 import MessageSquareIcon from "@/assets/message-square.svg";
 import RefreshCwIcon from "@/assets/refresh-cw.svg";
-import MoveGripDotsIcon from "@/assets/move-grip-dots.svg";
 import DemoOverlayChevronIcon from "@/assets/demo-overlay-chevron.svg";
+import StopIcon from "@/assets/stop.svg";
+import SettingsIcon from "@/assets/settings.svg";
+import CommandIcon from "@/assets/command.svg";
+import ReturnIcon from "@/assets/return.svg";
+import MonitorIcon from "@/assets/monitor.svg";
+import SendIcon from "@/assets/send.svg";
 import { type PointerEvent, useEffect, useRef, useState } from "react";
 
 type Star = {
@@ -52,8 +57,6 @@ const demoHelperButtonClassName =
 const demoChatKeyPillClass =
   "inline-flex h-[18px] shrink-0 items-center justify-center rounded-[5px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[8px] leading-none text-white/50 md:h-[22px] md:text-[9px]";
 
-/** Minimum height reserved for the demo bounds layer (card sits inside and is shorter at narrow widths). */
-const DEMO_BOUNDS_MIN_HEIGHT_PX = 320;
 
 const Home = () => {
   const heroCanvasWrapRef = useRef<HTMLDivElement | null>(null);
@@ -61,10 +64,12 @@ const Home = () => {
   const starsRef = useRef<Star[]>([]);
   const shootingStarsRef = useRef<ShootingStar[]>([]);
   const [demoChatInput, setDemoChatInput] = useState("");
+  const [screenSelected, setScreenSelected] = useState(false);
   const [isDemoOverlayVisible, setIsDemoOverlayVisible] = useState(true);
   const [shouldAnimateDemoContent, setShouldAnimateDemoContent] = useState(true);
   const [demoCardPosition, setDemoCardPosition] = useState<DemoCardPosition>({ x: 0, y: 0 });
   const [isDemoCardDragging, setIsDemoCardDragging] = useState(false);
+  const isDemoCardDraggingRef = useRef(false);
   const demoBoundsRef = useRef<HTMLDivElement | null>(null);
   const demoCardRef = useRef<HTMLDivElement | null>(null);
   const hasUserDraggedDemoCardRef = useRef(false);
@@ -72,9 +77,10 @@ const Home = () => {
     pointerId: number;
     pointerOffsetX: number;
     pointerOffsetY: number;
+    startClientX: number;
+    startClientY: number;
   } | null>(null);
   const downloadPlatform = detectDownloadPlatform();
-  const modifierKeyLabel = downloadPlatform === "mac" ? "⌘" : "Ctrl";
   const headingText = "#1 AI Assistant for Interviews";
   const words = headingText.split(" ");
   
@@ -162,48 +168,69 @@ const Home = () => {
     };
   }, []);
 
-  const handleDemoMovePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
-    const bounds = demoBoundsRef.current;
-    if (!bounds) {
-      return;
-    }
+  const DRAG_THRESHOLD = 4;
 
+  const startDrag = (event: PointerEvent<HTMLDivElement>) => {
+    const bounds = demoBoundsRef.current;
+    if (!bounds) return;
     const boundsRect = bounds.getBoundingClientRect();
     dragStartRef.current = {
       pointerId: event.pointerId,
       pointerOffsetX: event.clientX - boundsRect.left - demoCardPosition.x,
-      pointerOffsetY: event.clientY - boundsRect.top - demoCardPosition.y
+      pointerOffsetY: event.clientY - boundsRect.top - demoCardPosition.y,
+      startClientX: event.clientX,
+      startClientY: event.clientY
     };
-    setIsDemoCardDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
-  const handleDemoMovePointerMove = (event: PointerEvent<HTMLButtonElement>) => {
-    const dragStart = dragStartRef.current;
-    const bounds = demoBoundsRef.current;
-    if (!dragStart || !bounds || dragStart.pointerId !== event.pointerId) {
-      return;
-    }
-
-    const boundsRect = bounds.getBoundingClientRect();
-    const rawX = event.clientX - boundsRect.left - dragStart.pointerOffsetX;
-    const rawY = event.clientY - boundsRect.top - dragStart.pointerOffsetY;
-    hasUserDraggedDemoCardRef.current = true;
-    setDemoCardPosition(getRubberDemoCardPosition(rawX, rawY));
+  const handleDemoCardPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("button, input, textarea, a, [role='button']")) return;
+    startDrag(event);
   };
 
-  const handleDemoMovePointerUp = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!dragStartRef.current || dragStartRef.current.pointerId !== event.pointerId) {
-      return;
-    }
+  useEffect(() => {
+    const onPointerMove = (event: globalThis.PointerEvent) => {
+      const dragStart = dragStartRef.current;
+      const bounds = demoBoundsRef.current;
+      if (!dragStart || !bounds || dragStart.pointerId !== event.pointerId) return;
 
-    dragStartRef.current = null;
-    setIsDemoCardDragging(false);
-    setDemoCardPosition((current) => getClampedDemoCardPosition(current.x, current.y));
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-  };
+      const dx = event.clientX - dragStart.startClientX;
+      const dy = event.clientY - dragStart.startClientY;
+      const dist = Math.hypot(dx, dy);
+
+      if (!isDemoCardDraggingRef.current && dist >= DRAG_THRESHOLD) {
+        isDemoCardDraggingRef.current = true;
+        setIsDemoCardDragging(true);
+      }
+
+      if (isDemoCardDraggingRef.current) {
+        const boundsRect = bounds.getBoundingClientRect();
+        const rawX = event.clientX - boundsRect.left - dragStart.pointerOffsetX;
+        const rawY = event.clientY - boundsRect.top - dragStart.pointerOffsetY;
+        hasUserDraggedDemoCardRef.current = true;
+        setDemoCardPosition(getRubberDemoCardPosition(rawX, rawY));
+      }
+    };
+
+    const onPointerUp = (event: globalThis.PointerEvent) => {
+      const dragStart = dragStartRef.current;
+      if (!dragStart || dragStart.pointerId !== event.pointerId) return;
+      dragStartRef.current = null;
+      isDemoCardDraggingRef.current = false;
+      setIsDemoCardDragging(false);
+      setDemoCardPosition((current) => getClampedDemoCardPosition(current.x, current.y));
+    };
+
+    document.addEventListener("pointermove", onPointerMove);
+    document.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointercancel", onPointerUp);
+    return () => {
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerup", onPointerUp);
+      document.removeEventListener("pointercancel", onPointerUp);
+    };
+  }, []);
 
   useEffect(() => {
     if (!shouldAnimateDemoContent) {
@@ -516,18 +543,17 @@ const Home = () => {
       {/* Demo bounds: single layer for min-height (hero reserve) + drag limits; card is shorter, aspect-sized inside. */}
       <div
         ref={demoBoundsRef}
-        className="relative mx-auto box-border aspect-[1080/656] w-[min(95vw,1200px)] max-w-[67.5rem] opacity-0 animate-expand-down"
+        className="relative mx-auto box-border aspect-[1080/656] w-[min(95vw,1200px)] max-w-[67.5rem] opacity-0 animate-expand-down min-h-[440px] sm:min-h-[380px]"
         style={{
           animationDelay: `${demoCardDelay}s`,
-          minHeight: `calc(${DEMO_BOUNDS_MIN_HEIGHT_PX}px)`
         }}
       >
         <div
           ref={demoCardRef}
-          className={`absolute left-0 top-0 flex min-h-[300px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
+          className={`absolute left-0 top-0 flex min-h-[360px] w-full min-w-[min(100%,500px)] max-w-[580px] flex-col text-center select-none ${
             isDemoCardDragging
               ? "cursor-grabbing touch-none"
-              : "cursor-default transition-transform duration-200 ease-out"
+              : "cursor-grab transition-transform duration-200 ease-out"
           }`}
           style={{
             transform: `translate3d(${demoCardPosition.x}px, ${demoCardPosition.y}px, 0)`
@@ -539,7 +565,15 @@ const Home = () => {
               backgroundColor: "hsla(252, 10%, 10%, 0.8)",
               boxShadow: "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
             }}
+            onPointerDown={handleDemoCardPointerDown}
           >
+              <button
+                type="button"
+                className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+                aria-label="Settings"
+              >
+                <SettingsIcon className="size-4 text-white" aria-hidden />
+              </button>
               <button
                 type="button"
                 onClick={handleToggleDemoOverlay}
@@ -554,17 +588,12 @@ const Home = () => {
                 />
                 <span>{isDemoOverlayVisible ? "Hide" : "Show"}</span>
               </button>
-              <span className="mx-1 h-7 w-px shrink-0 bg-white/70" aria-hidden />
               <button
                 type="button"
-                onPointerDown={handleDemoMovePointerDown}
-                onPointerMove={handleDemoMovePointerMove}
-                onPointerUp={handleDemoMovePointerUp}
-                onPointerCancel={handleDemoMovePointerUp}
-                className="flex h-8 shrink-0 cursor-grab items-center rounded-full pl-0.5 text-white transition-colors active:cursor-grabbing touch-none"
-                aria-label="Move AI assistant demo card"
+                className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+                aria-label="Stop"
               >
-                <MoveGripDotsIcon className="h-5 w-5" aria-hidden />
+                <StopIcon className="size-4 text-white" aria-hidden />
               </button>
           </div>
           <div
@@ -580,6 +609,7 @@ const Home = () => {
                 "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
             }}
             aria-hidden={!isDemoOverlayVisible}
+            onPointerDown={handleDemoCardPointerDown}
           >
               <div className="relative flex min-h-0 min-w-0 flex-1 flex-col p-4 pb-2">
                   <div
@@ -619,7 +649,7 @@ const Home = () => {
                     </div>
                   </div>
 
-                <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 font-light sm:mt-8 md:mt-12">
+                <div className="flex flex-wrap items-center gap-x-1 gap-y-1 font-light mt-10">
                   <span className="group/static-insight flex items-center gap-2">
                     <button type="button" className={demoHelperButtonClassName}>
                       <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
@@ -675,17 +705,17 @@ const Home = () => {
                   }}
                 >
                     <div
-                      className="relative flex items-center gap-2 p-2 min-[500px]:gap-2.5 min-[500px]:p-2.5"
+                      className="relative flex items-center gap-2 p-1.5 min-[500px]:gap-2.5 min-[500px]:p-2"
                       style={{
                         boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)"
                       }}
                     >
-                      <div className="relative flex min-h-[26px] min-w-0 flex-1 items-center min-[500px]:min-h-[28px]">
+                      <div className="relative flex min-h-[22px] min-w-0 flex-1 items-center min-[500px]:min-h-[24px]">
                         {demoChatInput.length === 0 && (
                           <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[13px] text-white/60 min-[500px]:flex-wrap min-[500px]:gap-y-0.5 min-[500px]:text-[13px]">
                             <span className="shrink-0 min-[500px]:hidden">Ask a question, or </span>
                             <span className="hidden shrink-0 min-[500px]:inline">
-                              Ask about your screen or conversation,{" "}
+                              Ask about your screen or conversation, or{" "}
                             </span>
                             <span
                               className={`${demoChatKeyPillClass} ${
@@ -694,12 +724,16 @@ const Home = () => {
                                   : "min-w-[1.75rem] px-1 min-[500px]:min-w-[2rem]"
                               }`}
                             >
-                              {modifierKeyLabel}
+                              {downloadPlatform === "mac" ? (
+                                <CommandIcon className="size-[0.6rem]" aria-hidden />
+                              ) : (
+                                "Ctrl"
+                              )}
                             </span>
                             <span className={`${demoChatKeyPillClass} min-w-[1.125rem] min-[500px]:min-w-[1.25rem]`}>
-                              ⏎
+                              <ReturnIcon className="size-[0.6rem]" aria-hidden />
                             </span>
-                            <span className="hidden shrink-0 min-[500px]:inline"> to start typing</span>
+                            <span className="hidden shrink-0 min-[500px]:inline"> for assist</span>
                           </div>
                         )}
                         <input
@@ -712,9 +746,25 @@ const Home = () => {
                               ? "Type a message. In the app, use ⌘ and Return to focus this field."
                               : "Type a message. In the app, use Ctrl and Enter to focus this field."
                           }
-                          className="relative z-10 min-h-[26px] w-full min-w-0 flex-1 bg-transparent py-0.5 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 min-[500px]:min-h-[28px] min-[500px]:py-1 min-[500px]:text-[13px]"
+                          className="relative z-10 min-h-[22px] w-full min-w-0 flex-1 bg-transparent py-0 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 min-[500px]:min-h-[24px] min-[500px]:py-0.5 min-[500px]:text-[13px]"
                         />
                       </div>
+                    </div>
+                    <div className="flex items-center justify-between px-1.5 pb-1.5 min-[500px]:px-2 min-[500px]:pb-2">
+                      <button
+                        type="button"
+                        onClick={() => setScreenSelected((s) => !s)}
+                        className={`flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-medium transition-colors duration-150 min-[500px]:text-[12px] ${
+                          screenSelected
+                            ? "bg-[#3d3000] text-[#eab308]"
+                            : "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white/80"
+                        }`}
+                        aria-pressed={screenSelected}
+                        aria-label="Include screen context"
+                      >
+                        <MonitorIcon className="size-3 shrink-0" aria-hidden />
+                        <span className="font-light">Screen</span>
+                      </button>
                       <button
                         type="button"
                         className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] min-[500px]:size-7"
@@ -725,16 +775,7 @@ const Home = () => {
                         }}
                         aria-label="Send"
                       >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 12 12"
-                          fill="currentColor"
-                          className="ml-0.5 size-3"
-                          aria-hidden
-                        >
-                          <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" />
-                        </svg>
+                        <SendIcon className="size-3" aria-hidden />
                       </button>
                     </div>
                 </div>
