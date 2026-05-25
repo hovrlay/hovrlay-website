@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import EmailIcon from "@/assets/email.svg";
-import XIcon from "@/assets/x.svg";
 import GitHubIcon from "@/assets/github.svg";
+import DiscordIcon from "@/assets/discord.svg";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -137,13 +137,13 @@ const Footer = () => {
                 <EmailIcon className="w-5 h-5" />
               </a>
               <a
-                href="https://x.com/hovrlay"
+                href="https://discord.gg/GvAy5YAbq"
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Follow us on X"
+                aria-label="Join our Discord"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <XIcon className="w-5 h-5" />
+                <DiscordIcon className="w-5 h-5" />
               </a>
               <a
                 href="https://github.com/hovrlay/hovrlay-releases"
