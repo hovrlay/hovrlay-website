@@ -249,7 +249,7 @@ const Pricing = () => {
         >
           <div className="mb-6 text-center">
             <h2 className="my-6 text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-medium section-title-gradient">
-              Your first interview is free
+              Start for free.
             </h2>
             <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-base md:text-base lg:text-lg">
               No subscription. No credit card required.

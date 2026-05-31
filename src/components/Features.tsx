@@ -11,7 +11,6 @@ import SettingsIcon from "@/assets/settings.svg";
 import StopIcon from "@/assets/stop.svg";
 import CommandIcon from "@/assets/command.svg";
 import ReturnIcon from "@/assets/return.svg";
-import MonitorIcon from "@/assets/monitor.svg";
 import SendIcon from "@/assets/send.svg";
 import { detectDownloadPlatform } from "@/utils/downloads";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -131,7 +130,6 @@ const ListeningConversationCard = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [chatInput, setChatInput] = useState("");
-  const [screenSelected, setScreenSelected] = useState(false);
   const downloadPlatform = detectDownloadPlatform();
 
   useEffect(() => {
@@ -308,7 +306,7 @@ const ListeningConversationCard = () => {
                       <span className={`${listeningDemoChatKeyPillClassFeatures} min-w-[1rem]`}>
                         <ReturnIcon className="size-[0.5rem]" aria-hidden />
                       </span>
-                      <span className="shrink-0"> to start typing</span>
+                      <span className="shrink-0"> for suggestions</span>
                     </div>
                   )}
                   <input
@@ -324,22 +322,6 @@ const ListeningConversationCard = () => {
                     className="relative z-10 min-h-[16px] w-full min-w-0 flex-1 bg-transparent py-0 text-[8px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 sm:min-h-[18px] sm:text-[10px]"
                   />
                 </div>
-              </div>
-              <div className="flex items-center justify-between px-1.5 pb-1.5 sm:px-2 sm:pb-2">
-                <button
-                  type="button"
-                  onClick={() => setScreenSelected((s) => !s)}
-                  className={`flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[8px] font-medium transition-colors duration-150 sm:text-[10px] ${
-                    screenSelected
-                      ? "bg-[#3d3000] text-[#eab308]"
-                      : "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white/80"
-                  }`}
-                  aria-pressed={screenSelected}
-                  aria-label="Include screen context"
-                >
-                  <MonitorIcon className="size-2.5 shrink-0 sm:size-3" aria-hidden />
-                  <span>Screen</span>
-                </button>
                 <button
                   type="button"
                   className="flex size-[18px] shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] sm:size-5"

@@ -57,17 +57,19 @@ const demoHelperButtonClassName =
 const demoChatKeyPillClass =
   "inline-flex h-[18px] shrink-0 items-center justify-center rounded-[5px] border border-white/20 bg-gradient-to-b from-black/10 to-black/15 px-0.5 font-mono text-[8px] leading-none text-white/50 md:h-[22px] md:text-[9px]";
 
-
-const Home = () => {
+const Hero = () => {
   const heroCanvasWrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const starsRef = useRef<Star[]>([]);
   const shootingStarsRef = useRef<ShootingStar[]>([]);
   const [demoChatInput, setDemoChatInput] = useState("");
-  const [screenSelected, setScreenSelected] = useState(false);
   const [isDemoOverlayVisible, setIsDemoOverlayVisible] = useState(true);
-  const [shouldAnimateDemoContent, setShouldAnimateDemoContent] = useState(true);
-  const [demoCardPosition, setDemoCardPosition] = useState<DemoCardPosition>({ x: 0, y: 0 });
+  const [shouldAnimateDemoContent, setShouldAnimateDemoContent] =
+    useState(true);
+  const [demoCardPosition, setDemoCardPosition] = useState<DemoCardPosition>({
+    x: 0,
+    y: 0,
+  });
   const [isDemoCardDragging, setIsDemoCardDragging] = useState(false);
   const isDemoCardDraggingRef = useRef(false);
   const demoBoundsRef = useRef<HTMLDivElement | null>(null);
@@ -83,7 +85,7 @@ const Home = () => {
   const downloadPlatform = detectDownloadPlatform();
   const headingText = "#1 AI Assistant for Interviews";
   const words = headingText.split(" ");
-  
+
   // Calculate delays: 0.1s between words for heading
   const wordDelay = 0.2;
   const totalHeadingDelay = words.length * wordDelay;
@@ -110,7 +112,10 @@ const Home = () => {
     return { maxX, maxY };
   };
 
-  const getClampedDemoCardPosition = (x: number, y: number): DemoCardPosition => {
+  const getClampedDemoCardPosition = (
+    x: number,
+    y: number,
+  ): DemoCardPosition => {
     const bounds = demoBoundsRef.current;
     const card = demoCardRef.current;
     if (!bounds || !card) {
@@ -120,7 +125,10 @@ const Home = () => {
     return { x: clampAxis(x, 0, maxX), y: clampAxis(y, 0, maxY) };
   };
 
-  const getRubberDemoCardPosition = (x: number, y: number): DemoCardPosition => {
+  const getRubberDemoCardPosition = (
+    x: number,
+    y: number,
+  ): DemoCardPosition => {
     const bounds = demoBoundsRef.current;
     const card = demoCardRef.current;
     if (!bounds || !card) {
@@ -129,7 +137,7 @@ const Home = () => {
     const { maxX, maxY } = getDemoCardBounds(bounds, card);
     return {
       x: rubberBandAxis(x, 0, maxX),
-      y: rubberBandAxis(y, 0, maxY)
+      y: rubberBandAxis(y, 0, maxY),
     };
   };
 
@@ -179,7 +187,7 @@ const Home = () => {
       pointerOffsetX: event.clientX - boundsRect.left - demoCardPosition.x,
       pointerOffsetY: event.clientY - boundsRect.top - demoCardPosition.y,
       startClientX: event.clientX,
-      startClientY: event.clientY
+      startClientY: event.clientY,
     };
   };
 
@@ -193,7 +201,8 @@ const Home = () => {
     const onPointerMove = (event: globalThis.PointerEvent) => {
       const dragStart = dragStartRef.current;
       const bounds = demoBoundsRef.current;
-      if (!dragStart || !bounds || dragStart.pointerId !== event.pointerId) return;
+      if (!dragStart || !bounds || dragStart.pointerId !== event.pointerId)
+        return;
 
       const dx = event.clientX - dragStart.startClientX;
       const dy = event.clientY - dragStart.startClientY;
@@ -219,7 +228,9 @@ const Home = () => {
       dragStartRef.current = null;
       isDemoCardDraggingRef.current = false;
       setIsDemoCardDragging(false);
-      setDemoCardPosition((current) => getClampedDemoCardPosition(current.x, current.y));
+      setDemoCardPosition((current) =>
+        getClampedDemoCardPosition(current.x, current.y),
+      );
     };
 
     document.addEventListener("pointermove", onPointerMove);
@@ -247,8 +258,14 @@ const Home = () => {
     const timeoutId = window.setTimeout(() => {
       intervalId = window.setInterval(() => {
         setVisibleAiResponseChars((current) => {
-          const next = Math.min(aiDemoResponseDisplayText.length, current + charsPerTick);
-          if (next >= aiDemoResponseDisplayText.length && intervalId !== undefined) {
+          const next = Math.min(
+            aiDemoResponseDisplayText.length,
+            current + charsPerTick,
+          );
+          if (
+            next >= aiDemoResponseDisplayText.length &&
+            intervalId !== undefined
+          ) {
             window.clearInterval(intervalId);
           }
           return next;
@@ -262,7 +279,11 @@ const Home = () => {
         window.clearInterval(intervalId);
       }
     };
-  }, [aiDemoResponseDisplayText, aiResponseStartDelay, shouldAnimateDemoContent]);
+  }, [
+    aiDemoResponseDisplayText,
+    aiResponseStartDelay,
+    shouldAnimateDemoContent,
+  ]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -284,7 +305,7 @@ const Home = () => {
         y: centerY + (Math.random() - 0.5) * 3000,
         radius: Math.random(),
         phase: Math.random() * 2 * Math.PI,
-        speed: 2 + Math.random() * 3
+        speed: 2 + Math.random() * 3,
       }));
     };
 
@@ -330,7 +351,7 @@ const Home = () => {
         vy: speed * (0.52 + Math.random() * 0.16),
         life: 0,
         maxLife: 1.1 + Math.random() * 0.5,
-        trailLength: 70 + Math.random() * 40
+        trailLength: 70 + Math.random() * 40,
       });
     };
 
@@ -339,7 +360,7 @@ const Home = () => {
       y: number,
       px: number,
       py: number,
-      angle: number
+      angle: number,
     ) => {
       const dx = x - px;
       const dy = y - py;
@@ -348,7 +369,7 @@ const Home = () => {
 
       return {
         x: px + dx * cos - dy * sin,
-        y: py + dx * sin + dy * cos
+        y: py + dx * sin + dy * cos,
       };
     };
 
@@ -399,7 +420,9 @@ const Home = () => {
         const opacity =
           0.65 +
           0.35 *
-            Math.sin((elapsed / (star.speed * 1000)) * 2 * Math.PI + star.phase);
+            Math.sin(
+              (elapsed / (star.speed * 1000)) * 2 * Math.PI + star.phase,
+            );
         ctx.globalAlpha = opacity;
         ctx.fillStyle = "#ffffff";
         ctx.beginPath();
@@ -418,44 +441,48 @@ const Home = () => {
         lastShootingStarSpawn = elapsed;
       }
 
-      shootingStarsRef.current = shootingStarsRef.current.filter((shootingStar) => {
-        shootingStar.x += shootingStar.vx * deltaSeconds;
-        shootingStar.y += shootingStar.vy * deltaSeconds;
-        shootingStar.life += deltaSeconds;
+      shootingStarsRef.current = shootingStarsRef.current.filter(
+        (shootingStar) => {
+          shootingStar.x += shootingStar.vx * deltaSeconds;
+          shootingStar.y += shootingStar.vy * deltaSeconds;
+          shootingStar.life += deltaSeconds;
 
-        const lifeProgress = shootingStar.life / shootingStar.maxLife;
-        const fadeOut = lifeProgress > 0.65 ? 1 - (lifeProgress - 0.65) / 0.35 : 1;
-        const alpha = Math.max(0, fadeOut);
+          const lifeProgress = shootingStar.life / shootingStar.maxLife;
+          const fadeOut =
+            lifeProgress > 0.65 ? 1 - (lifeProgress - 0.65) / 0.35 : 1;
+          const alpha = Math.max(0, fadeOut);
 
-        const directionLength = Math.hypot(shootingStar.vx, shootingStar.vy) || 1;
-        const dirX = shootingStar.vx / directionLength;
-        const dirY = shootingStar.vy / directionLength;
-        const trailEndX = shootingStar.x - dirX * shootingStar.trailLength;
-        const trailEndY = shootingStar.y - dirY * shootingStar.trailLength;
-        const gradient = ctx.createLinearGradient(
-          shootingStar.x,
-          shootingStar.y,
-          trailEndX,
-          trailEndY
-        );
+          const directionLength =
+            Math.hypot(shootingStar.vx, shootingStar.vy) || 1;
+          const dirX = shootingStar.vx / directionLength;
+          const dirY = shootingStar.vy / directionLength;
+          const trailEndX = shootingStar.x - dirX * shootingStar.trailLength;
+          const trailEndY = shootingStar.y - dirY * shootingStar.trailLength;
+          const gradient = ctx.createLinearGradient(
+            shootingStar.x,
+            shootingStar.y,
+            trailEndX,
+            trailEndY,
+          );
 
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.72})`);
-        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.72})`);
+          gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
 
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1;
-        ctx.lineCap = "round";
-        ctx.beginPath();
-        ctx.moveTo(shootingStar.x, shootingStar.y);
-        ctx.lineTo(trailEndX, trailEndY);
-        ctx.stroke();
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 1;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(shootingStar.x, shootingStar.y);
+          ctx.lineTo(trailEndX, trailEndY);
+          ctx.stroke();
 
-        return (
-          shootingStar.life < shootingStar.maxLife &&
-          shootingStar.y <= canvasBottom &&
-          shootingStar.x >= -margin
-        );
-      });
+          return (
+            shootingStar.life < shootingStar.maxLife &&
+            shootingStar.y <= canvasBottom &&
+            shootingStar.x >= -margin
+          );
+        },
+      );
 
       animationFrameId = window.requestAnimationFrame(render);
     };
@@ -481,7 +508,6 @@ const Home = () => {
 
       {/* Text content section (title, subheading, download CTA) */}
       <div className="flex flex-col items-center justify-center text-center pt-[7rem] pb-[4.5rem] md:pb-24 max-md:px-6">
-        
         <a
           href="https://www.producthunt.com/"
           target="_blank"
@@ -515,18 +541,19 @@ const Home = () => {
               className="animate-word"
               style={{
                 animationDelay: `${index * 0.15}s`,
-                marginRight: '0.25em'
+                marginRight: "0.25em",
               }}
             >
               {word}
             </span>
           ))}
         </h1>
-        <p 
+        <p
           className="text-primary-foreground text-[13px] md:text-[15px] lg:text-[17px] mt-8 md:mt-12 text-center text-balance max-w-[30.5rem] opacity-0 animate-fade-in-up"
           style={{ animationDelay: `${subheadingDelay}s` }}
         >
-          Get answers to every interview question in real time without being detected. Start free, no credit card required.
+          Get answers to every interview question in real time without being
+          detected. Start free, no credit card required.
         </p>
         {/* Scroll anchor for sticky CTA on HomePage */}
         <div
@@ -556,45 +583,48 @@ const Home = () => {
               : "cursor-grab transition-transform duration-200 ease-out"
           }`}
           style={{
-            transform: `translate3d(${demoCardPosition.x}px, ${demoCardPosition.y}px, 0)`
+            transform: `translate3d(${demoCardPosition.x}px, ${demoCardPosition.y}px, 0)`,
           }}
         >
           <div
             className="mb-2 mx-auto flex w-fit max-w-full shrink-0 items-center gap-1 rounded-full px-3 py-1.5"
             style={{
               backgroundColor: "hsla(252, 10%, 10%, 0.8)",
-              boxShadow: "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
+              boxShadow:
+                "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
             }}
             onPointerDown={handleDemoCardPointerDown}
           >
-              <button
-                type="button"
-                className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
-                aria-label="Settings"
-              >
-                <SettingsIcon className="size-4 text-white" aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={handleToggleDemoOverlay}
-                className="mr-1 flex h-8 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-3 text-xs font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
-                aria-label={isDemoOverlayVisible ? "Hide overlay" : "Show overlay"}
-              >
-                <DemoOverlayChevronIcon
-                  className={`size-4 text-[#b2b3ba] transition-transform ${
-                    isDemoOverlayVisible ? "" : "rotate-180"
-                  }`}
-                  aria-hidden
-                />
-                <span>{isDemoOverlayVisible ? "Hide" : "Show"}</span>
-              </button>
-              <button
-                type="button"
-                className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
-                aria-label="Stop"
-              >
-                <StopIcon className="size-4 text-white" aria-hidden />
-              </button>
+            <button
+              type="button"
+              className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+              aria-label="Settings"
+            >
+              <SettingsIcon className="size-4 text-white" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={handleToggleDemoOverlay}
+              className="mr-1 flex h-8 items-center gap-1 rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] px-3 text-xs font-medium text-white shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+              aria-label={
+                isDemoOverlayVisible ? "Hide overlay" : "Show overlay"
+              }
+            >
+              <DemoOverlayChevronIcon
+                className={`size-4 text-[#b2b3ba] transition-transform ${
+                  isDemoOverlayVisible ? "" : "rotate-180"
+                }`}
+                aria-hidden
+              />
+              <span>{isDemoOverlayVisible ? "Hide" : "Show"}</span>
+            </button>
+            <button
+              type="button"
+              className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#2E3039_0%,#272A31_100%)] shadow-[0_0.7px_0_0_#AFB3C4_inset] transition-transform hover:scale-105"
+              aria-label="Stop"
+            >
+              <StopIcon className="size-4 text-white" aria-hidden />
+            </button>
           </div>
           <div
             className={`flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-white/25 transition-opacity duration-150 ${
@@ -606,179 +636,184 @@ const Home = () => {
               background:
                 "linear-gradient(180deg, hsla(252,10%,10%,0.75) 0%, hsla(252,10%,10%,0.8) 100%)",
               boxShadow:
-                "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)"
+                "0 0 0 1px rgba(207, 226, 255, 0.24), 0 -0.5px 0 0 rgba(255, 255, 255, 0.8)",
             }}
             aria-hidden={!isDemoOverlayVisible}
             onPointerDown={handleDemoCardPointerDown}
           >
-              <div className="relative flex min-h-0 min-w-0 flex-1 flex-col p-4 pb-2">
+            <div className="relative flex min-h-0 min-w-0 flex-1 flex-col p-4 pb-2">
+              <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overflow-x-hidden pb-1.5 pr-1 [scrollbar-color:rgba(255,255,255,0.35)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/30 hover:[&::-webkit-scrollbar-thumb]:bg-white/45 [&::-webkit-scrollbar-track]:bg-transparent">
+                <div className="flex justify-end pt-1.5">
                   <div
-                    className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overflow-x-hidden pb-1.5 pr-1 [scrollbar-color:rgba(255,255,255,0.35)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/30 hover:[&::-webkit-scrollbar-thumb]:bg-white/45 [&::-webkit-scrollbar-track]:bg-transparent"
+                    className={`w-fit max-w-72 cursor-pointer select-text rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-[0.125rem] px-2.5 py-1.5 font-light text-sm text-white ${
+                      shouldAnimateDemoContent
+                        ? "opacity-0 animate-fade-in-up"
+                        : ""
+                    }`}
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                      boxShadow:
+                        "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset",
+                      animationDelay: shouldAnimateDemoContent
+                        ? `${userQuestionDelay}s`
+                        : undefined,
+                    }}
                   >
-                    <div className="flex justify-end pt-1.5">
-                      <div
-                        className={`w-fit max-w-72 cursor-pointer select-text rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-[0.125rem] px-2.5 py-1.5 font-light text-sm text-white ${
-                          shouldAnimateDemoContent ? "opacity-0 animate-fade-in-up" : ""
-                        }`}
-                        style={{
-                          background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
-                          boxShadow:
-                            "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset",
-                          animationDelay: shouldAnimateDemoContent
-                            ? `${userQuestionDelay}s`
-                            : undefined
-                        }}
-                      >
-                        What should I say?
-                      </div>
-                    </div>
-
-                    <div className="w-full text-sm font-light leading-[1.6] text-[#edeef2]">
-                      <p className="relative text-left">
-                        {shouldAnimateDemoContent && (
-                          <span className="pointer-events-none invisible select-none">
-                            {aiDemoResponseDisplayText}
-                          </span>
-                        )}
-                        <span className={shouldAnimateDemoContent ? "absolute inset-0" : ""}>
-                          {shouldAnimateDemoContent
-                            ? aiDemoResponseDisplayText.slice(0, visibleAiResponseChars)
-                            : aiDemoResponseDisplayText}
-                        </span>
-                      </p>
-                    </div>
+                    What should I say?
                   </div>
+                </div>
 
-                <div className="flex flex-wrap items-center gap-x-1 gap-y-1 font-light mt-10">
-                  <span className="group/static-insight flex items-center gap-2">
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
-                        <SparklesIcon className="size-3.5" aria-hidden />
+                <div className="flex items-center font-light gap-1.5 text-[13px] text-white/40">
+                  <MonitorIcon className="size-3 shrink-0" aria-hidden />
+                  <span>Viewed screen</span>
+                </div>
+
+                <div className="w-full text-sm font-light leading-[1.6] text-[#edeef2]">
+                  <p className="relative text-left">
+                    {shouldAnimateDemoContent && (
+                      <span className="pointer-events-none invisible select-none">
+                        {aiDemoResponseDisplayText}
                       </span>
-                      <span className="truncate">Assist</span>
-                    </button>
-                  </span>
-                  <span className="group/static-insight flex items-center gap-2">
-                    <div
-                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
-                      aria-hidden
-                    />
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
-                        <WandSparklesIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate">What should I say?</span>
-                    </button>
-                  </span>
-                  <span className="group/static-insight hidden min-[500px]:flex items-center gap-2">
-                    <div
-                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
-                      aria-hidden
-                    />
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
-                        <MessageSquareIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate">Follow-up questions</span>
-                    </button>
-                  </span>
-                  <span className="group/static-insight hidden min-[600px]:flex items-center gap-2">
-                    <div
-                      className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
-                      aria-hidden
-                    />
-                    <button type="button" className={demoHelperButtonClassName}>
-                      <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
-                        <RefreshCwIcon className="size-3.5" aria-hidden />
-                      </span>
-                      <span className="truncate">Recap</span>
-                    </button>
-                  </span>
+                    )}
+                    <span
+                      className={
+                        shouldAnimateDemoContent ? "absolute inset-0" : ""
+                      }
+                    >
+                      {shouldAnimateDemoContent
+                        ? aiDemoResponseDisplayText.slice(
+                            0,
+                            visibleAiResponseChars,
+                          )
+                        : aiDemoResponseDisplayText}
+                    </span>
+                  </p>
                 </div>
               </div>
 
-                <div
-                  className="flex shrink-0 flex-col rounded-xl mx-3 mb-3"
-                  style={{
-                    border: "0.5px solid rgba(155, 155, 155, 0.4)",
-                    boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)"
-                  }}
-                >
-                    <div
-                      className="relative flex items-center gap-2 p-1.5 min-[500px]:gap-2.5 min-[500px]:p-2"
-                      style={{
-                        boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)"
-                      }}
-                    >
-                      <div className="relative flex min-h-[22px] min-w-0 flex-1 items-center min-[500px]:min-h-[24px]">
-                        {demoChatInput.length === 0 && (
-                          <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[13px] text-white/60 min-[500px]:flex-wrap min-[500px]:gap-y-0.5 min-[500px]:text-[13px]">
-                            <span className="shrink-0 min-[500px]:hidden">Ask a question, or </span>
-                            <span className="hidden shrink-0 min-[500px]:inline">
-                              Ask about your screen or conversation, or{" "}
-                            </span>
-                            <span
-                              className={`${demoChatKeyPillClass} ${
-                                downloadPlatform === "mac"
-                                  ? "min-w-[1.125rem]"
-                                  : "min-w-[1.75rem] px-1 min-[500px]:min-w-[2rem]"
-                              }`}
-                            >
-                              {downloadPlatform === "mac" ? (
-                                <CommandIcon className="size-[0.6rem]" aria-hidden />
-                              ) : (
-                                "Ctrl"
-                              )}
-                            </span>
-                            <span className={`${demoChatKeyPillClass} min-w-[1.125rem] min-[500px]:min-w-[1.25rem]`}>
-                              <ReturnIcon className="size-[0.6rem]" aria-hidden />
-                            </span>
-                            <span className="hidden shrink-0 min-[500px]:inline"> for assist</span>
-                          </div>
-                        )}
-                        <input
-                          type="text"
-                          value={demoChatInput}
-                          onChange={(e) => setDemoChatInput(e.target.value)}
-                          aria-label="Chat"
-                          title={
-                            downloadPlatform === "mac"
-                              ? "Type a message. In the app, use ⌘ and Return to focus this field."
-                              : "Type a message. In the app, use Ctrl and Enter to focus this field."
-                          }
-                          className="relative z-10 min-h-[22px] w-full min-w-0 flex-1 bg-transparent py-0 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 min-[500px]:min-h-[24px] min-[500px]:py-0.5 min-[500px]:text-[13px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between px-1.5 pb-1.5 min-[500px]:px-2 min-[500px]:pb-2">
-                      <button
-                        type="button"
-                        onClick={() => setScreenSelected((s) => !s)}
-                        className={`flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-medium transition-colors duration-150 min-[500px]:text-[12px] ${
-                          screenSelected
-                            ? "bg-[#3d3000] text-[#eab308]"
-                            : "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white/80"
+              <div className="flex flex-wrap items-center gap-x-1 gap-y-1 font-light mt-10">
+                <span className="group/static-insight flex items-center gap-2">
+                  <button type="button" className={demoHelperButtonClassName}>
+                    <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
+                      <SparklesIcon className="size-3.5" aria-hidden />
+                    </span>
+                    <span className="truncate">Assist</span>
+                  </button>
+                </span>
+                <span className="group/static-insight flex items-center gap-2">
+                  <div
+                    className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                    aria-hidden
+                  />
+                  <button type="button" className={demoHelperButtonClassName}>
+                    <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
+                      <WandSparklesIcon className="size-3.5" aria-hidden />
+                    </span>
+                    <span className="truncate">What should I say?</span>
+                  </button>
+                </span>
+                <span className="group/static-insight hidden min-[500px]:flex items-center gap-2">
+                  <div
+                    className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                    aria-hidden
+                  />
+                  <button type="button" className={demoHelperButtonClassName}>
+                    <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
+                      <MessageSquareIcon className="size-3.5" aria-hidden />
+                    </span>
+                    <span className="truncate">Follow-up questions</span>
+                  </button>
+                </span>
+                <span className="group/static-insight hidden min-[600px]:flex items-center gap-2">
+                  <div
+                    className="size-[3px] shrink-0 rounded-full bg-[#898b91]"
+                    aria-hidden
+                  />
+                  <button type="button" className={demoHelperButtonClassName}>
+                    <span className="shrink-0 text-[#b2b3ba] transition-colors duration-150 group-hover/static-insight:text-[#ffffff]">
+                      <RefreshCwIcon className="size-3.5" aria-hidden />
+                    </span>
+                    <span className="truncate">Recap</span>
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <div
+              className="flex shrink-0 flex-col rounded-xl mx-3 mb-3"
+              style={{
+                border: "0.5px solid rgba(155, 155, 155, 0.4)",
+                boxShadow: "0 -1px 0 0 rgba(255, 255, 255, 0.25)",
+              }}
+            >
+              <div
+                className="relative flex items-center gap-2 p-1.5 min-[500px]:gap-2.5 min-[500px]:p-2"
+                style={{
+                  boxShadow: "inset 0 2px 20px -1px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <div className="relative flex min-h-[22px] min-w-0 flex-1 items-center min-[500px]:min-h-[24px]">
+                  {demoChatInput.length === 0 && (
+                    <div className="pointer-events-none absolute inset-0 flex min-w-0 flex-nowrap items-center gap-x-1 overflow-hidden font-light text-[13px] text-white/60 min-[500px]:flex-wrap min-[500px]:gap-y-0.5 min-[500px]:text-[13px]">
+                      <span className="shrink-0 min-[500px]:hidden">
+                        Ask a question, or{" "}
+                      </span>
+                      <span className="hidden shrink-0 min-[500px]:inline">
+                        Ask about your screen or conversation, or{" "}
+                      </span>
+                      <span
+                        className={`${demoChatKeyPillClass} ${
+                          downloadPlatform === "mac"
+                            ? "min-w-[1.125rem]"
+                            : "min-w-[1.75rem] px-1 min-[500px]:min-w-[2rem]"
                         }`}
-                        aria-pressed={screenSelected}
-                        aria-label="Include screen context"
                       >
-                        <MonitorIcon className="size-3 shrink-0" aria-hidden />
-                        <span className="font-light">Screen</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] min-[500px]:size-7"
-                        style={{
-                          background: "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
-                          boxShadow:
-                            "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset"
-                        }}
-                        aria-label="Send"
+                        {downloadPlatform === "mac" ? (
+                          <CommandIcon className="size-[0.6rem]" aria-hidden />
+                        ) : (
+                          "Ctrl"
+                        )}
+                      </span>
+                      <span
+                        className={`${demoChatKeyPillClass} min-w-[1.125rem] min-[500px]:min-w-[1.25rem]`}
                       >
-                        <SendIcon className="size-3" aria-hidden />
-                      </button>
+                        <ReturnIcon className="size-[0.6rem]" aria-hidden />
+                      </span>
+                      <span className="hidden shrink-0 min-[500px]:inline">
+                        {" "}
+                        for suggestions
+                      </span>
                     </div>
+                  )}
+                  <input
+                    type="text"
+                    value={demoChatInput}
+                    onChange={(e) => setDemoChatInput(e.target.value)}
+                    aria-label="Chat"
+                    title={
+                      downloadPlatform === "mac"
+                        ? "Type a message. In the app, use ⌘ and Return to focus this field."
+                        : "Type a message. In the app, use Ctrl and Enter to focus this field."
+                    }
+                    className="relative z-10 min-h-[22px] w-full min-w-0 flex-1 bg-transparent py-0 text-[11px] text-white outline-none placeholder:text-transparent focus-visible:ring-0 min-[500px]:min-h-[24px] min-[500px]:py-0.5 min-[500px]:text-[13px]"
+                  />
                 </div>
+                <button
+                  type="button"
+                  className="flex size-6 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-150 ease-out hover:scale-[1.03] active:scale-[0.97] min-[500px]:size-7"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, #0544a9 0%, #022c70 100%)",
+                    boxShadow:
+                      "0 0 0 0.5px #0c44a1, 0 -1px 0 0 #022c70 inset, 0 0.5px 0 0 #81b6ff inset",
+                  }}
+                  aria-label="Send"
+                >
+                  <SendIcon className="size-3" aria-hidden />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -786,4 +821,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Hero;
