@@ -19,14 +19,16 @@ const platformMeta: Record<DownloadPlatform, { Icon: typeof AppleIcon }> = {
 
 export function OsDownloadButton() {
   const platform = detectDownloadPlatform();
-  const label = downloadButtonLabels[platform];
+  const isWindows = platform === "windows";
+  const label = isWindows ? "Launching soon on Windows" : downloadButtonLabels[platform];
   const { Icon } = platformMeta[platform];
 
   return (
     <button
       type="button"
-      onClick={() => handleDownload(platform)}
-      className="blue-glassy-button group relative inline-flex items-center justify-center gap-[6px] whitespace-nowrap rounded-[10px] px-5 py-[10px] text-[16px] font-medium text-white tracking-[-0.13px] overflow-hidden hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+      onClick={isWindows ? undefined : () => handleDownload(platform)}
+      disabled={isWindows}
+      className="blue-glassy-button group relative inline-flex items-center justify-center gap-[6px] whitespace-nowrap rounded-[10px] px-5 py-[10px] text-[16px] font-medium text-white tracking-[-0.13px] overflow-hidden hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 disabled:cursor-default disabled:hover:scale-100 disabled:active:scale-100"
     >
       {/* Glassy blurred border */}
       <span className="pointer-events-none absolute inset-0 z-20 blur-[1px]" aria-hidden="true">
@@ -44,7 +46,7 @@ export function OsDownloadButton() {
 
       <span className="relative z-10 inline-flex items-center gap-[6px]">
         <LaptopIcon className="h-5 w-5 shrink-0 md:hidden" aria-hidden />
-        <span className="md:hidden">Get the desktop app</span>
+        <span className="md:hidden">{isWindows ? label : "Get the desktop app"}</span>
         <Icon className="hidden h-5 w-5 shrink-0 md:block" aria-hidden />
         <span className="hidden md:inline">{label}</span>
       </span>
