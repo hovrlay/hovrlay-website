@@ -553,7 +553,7 @@ const Hero = () => {
           style={{ animationDelay: `${subheadingDelay}s` }}
         >
           Get answers to every interview question in real time without being
-          detected. Start free, no credit card required.
+          detected. Start free, no card required.
         </p>
         {/* Scroll anchor for sticky CTA on HomePage */}
         <div

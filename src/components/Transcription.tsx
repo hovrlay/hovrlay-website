@@ -94,7 +94,7 @@ const Transcription = () => {
             <div className="h-[1px] w-full bg-gray-300/50"></div>
 
             <StatItem
-              value="250"
+              value="200"
               unit="ms"
               label="Response time"
               description={
