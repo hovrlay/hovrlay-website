@@ -113,11 +113,11 @@ const FreePlanCard = ({ delay = 0 }: { delay?: number }) => {
           <div className="space-y-2">
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
-              <span>Limited AI responses</span>
+              <span>Real-time transcriptions</span>
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
-              <span>Real-time transcriptions</span>
+              <span>Limited AI usage</span>
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
@@ -187,7 +187,7 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
-              <span>AI help tailored to your resume</span>
+              <span>Resume upload for tailored AI help</span>
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
@@ -254,7 +254,7 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
-              <span>AI help tailored to your resume</span>
+              <span>Resume upload for tailored AI help</span>
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
