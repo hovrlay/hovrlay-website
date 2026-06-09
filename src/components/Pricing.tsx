@@ -141,7 +141,7 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
     triggerOnce: true,
   });
   const platform = detectDownloadPlatform();
-  const price = useInr ? formatINR(1999) : formatUSD(19.99);
+  const price = useInr ? formatINR(999) : formatUSD(9.99);
   const perCredit = useInr ? formatINR(333) : formatUSDPerCredit(3.33);
 
   return (
@@ -158,7 +158,7 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
 
           <div className="mt-6">
             <p className="text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">{price}</p>
-            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">6 credits · {perCredit}/credit</p>
+            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">3 credits · {perCredit}/credit</p>
           </div>
 
           <div className="mt-4">
@@ -179,7 +179,7 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
             <p className="text-sm tracking-tight leading-[1.3] font-medium text-foreground">Everything in Starter, plus...</p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
-              <span>6 hours of real-time AI help</span>
+              <span>3 hours of real-time AI help</span>
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
@@ -207,7 +207,7 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
     triggerOnce: true,
   });
   const platform = detectDownloadPlatform();
-  const price = useInr ? formatINR(4999) : formatUSD(49.99);
+  const price = useInr ? formatINR(2499) : formatUSD(24.99);
   const perCredit = useInr ? formatINR(250) : formatUSDPerCredit(2.5);
 
   return (
@@ -225,7 +225,7 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
 
           <div className="mt-6">
             <p className="text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">{price}</p>
-            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">20 credits · {perCredit}/credit</p>
+            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">10 credits · {perCredit}/credit</p>
           </div>
 
           <div className="mt-4">
@@ -246,7 +246,7 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
             <p className="text-sm tracking-tight leading-[1.3] font-medium text-foreground">Everything in Starter, plus...</p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
-              <span>20 hours of real-time AI help</span>
+              <span>10 hours of real-time AI help</span>
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
