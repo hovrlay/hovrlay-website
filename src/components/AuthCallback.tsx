@@ -21,10 +21,6 @@ const AuthCallback = () => {
 
     const deeplinkUrl = `hovrlay://auth/callback?code=${code}`;
     window.location.href = deeplinkUrl;
-
-    setTimeout(() => {
-      window.close();
-    }, 1000);
   }, []);
 
   if (shouldShow404) {
