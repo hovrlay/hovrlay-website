@@ -86,6 +86,14 @@ const FAQ = () => {
 
   const faqs = [
     {
+      question: "How does Hovrlay compare to Cluely?",
+      answer: (
+        <>
+          Cluely costs $150/mo. If you are interviewing at big tech companies where the Interview process goes on for multiple months, you are looking at $500+ before you even land an offer. Hovrlay has usage based pricing. $25 gets most people through their entire job search. Beyond pricing, Hovrlay has much faster AI responses and the app itself is considerably smaller.
+        </>
+      )
+    },
+    {
       question: "Why Hovrlay vs. a regular AI notetaker?",
       answer:
         "Unlike regular AI notetakers like Otter or Fireflies that work after your meeting ends, Hovrlay provides real time meeting intelligence during your calls. While other AI meeting assistants create meeting summaries afterward, Hovrlay helps you answer technical questions, handle objections, and perform better during high stakes conversations."
