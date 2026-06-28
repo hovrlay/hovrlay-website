@@ -104,9 +104,9 @@ const FAQ = () => {
         "Yes, you can use Hovrlay for free. No credit card required to get started. Download the app and use it in your calls and meetings before you pay anything. "
     },
     {
-      question: "How do credits work?",
+      question: "How do hours work?",
       answer:
-        "One credit equals one hour of real time AI assistance. Each session uses one credit and ends automatically after an hour. You buy credits only when you need them. Credits never expire."
+        "At the start of each call, choose your call duration — 30 minutes, 1 hour, or 1.5 hours. That duration is deducted from your balance when the session ends. You buy extra hours only when you need them. Hours never expire."
     },
     {
       question: "Is my data secure with Hovrlay?",

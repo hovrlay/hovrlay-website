@@ -36,7 +36,7 @@ function formatUSD(amount: number): string {
   }).format(amount);
 }
 
-function formatUSDPerCredit(amount: number): string {
+function formatUSDPerHour(amount: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -142,7 +142,7 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
   });
   const platform = detectDownloadPlatform();
   const price = useInr ? formatINR(999) : formatUSD(9.99);
-  const perCredit = useInr ? formatINR(333) : formatUSDPerCredit(3.33);
+  const perHour = useInr ? formatINR(333) : formatUSDPerHour(3.33);
 
   return (
     <div
@@ -158,7 +158,7 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
 
           <div className="mt-6">
             <p className="text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">{price}</p>
-            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">3 credits · {perCredit}/credit</p>
+            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">3 hours <span className="mx-1">·</span> {perHour}/hour</p>
           </div>
 
           <div className="mt-4">
@@ -208,7 +208,7 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
   });
   const platform = detectDownloadPlatform();
   const price = useInr ? formatINR(2499) : formatUSD(24.99);
-  const perCredit = useInr ? formatINR(250) : formatUSDPerCredit(2.5);
+  const perHour = useInr ? formatINR(250) : formatUSDPerHour(2.5);
 
   return (
     <div
@@ -225,7 +225,7 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
 
           <div className="mt-6">
             <p className="text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">{price}</p>
-            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">10 credits · {perCredit}/credit</p>
+            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">10 hours &nbsp;·&nbsp; {perHour}/hour</p>
           </div>
 
           <div className="mt-4">
@@ -296,7 +296,7 @@ const Pricing = () => {
               No subscription. No card required.
             </p>
             <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-base md:text-base lg:text-lg">
-              Purchase credits only when you need. 1 Credit = 1h Call
+              Purchase hours only when you need.
             </p>
           </div>
         </header>
@@ -322,7 +322,7 @@ const Pricing = () => {
             </div>
           </div>
           <p className="mt-4 text-center text-xs text-muted-foreground/45">
-            Credits are purchased inside the app. Secure payments powered by Razorpay
+            Hours are purchased inside the app. Secure payments powered by Razorpay
           </p>
         </div>
       </div>
