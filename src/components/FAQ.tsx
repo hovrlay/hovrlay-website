@@ -109,6 +109,11 @@ const FAQ = () => {
         "At the start of each call, choose your call duration — 30 minutes, 1 hour, or 1.5 hours. That duration is deducted from your balance when the session ends. You buy extra hours only when you need them. Hours never expire."
     },
     {
+      question: "Can I customize the keyboard shortcuts?",
+      answer:
+        "Yes. Open the Hovrlay settings and in the keybinds section click any shortcut to rebind it to whatever feels natural.",
+    },
+    {
       question: "Is my data secure with Hovrlay?",
       answer: "Yes. We do not store your actual audio recordings. Your conversations are processed in real time and then deleted."
     },

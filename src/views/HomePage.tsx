@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import PoweredBy from "@/components/PoweredBy";
 import Pricing from "@/components/Pricing";
 import Features from "@/components/Features";
+import PersonalFeatures from "@/components/PersonalFeatures";
 import Demo from "@/components/Demo";
 import Transcription from "@/components/Transcription";
 import FAQ from "@/components/FAQ";
@@ -60,6 +61,7 @@ const HomePage = () => {
         <PoweredBy />
         <Demo />
         <Features />
+        <PersonalFeatures />
         <Transcription />
         <Pricing />
         <FAQ />
