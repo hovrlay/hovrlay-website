@@ -1,8 +1,10 @@
 export type DownloadPlatform = "mac" | "windows" | "linux";
 
+export const MICROSOFT_STORE_URL = "https://apps.microsoft.com/detail/9PMRJFKL8NGH";
+
 export const downloadButtonLabels: Record<DownloadPlatform, string> = {
   mac: "Get for Mac",
-  windows: "Get for Windows",
+  windows: "Get from Microsoft Store",
   linux: "Get for Linux",
 };
 
@@ -41,6 +43,11 @@ export function detectDownloadPlatform(): DownloadPlatform {
 }
 
 export const handleDownload = (platform: DownloadPlatform) => {
+  if (platform === "windows") {
+    window.location.assign(MICROSOFT_STORE_URL);
+    return;
+  }
+
   const base = getDownloadApiBase();
   if (!base) {
     console.error(
