@@ -1,6 +1,6 @@
 export type DownloadPlatform = "mac" | "windows" | "linux";
 
-export const MICROSOFT_STORE_URL = "https://apps.microsoft.com/detail/9PMRJFKL8NGH";
+export const MICROSOFT_STORE_DEEPLINK = "ms-windows-store://pdp/?productid=9PMRJFKL8NGH";
 
 export const downloadButtonLabels: Record<DownloadPlatform, string> = {
   mac: "Get for Mac",
@@ -44,7 +44,7 @@ export function detectDownloadPlatform(): DownloadPlatform {
 
 export const handleDownload = (platform: DownloadPlatform) => {
   if (platform === "windows") {
-    window.location.assign(MICROSOFT_STORE_URL);
+    window.location.assign(MICROSOFT_STORE_DEEPLINK);
     return;
   }
 
