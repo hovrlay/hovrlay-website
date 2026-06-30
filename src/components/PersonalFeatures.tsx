@@ -32,10 +32,11 @@ const PersonalFeatures = () => {
 
         <div
           ref={cardsRef}
-          className={`mx-auto grid w-full max-w-7xl grid-cols-1 gap-5 md:grid-cols-3 animate-scroll-fade-in-up ${cardsVisible ? "visible" : ""}`}
+          className={`mx-auto w-full max-w-7xl overflow-x-auto pb-2 lg:overflow-visible animate-scroll-fade-in-up ${cardsVisible ? "visible" : ""}`}
           style={{ transitionDelay: "100ms" }}
         >
-          <div>
+          <div className="flex w-max gap-5 lg:w-full">
+          <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
             <div className={cardShellClassName}>
               <div className="aspect-square w-full">
                 <img
@@ -53,7 +54,7 @@ const PersonalFeatures = () => {
             </p>
           </div>
 
-          <div>
+          <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
             <div className={cardShellClassName}>
               <div className="aspect-square w-full">
                 <img
@@ -71,7 +72,7 @@ const PersonalFeatures = () => {
             </p>
           </div>
 
-          <div>
+          <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
             <div className={cardShellClassName}>
               <div className="aspect-square w-full">
                 <img
@@ -87,6 +88,7 @@ const PersonalFeatures = () => {
                 Only that time comes off your balance.
               </span>
             </p>
+          </div>
           </div>
         </div>
       </div>

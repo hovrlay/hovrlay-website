@@ -4,11 +4,71 @@ import { useEffect, useRef, useState } from "react";
 import ChevronDownIcon from "../assets/chevron-down.svg";
 import InvisibleToolSparkleIcon from "../assets/invisible-tool-sparkle.svg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import ShortcutHintBar from "./ShortcutHintBar";
+
+const SLIDES = [
+  {
+    bg: "/bg-blue.jpg",
+    card: "/video-player-card.png",
+    cardW: 476,
+    cardH: 363,
+    cardClass: "absolute bottom-[-117px] left-[-86px] w-[130%] max-w-[475px]",
+    cardEnter: "translateX(-40px)",
+  },
+  {
+    bg: "/bg-purple.jpg",
+    card: "/file-browser-card.png",
+    cardW: 337,
+    cardH: 264,
+    cardClass: "absolute bottom-[-80px] right-[-60px] w-[110%] max-w-[360px]",
+    cardEnter: "translateX(40px)",
+  },
+  {
+    bg: "/bg-pink.jpg",
+    card: "/messaging-card.png",
+    cardW: 401,
+    cardH: 260,
+    cardClass: "absolute top-[-41px] right-[-93px] w-[110%] max-w-[401px]",
+    cardEnter: "translateY(-50px)",
+  },
+  {
+    bg: "/bg-purple-dark.jpg",
+    card: "/video-conference-card.png",
+    cardW: 355,
+    cardH: 238,
+    cardClass: "absolute top-[-11px] left-[-75px] w-[100%] max-w-[350px]",
+    cardEnter: "translateX(-50px)",
+  },
+] as const;
+
+// Glass overlay corner position per step
+const OVERLAY_POSITION: Record<number, string> = {
+  0: "top-5 right-4 xl:top-7 xl:right-6",
+  1: "top-5 left-4 xl:top-7 xl:left-6",
+  2: "bottom-5 left-4 xl:bottom-7 xl:left-6",
+  3: "bottom-5 right-4 xl:bottom-7 xl:right-6",
+};
+
+const carouselKeyframes = `
+@keyframes carouselBgIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes carouselCardIn {
+  from { opacity: 0; transform: var(--card-enter-transform); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes carouselOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+`;
 
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
 const Features = () => {
+  const [carouselStep, setCarouselStep] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -77,106 +137,6 @@ const Features = () => {
           style={{ transitionDelay: "100ms" }}
         >
           <div className="flex w-max gap-5 lg:w-full">
-            <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
-              <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)]">
-                <div className="aspect-[855/855] w-full" />
-              </div>
-              <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
-                <span className="font-medium">Hovrlay listens to the conversation. </span>
-                <span className="text-muted-foreground font-light">
-                  It transcribes your meeting in real time and observes your screen, so it can help when you need it.
-                </span>
-              </p>
-            </div>
-            <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
-              <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)] select-none">
-                <div
-                  ref={sliderRef}
-                  className="relative aspect-[855/855] w-full"
-                  onPointerDown={handlePointerDown}
-                >
-                <div className="absolute inset-0">
-                  <img
-                    src="/invisible-tool.png"
-                    alt="Invisible overlay example"
-                    className="absolute inset-0 h-full w-full object-cover object-left"
-                  />
-                  <div
-                    className="absolute inset-0 z-10"
-                    style={{ clipPath: `inset(0% 0% 0% ${sliderPosition}%)` }}
-                  >
-                    <span className="absolute right-4 top-4 flex h-[24px] items-center justify-center rounded-[6px] bg-[#676B74] px-2 text-[10px] font-semibold tracking-tight text-white md:right-6 md:top-6 md:h-[29px] md:px-[8px] md:text-[12px]">
-                      Invisible to others
-                    </span>
-                  </div>
-                </div>
-
-                <div
-                  className="absolute inset-0"
-                  style={{ clipPath: `inset(0% ${100 - sliderPosition}% 0% 0%)` }}
-                >
-                  <img
-                    src="/invisible-tool.png"
-                    alt="Visible overlay example"
-                    className="absolute inset-0 h-full w-full object-cover object-left"
-                  />
-
-                  <div className="absolute inset-0 m-[7px] rounded-xl border-2 border-[#00FF26] md:m-2.5 md:rounded-2xl" />
-
-                  <span className="absolute left-4 top-4 z-10 flex h-[24px] items-center justify-center rounded-[6px] bg-[#676B74] px-2 text-[10px] font-semibold tracking-tight text-white md:left-6 md:top-6 md:h-[29px] md:px-[8px] md:text-[12px]">
-                    Visible to you
-                  </span>
-
-                  <div className="absolute left-4 right-4 top-4 z-20 mt-10 rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] px-3 pb-2 pt-1 md:left-6 md:right-6 md:top-6 md:mt-11 md:px-4 md:pb-2 md:pt-2">
-                    <div className="flex items-center gap-1 text-[8px] font-semibold tracking-tight text-[#1F2A37] md:text-[10px]">
-                      <InvisibleToolSparkleIcon aria-hidden="true" className="size-[8px] md:size-[10px]" />
-                      AI Response
-                    </div>
-
-                    <div className="mt-[4px] inline-block text-[9px] leading-normal tracking-tight text-[#111827] md:mt-[6px] md:text-[10px]">
-                      Add a check for missing
-                      <span className="relative mx-[3px] font-mono text-[8px] leading-none text-[#4984FD] before:absolute before:left-1/2 before:top-1/2 before:z-[-1] before:h-[calc(100%+2px)] before:w-[calc(100%+4px)] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-[3px] before:bg-[#4984FD1A] md:mx-[4px] md:text-[8px]">
-                        userId
-                      </span>
-                      before calling the API.
-                      <br />
-                      Also handle
-                      <span className="relative mx-[3px] font-mono text-[8px] leading-none text-[#4984FD] before:absolute before:left-1/2 before:top-1/2 before:z-[-1] before:h-[calc(100%+2px)] before:w-[calc(100%+4px)] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-[3px] before:bg-[#4984FD1A] md:mx-[4px] md:text-[8px]">
-                        data.name
-                      </span>
-                      safely to avoid undefined.
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="pointer-events-none absolute bottom-0 top-0 z-10 w-px -translate-x-1/2 bg-[#111827] shadow-[-1px_0px_8px_0px_#00000036]"
-                  style={{ left: `${sliderPosition}%` }}
-                />
-
-                <div
-                  className="absolute top-1/2 z-20 flex size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-[#111827] shadow-[0px_4px_10px_0px_#00000026] transition-transform duration-[210ms] ease-in md:size-6"
-                  style={{ left: `${sliderPosition}%`, transform: "translate(-50%, -50%)" }}
-                >
-                  <svg
-                    width="16"
-                    height="9"
-                    viewBox="0 0 16 9"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="size-[12px] md:size-4"
-                  >
-                    <path d="M4.5 7.375L1.5 4.375L4.5 1.375" stroke="white" strokeMiterlimit="10" strokeLinecap="square" />
-                    <path d="M11.5 7.375L14.5 4.375L11.5 1.375" stroke="white" strokeMiterlimit="10" strokeLinecap="square" />
-                  </svg>
-                </div>
-                </div>
-              </div>
-              <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
-                <span className="font-medium">Invisible to screen share. </span> 
-                <span className="text-muted-foreground font-light">Hovrlay never shows up in shared screens, recordings, or external meeting tools.</span>
-              </p>
-            </div>
             <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
               <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)]">
                 <div className="relative aspect-[855/855] w-full">
@@ -275,6 +235,188 @@ const Features = () => {
               <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
                 <span className="font-medium">Doesn't join meetings. </span>
                 <span className="text-muted-foreground font-light">Hovrlay never joins your meetings, so there are no bots and no extra people on the guest list.</span>
+              </p>
+            </div>
+            <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
+              <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)] select-none">
+                <div
+                  ref={sliderRef}
+                  className="relative aspect-[855/855] w-full"
+                  onPointerDown={handlePointerDown}
+                >
+                <div className="absolute inset-0">
+                  <img
+                    src="/invisible-tool.png"
+                    alt="Invisible overlay example"
+                    className="absolute inset-0 h-full w-full object-cover object-left"
+                  />
+                  <div
+                    className="absolute inset-0 z-10"
+                    style={{ clipPath: `inset(0% 0% 0% ${sliderPosition}%)` }}
+                  >
+                    <span className="absolute right-4 top-4 flex h-[24px] items-center justify-center rounded-[6px] bg-[#676B74] px-2 text-[10px] font-semibold tracking-tight text-white md:right-6 md:top-6 md:h-[29px] md:px-[8px] md:text-[12px]">
+                      Invisible to others
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0% ${100 - sliderPosition}% 0% 0%)` }}
+                >
+                  <img
+                    src="/invisible-tool.png"
+                    alt="Visible overlay example"
+                    className="absolute inset-0 h-full w-full object-cover object-left"
+                  />
+
+                  <div className="absolute inset-0 m-[7px] rounded-xl border-2 border-[#00FF26] md:m-2.5 md:rounded-2xl" />
+
+                  <span className="absolute left-4 top-4 z-10 flex h-[24px] items-center justify-center rounded-[6px] bg-[#676B74] px-2 text-[10px] font-semibold tracking-tight text-white md:left-6 md:top-6 md:h-[29px] md:px-[8px] md:text-[12px]">
+                    Visible to you
+                  </span>
+
+                  <div className="absolute left-4 right-4 top-4 z-20 mt-10 rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.5)_0%,#F9FAFB_100%)] px-3 pb-2 pt-1 md:left-6 md:right-6 md:top-6 md:mt-11 md:px-4 md:pb-2 md:pt-2">
+                    <div className="flex items-center gap-1 text-[8px] font-semibold tracking-tight text-[#1F2A37] md:text-[10px]">
+                      <InvisibleToolSparkleIcon aria-hidden="true" className="size-[8px] md:size-[10px]" />
+                      AI Response
+                    </div>
+
+                    <div className="mt-[4px] inline-block text-[9px] leading-normal tracking-tight text-[#111827] md:mt-[6px] md:text-[10px]">
+                      Add a check for missing
+                      <span className="relative mx-[3px] font-mono text-[8px] leading-none text-[#4984FD] before:absolute before:left-1/2 before:top-1/2 before:z-[-1] before:h-[calc(100%+2px)] before:w-[calc(100%+4px)] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-[3px] before:bg-[#4984FD1A] md:mx-[4px] md:text-[8px]">
+                        userId
+                      </span>
+                      before calling the API.
+                      <br />
+                      Also handle
+                      <span className="relative mx-[3px] font-mono text-[8px] leading-none text-[#4984FD] before:absolute before:left-1/2 before:top-1/2 before:z-[-1] before:h-[calc(100%+2px)] before:w-[calc(100%+4px)] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-[3px] before:bg-[#4984FD1A] md:mx-[4px] md:text-[8px]">
+                        data.name
+                      </span>
+                      safely to avoid undefined.
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="pointer-events-none absolute bottom-0 top-0 z-10 w-px -translate-x-1/2 bg-[#111827] shadow-[-1px_0px_8px_0px_#00000036]"
+                  style={{ left: `${sliderPosition}%` }}
+                />
+
+                <div
+                  className="absolute top-1/2 z-20 flex size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-[#111827] shadow-[0px_4px_10px_0px_#00000026] transition-transform duration-[210ms] ease-in md:size-6"
+                  style={{ left: `${sliderPosition}%`, transform: "translate(-50%, -50%)" }}
+                >
+                  <svg
+                    width="16"
+                    height="9"
+                    viewBox="0 0 16 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="size-[12px] md:size-4"
+                  >
+                    <path d="M4.5 7.375L1.5 4.375L4.5 1.375" stroke="white" strokeMiterlimit="10" strokeLinecap="square" />
+                    <path d="M11.5 7.375L14.5 4.375L11.5 1.375" stroke="white" strokeMiterlimit="10" strokeLinecap="square" />
+                  </svg>
+                </div>
+                </div>
+              </div>
+              <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
+                <span className="font-medium">Invisible to screen share. </span> 
+                <span className="text-muted-foreground font-light">Hovrlay never shows up in shared screens, recordings, or external meeting tools.</span>
+              </p>
+            </div>
+            <div className="w-[320px] shrink-0 sm:w-[360px] lg:w-auto lg:flex-1">
+              <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(92.09%_126.39%_at_50%_100%,_#DDE2EE_58.91%,_#BBC5DD_100%)]">
+                <style>{carouselKeyframes}</style>
+                <div className="aspect-[855/855] w-full flex flex-col items-center justify-center gap-4 p-6">
+                  {/* Carousel + bar share the same width via this wrapper */}
+                  <div className="inline-flex flex-col items-stretch gap-4">
+                  {/* Carousel */}
+                  <div className="relative flex h-[195px] w-full justify-between overflow-hidden rounded-xl px-[10px] py-[14px] md:h-[206px] md:rounded-[10px] lg:h-[185px] lg:rounded-[10px] xl:h-[240px] xl:rounded-xl 2xl:h-[260px] 2xl:px-[14px] 2xl:pt-[25px]">
+                    {/* Backgrounds — all rendered, active one fades in over the previous */}
+                    {SLIDES.map((slide, i) => (
+                      <img
+                        key={slide.bg}
+                        src={slide.bg}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover"
+                        style={
+                          i === carouselStep
+                            ? { zIndex: 1, animation: "carouselBgIn 400ms ease-out forwards" }
+                            : { zIndex: 0, opacity: 1 }
+                        }
+                      />
+                    ))}
+
+                    {/* Card image — oversized, anchored to quadrant, bleeds out of container */}
+                    <img
+                      key={`card-${carouselStep}`}
+                      src={SLIDES[carouselStep].card}
+                      alt=""
+                      width={SLIDES[carouselStep].cardW}
+                      height={SLIDES[carouselStep].cardH}
+                      className={SLIDES[carouselStep].cardClass}
+                      style={{
+                        opacity: 0,
+                        zIndex: 2,
+                        "--card-enter-transform": SLIDES[carouselStep].cardEnter,
+                        animation: "carouselCardIn 380ms ease-out 250ms forwards",
+                      } as React.CSSProperties}
+                    />
+
+                    {/* Glass overlay — crossfades, repositions per step */}
+                    <div
+                      key={`overlay-${carouselStep}`}
+                      className={`absolute flex w-fit flex-col rounded-[8px] ${OVERLAY_POSITION[carouselStep]}`}
+                      style={{ opacity: 0, zIndex: 2, animation: "carouselOverlayIn 300ms ease-out 700ms forwards" }}
+                    >
+                      <div className="relative flex w-[140px] flex-col items-center gap-y-2 md:w-[148px] lg:w-[133px] xl:w-[174px] 2xl:w-[186px]">
+                        {/* Top pill — 3 bars */}
+                        <div className="relative mx-auto flex h-[17px] w-full items-center justify-center gap-x-1.5 overflow-hidden rounded-[6px] bg-[rgba(0,0,0,0.10)] px-[6px] [box-shadow:0_2px_4.2px_0_rgba(0,0,0,0.20),0_13.025px_26.05px_0_rgba(0,0,0,0.20)] [backdrop-filter:blur(3px)] lg:px-[6px] lg:py-[5px] xl:px-[7px] xl:py-1.5 2xl:h-[23px] before:absolute before:inset-0 before:rounded-[6px] before:bg-[linear-gradient(to_right,hsla(0,0%,100%,0.4),hsla(0,0%,100%,0.1),hsla(0,0%,100%,0.4))] before:p-[1px] before:content-[''] before:[mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] before:![mask-composite:exclude]">
+                          <div className="relative h-[6px] w-full rounded-[4px] bg-[rgba(255,255,255,0.70)] 2xl:rounded-full" />
+                          <div className="relative h-[6px] w-full rounded-[4px] bg-[rgba(255,255,255,0.70)] 2xl:rounded-full" />
+                          <div className="relative h-[6px] w-full rounded-[4px] bg-[rgba(255,255,255,0.70)] 2xl:rounded-full" />
+                        </div>
+
+                        {/* AI Response card */}
+                        <div className="relative w-full overflow-hidden rounded-[6px] bg-[rgba(0,0,0,0.10)] px-[7px] py-[6px] [box-shadow:0_2px_4.2px_0_rgba(0,0,0,0.20),0_13.025px_26.05px_0_rgba(0,0,0,0.20)] [backdrop-filter:blur(3px)] lg:px-[5px] lg:py-[6px] xl:px-1.5 xl:py-[9px] before:absolute before:inset-0 before:rounded-[6px] before:bg-[linear-gradient(to_right,hsla(0,0%,100%,0.4),hsla(0,0%,100%,0.1),hsla(0,0%,100%,0.4))] before:p-[1px] before:content-[''] before:[mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] before:![mask-composite:exclude]">
+                          <div className="relative flex items-center gap-[3px] xl:gap-[5px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className="size-[9px] xl:size-[12px]">
+                              <g clipPath="url(#carousel-sparkle-clip)">
+                                <path d="M7.49805 4.5L11.1914 6L7.49805 7.5L5.99805 11.1934L4.49805 7.5L0.804688 6L4.49805 4.5L5.99805 0.806641L7.49805 4.5ZM2.77539 1.72461L4 2.25L2.77539 2.77539L2.25 4L1.72461 2.77539L0.5 2.25L1.72461 1.72461L2.25 0.5L2.77539 1.72461Z" fill="url(#carousel-sparkle-grad)" />
+                              </g>
+                              <defs>
+                                <linearGradient id="carousel-sparkle-grad" x1="2.24968" y1="0.5" x2="8.00001" y2="8.499" gradientUnits="userSpaceOnUse">
+                                  <stop offset="0.409729" stopColor="white" stopOpacity="0.6" />
+                                  <stop offset="1" stopColor="white" />
+                                </linearGradient>
+                                <clipPath id="carousel-sparkle-clip">
+                                  <rect width="12" height="12" fill="white" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <span className="text-[7px] leading-tight font-semibold tracking-tight text-white xl:text-[9px]">AI Response</span>
+                          </div>
+                          <div className="relative mt-1.5 ml-[3px] flex w-full flex-col gap-[4px] xl:gap-[5px]">
+                            <div className="h-[5px] w-[70%] rounded-full bg-white/70" />
+                            <div className="h-[5px] w-[95%] rounded-full bg-white/70" />
+                            <div className="h-[5px] w-[95%] rounded-full bg-white/70" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ShortcutHintBar onTick={setCarouselStep} />
+                  </div>
+                </div>
+              </div>
+              <p className="mt-6 text-[18px] leading-[1.25] text-foreground">
+                <span className="font-medium">Follows your eyes. </span>
+                <span className="text-muted-foreground font-light">
+                  Hovrlay window is fully moveable so you can position it exactly where you're looking.
+                </span>
               </p>
             </div>
           </div>
