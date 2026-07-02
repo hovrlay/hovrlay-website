@@ -11,7 +11,9 @@ export default function PricingPage() {
   return (
     <main className="pt-32 pb-8">
       <Pricing />
-      <PricingCTA />
+      <div className="mt-12 md:mt-20">
+        <PricingCTA />
+      </div>
     </main>
   );
 }
