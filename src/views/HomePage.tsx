@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { OsDownloadButton } from "@/components/OsDownloadButton";
 import Hero from "@/components/Hero";
 import PoweredBy from "@/components/PoweredBy";
-import Pricing from "@/components/Pricing";
 import Features from "@/components/Features";
 import PersonalFeatures from "@/components/PersonalFeatures";
 import Demo from "@/components/Demo";
 import Transcription from "@/components/Transcription";
 import FAQ from "@/components/FAQ";
+import UseCases from "@/components/UseCases";
 
 const HomePage = () => {
   const [showStickyDownload, setShowStickyDownload] = useState(false);
@@ -63,7 +63,7 @@ const HomePage = () => {
         <Features />
         <PersonalFeatures />
         <Transcription />
-        <Pricing />
+        <UseCases />
         <FAQ />
       </div>
     </main>

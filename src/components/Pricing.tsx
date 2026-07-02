@@ -289,8 +289,10 @@ const Pricing = () => {
           className={`mb-8 animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}
         >
           <div className="mb-6 text-center">
-            <h2 className="my-6 text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-medium section-title-gradient">
-              Start for free
+            <h2 className="my-6 text-5xl sm:text-5xl md:text-[3.5rem] lg:text-[3.5rem] font-medium section-title-gradient inline-flex items-center gap-3">
+              Start
+              <img src="/logo.svg" alt="Hovrlay" className="inline-block h-[1.2em] w-auto" />
+              for free
             </h2>
             <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-base md:text-base lg:text-lg">
               No subscription. No card required.
@@ -321,7 +323,7 @@ const Pricing = () => {
               <ProPlanCard delay={200} useInr={useInr} />
             </div>
           </div>
-          <p className="mt-4 text-center text-xs text-muted-foreground/45">
+          <p className="mt-8 text-center text-xs text-muted-foreground/45">
             Hours are purchased inside the app. Secure payments powered by Razorpay
           </p>
         </div>

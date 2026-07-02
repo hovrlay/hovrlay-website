@@ -73,10 +73,16 @@ export default {
             transform: "translateY(0)",
           },
         },
+        "key-pulse": {
+          "0%, 30%": { opacity: "0" },
+          "45%, 85%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 0.6s ease-out forwards",
         "fade-in-down": "fade-in-down 0.6s ease-out forwards",
+        "key-pulse": "key-pulse 8s ease-in-out infinite",
       },
       fontFamily: {
         sans: ["var(--font-geist)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
