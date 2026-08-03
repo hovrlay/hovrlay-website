@@ -191,6 +191,10 @@ const StarterPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolea
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>Custom call durations</span>
+            </p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
               <span>Priority support </span>
             </p>
           </div>
@@ -220,7 +224,6 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
         <div className="flex min-h-0 flex-1 flex-col">
           <div className="flex items-center justify-between gap-2">
             <p className="text-lg sm:text-xl font-medium tracking-tight text-foreground">Pro</p>
-            <span className="inline-flex h-[18px] shrink-0 items-center justify-center rounded-full bg-[#E0E4EB] bg-[linear-gradient(97.12deg,_rgba(255,255,255,0)_13%,_rgba(255,255,255,0.5)_26.4%,_rgba(255,255,255,0)_39.16%,_rgba(255,255,255,0.128542)_59.34%,_rgba(255,255,255,0.5)_75.6%,_rgba(255,255,255,0)_91.98%)] px-2 py-0.5 text-[11px] leading-tight font-semibold tracking-tight whitespace-nowrap text-foreground">Most popular</span>
           </div>
 
           <div className="mt-6">
@@ -258,6 +261,81 @@ const ProPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean })
             </p>
             <p className={featureItemClassName}>
               <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>Custom call durations</span>
+            </p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>Priority support </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MaxPlanCard = ({ delay = 0, useInr }: { delay?: number; useInr: boolean }) => {
+  const { ref, isVisible } = useScrollAnimation({
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+    triggerOnce: true,
+  });
+  const platform = detectDownloadPlatform();
+  const price = useInr ? formatINR(3999) : formatUSD(39.99);
+  const perHour = useInr ? formatINR(200) : formatUSDPerHour(2);
+
+  return (
+    <div
+      ref={ref}
+      className={`flex h-full min-h-0 flex-col pt-5 animate-scroll-fade-in-up ${isVisible ? "visible" : ""}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <div className={`${cardClassName} ring-1 ring-border`}>
+        <div className="flex min-h-0 flex-1 flex-col">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-lg sm:text-xl font-medium tracking-tight text-foreground">Max</p>
+            <span className="inline-flex h-[18px] shrink-0 items-center justify-center rounded-full bg-[#E0E4EB] bg-[linear-gradient(97.12deg,_rgba(255,255,255,0)_13%,_rgba(255,255,255,0.5)_26.4%,_rgba(255,255,255,0)_39.16%,_rgba(255,255,255,0.128542)_59.34%,_rgba(255,255,255,0.5)_75.6%,_rgba(255,255,255,0)_91.98%)] px-2 py-0.5 text-[11px] leading-tight font-semibold tracking-tight whitespace-nowrap text-foreground">Most popular</span>
+          </div>
+
+          <div className="mt-6">
+            <p className="text-4xl font-medium tabular-nums tracking-tight text-foreground leading-none">{price}</p>
+            <p className="mt-2 text-lg font-normal tabular-nums tracking-tight text-muted-foreground">20 hours &nbsp;·&nbsp; {perHour}/hour</p>
+          </div>
+
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => handleDownload(platform)}
+              className={downloadBtnClassName}
+            >
+              <span className="relative z-10 inline-flex w-full items-center justify-center gap-1 whitespace-nowrap">
+                {downloadButtonLabels[platform]}
+              </span>
+            </button>
+          </div>
+
+          <div className="mt-6 border-t border-border pt-6" />
+
+          <div className="space-y-2">
+            <p className="text-sm tracking-tight leading-[1.3] font-medium text-foreground">Everything in Starter, plus...</p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>20 hours of real-time AI help</span>
+            </p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>Undetectable to screen share</span>
+            </p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>Resume upload for tailored AI help</span>
+            </p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
+              <span>Custom call durations</span>
+            </p>
+            <p className={featureItemClassName}>
+              <span className="flex h-[1lh] shrink-0 items-center"><CheckIcon className="h-3.5 w-3.5" /></span>
               <span>Priority support </span>
             </p>
           </div>
@@ -283,7 +361,7 @@ const Pricing = () => {
 
   return (
     <section id="pricing" className=" px-4 md:px-8 lg:px-12">
-      <div className="container-custom mx-auto max-w-6xl">
+      <div className="container-custom mx-auto max-w-6xl xl:max-w-7xl">
         <header
           ref={headerRef}
           className={`mb-8 animate-scroll-fade-in-up ${headerVisible ? "visible" : ""}`}
@@ -316,11 +394,12 @@ const Pricing = () => {
             </Link>
           </div>
 
-          <div className="mx-auto w-full max-w-xs md:max-w-2xl xl:max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          <div className="mx-auto w-full max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-7xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8 items-stretch">
               <FreePlanCard delay={0} />
               <StarterPlanCard delay={100} useInr={useInr} />
               <ProPlanCard delay={200} useInr={useInr} />
+              <MaxPlanCard delay={300} useInr={useInr} />
             </div>
           </div>
           <p className="mt-8 text-center text-xs text-muted-foreground/45">
