@@ -7,6 +7,7 @@ import PoweredBy from "@/components/PoweredBy";
 import Features from "@/components/Features";
 import PersonalFeatures from "@/components/PersonalFeatures";
 import Demo from "@/components/Demo";
+import Templates from "@/components/Templates";
 import Transcription from "@/components/Transcription";
 import FAQ from "@/components/FAQ";
 import UseCases from "@/components/UseCases";
@@ -60,6 +61,7 @@ const HomePage = () => {
       <div className="mt-20 md:mt-0 space-y-56 md:space-y-60 lg:space-y-64">
         <PoweredBy />
         <Demo />
+        <Templates />
         <Features />
         <PersonalFeatures />
         <Transcription />

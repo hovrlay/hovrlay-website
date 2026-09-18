@@ -83,7 +83,7 @@ const Hero = () => {
     startClientY: number;
   } | null>(null);
   const downloadPlatform = detectDownloadPlatform();
-  const headingText = "#1 AI Assistant for Interviews";
+  const headingText = "#1 AI Assistant for Meetings";
   const words = headingText.split(" ");
 
   // Calculate delays: 0.1s between words for heading
@@ -552,7 +552,7 @@ const Hero = () => {
           className="text-primary-foreground text-[13px] md:text-[15px] lg:text-[17px] mt-8 md:mt-12 text-center text-balance max-w-[30.5rem] opacity-0 animate-fade-in-up"
           style={{ animationDelay: `${subheadingDelay}s` }}
         >
-          Get answers to every interview question in real time without being
+          Get answers to every question in real time without being
           detected. Start free, no card required.
         </p>
         {/* Scroll anchor for sticky CTA on HomePage */}

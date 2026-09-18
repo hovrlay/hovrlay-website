@@ -2,8 +2,6 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import EmailIcon from "@/assets/email.svg";
-import XIcon from "@/assets/x.svg";
-import GitHubIcon from "@/assets/github.svg";
 import DiscordIcon from "@/assets/discord.svg";
 
 const Footer = () => {
@@ -131,15 +129,6 @@ const Footer = () => {
             </span>
             <div className="flex gap-4">
               <a
-                href="https://x.com/hovrlay"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Hovrlay on X"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <XIcon className="w-5 h-5" />
-              </a>
-              <a
                 href="https://discord.gg/GvAy5YAbq"
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 aria-label="Join our Discord"
@@ -147,15 +136,6 @@ const Footer = () => {
                 rel="noopener noreferrer"
               >
                 <DiscordIcon className="w-5 h-5" />
-              </a>
-              <a
-                href="https://github.com/hovrlay/hovrlay-releases"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Hovrlay releases on GitHub"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GitHubIcon className="w-5 h-5" />
               </a>
               <a
                 href="mailto:support@hovrlay.com"
